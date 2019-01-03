@@ -2,8 +2,11 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:SheetLearner"
+             xmlns:converter="clr-namespace:SheetLearner.Utils"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <converter:CollapsedWhenFalse x:Key="BoolToVisibleCollapsed"/>
+        <converter:HiddenWhenFalse x:Key="BoolToVisibileHidden"/>
+        <converter:HiddenWhenTrue x:Key="HiddenWhenTrue"/> 
     </Application.Resources>
 </Application>
