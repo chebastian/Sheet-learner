@@ -10,6 +10,10 @@ namespace XTestMan.Views.Music
     {
         public static List<Note> C_Octave => Note.NotesFromString("cdefgAB");
 
+        public static string AllIdentifiers => "c,c#,d,d#,e,f,f#,g,g#,a,a#,b";
+        public static List<Note> AllNotes => AllIdentifiers.Split(',').Select(x => new Note(x)).ToList();
+
+
         public static Note C1 = new Note("c");
         public static Note D1 = new Note("d");
         public static Note E1 = new Note("e");
@@ -25,26 +29,52 @@ namespace XTestMan.Views.Music
         public static Note A2 = new Note("A");
         public static Note B2 = new Note("B");
         public static Note C3 = new Note("C");
-    }
 
-    [DebuggerDisplay("{_note} : {Value}")]
+        public static List<Note> BassLowerLedger => new List<Note>()
+        {
+            E1,
+            F1
+        };
+
+        public static List<Note> TrebbleLowerLedger => new List<Note>()
+        {
+            C1,D1
+        };
+
+        public static List<Note> TrebbleUpperLedger => new List<Note>()
+        {
+            G2,A2
+        };
+
+        public static List<Note> BassUpperLedger => new List<Note>()
+        {
+            B2,C2
+        };
+
+
+
+}
+
+[DebuggerDisplay("{_note} : {Value}")]
     public class Note : ViewModelBase
     { 
         public Note()
         {
-            Value = 0;
+            //Value = 0;
             _note = String.Empty;
         }
 
         public Note(String note)
         {
             _note = note;
+            IsSharp = note.Contains("#");
         }
 
         public Note(Note note)
         {
             _note = note._note;
-            Value = note.Value;
+            _isSharp = note.IsSharp;
+            //Value = note.Value;
         }
 
         public static List<Note> Triad(String a, string b, string c)
@@ -52,23 +82,61 @@ namespace XTestMan.Views.Music
             return new List<Note>() { new Note(a), new Note(b), new Note(c) }; 
         }
 
+        public Note Sharped()
+        {
+            //var index = NotesFactory.AllNotes.IndexOf(this);
+
+            var index = NotesFactory.AllIdentifiers.ToUpper().Split(',').ToList().IndexOf(this.Id.ToUpper());
+            index = (index+1) % NotesFactory.AllNotes.Count;
+            return new Note(NotesFactory.AllNotes[index]);
+        }
+
+        public Note Flattened()
+        {
+            var index = NotesFactory.AllNotes.IndexOf(this);
+            index = (index-1) % NotesFactory.AllNotes.Count;
+            return new Note(NotesFactory.AllNotes[index]);
+        }
+
         public bool IsEmpty()
         {
             return String.IsNullOrWhiteSpace(_note); 
         }
 
+        public Note Root
+        {
+            get
+            {
+                return IsSharp ? Flattened() : this;
+            }
+        }
+
 
         protected int _val;
         protected String _note;
+        private bool _isSharp;
+        private bool _isFlat;
 
         public bool Show { get => _note.Length > 0; }
         public String Id { get => _note; }
 
-        public int Value
+        //public int Value
+        //{
+        //    get { return _val; }
+        //    set { _val = value; OnPropertyChanged(); }
+        //}
+
+        public bool IsSharp
         {
-            get { return _val; }
-            set { _val = value; OnPropertyChanged(); }
-        } 
+            get { return _isSharp; }
+            set { _isSharp = value; OnPropertyChanged(); }
+        }
+
+        public bool IsFlat
+        {
+            get { return _isFlat; }
+            set { _isFlat = value; OnPropertyChanged(); }
+        }
 
         public static List<Note> NotesFromString(String notes)
         {

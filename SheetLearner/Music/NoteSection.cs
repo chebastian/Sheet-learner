@@ -41,12 +41,11 @@ namespace XTestMan.Views.Music
             foreach(var note in bar)
             {
                 var c = sheet.GetNoteValueInClef(clef, note);
-                note.Value = c; 
 
                 if (IsTopLedger(note,clef))
-                    section.AddToTopLedger(note);
+                    section.AddToTopLedger(note,c);
                 else if (IsBottomLedger(note,clef))
-                    section.AddToBottomLedger(note);
+                    section.AddToBottomLedger(note,c);
                 else 
                     notes[c] = note;
 
@@ -60,44 +59,38 @@ namespace XTestMan.Views.Music
 
         private static bool IsTopLedger(Note n, Clef clef)
         {
-            var topLedgerNotes = String.Empty;
-
             if (clef.Equals(Clef.Treble))
-                topLedgerNotes = "GA";
-            else
-                topLedgerNotes = "BC";
+                return NotesFactory.TrebbleUpperLedger.Contains(n, new RootNoteComparer()); 
 
-            return topLedgerNotes.Contains(n.Id);
+            return NotesFactory.BassUpperLedger.Contains(n, new RootNoteComparer()); 
         }
 
         private static bool IsBottomLedger(Note n, Clef clef)
         {
-            var bottomLedgerNotes = String.Empty;
+            if (clef.Equals(Clef.Treble))
+                return NotesFactory.TrebbleLowerLedger.Contains(n,new RootNoteComparer());
 
-            if (clef.Equals(Clef.Bass))
-                bottomLedgerNotes = "ef";
-            else
-                bottomLedgerNotes = "cd";
-
-            return bottomLedgerNotes.Contains(n.Id);
+            return NotesFactory.BassLowerLedger.Contains(n,new RootNoteComparer());
         }
 
-        private void AddToBottomLedger(Note note)
+        private void AddToBottomLedger(Note note, int index)
         {
             if (BottomLedger == null)
                 BottomLedger = Enumerable.Repeat<LedgerNote>(new LedgerNote(note,false),2).ToList();
 
  
-            BottomLedger[note.Value] = new LedgerNote(note, note.Value%2 > 0);
+            //BottomLedger[note.Value] = new LedgerNote(note, note.Value%2 > 0);
+            BottomLedger[index] = new LedgerNote(note, index%2 > 0);
         }
 
-        private void AddToTopLedger(Note note)
+        private void AddToTopLedger(Note note, int index)
         {
             if (TopLedger == null)
                 BottomLedger = Enumerable.Repeat<LedgerNote>(new LedgerNote(note,false),2).ToList();
 
 
-            TopLedger[note.Value] = new LedgerNote(note, note.Value % 2 == 0);
+            //TopLedger[note.Value] = new LedgerNote(note, note.Value % 2 == 0);
+            TopLedger[index] = new LedgerNote(note, index%2 == 0);
         }
 
         private List<LedgerNote> _topLedger;

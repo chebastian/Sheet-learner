@@ -30,13 +30,35 @@ namespace XTestMan.Views.Music.NoteReader
 
         public static List<NoteSection> CreateEmpty(int len)
         {
-            return Enumerable.Repeat(NoteSection.EmptySection(), len).ToList(); 
+            var empty = NoteSection.CreateSectionFromNotes(new List<Note>(), Clef.Bass, new Sheet(Clef.Bass));
+            return Enumerable.Repeat(empty,len).ToList(); 
         }
 
         public static List<NoteSection> CreateRandomSectionFromClef(Clef clef, int len)
         {
             var reader = new RandomNoteReader(clef);
             return reader.CreateRandomSections(clef, len, false);
+        }
+
+        public static List<NoteSection> CreateGroups(Clef clef, int groupLength, int numGroups, bool startEmpty)
+        {
+            var ret = new List<NoteSection>();
+
+            while(ret.Count < groupLength * numGroups)
+            {
+                if(startEmpty)
+                {
+                    ret.AddRange(CreateRandomSectionFromClef(clef, groupLength));
+                    ret.AddRange(CreateEmpty(groupLength));
+                }
+                else
+                {
+                    ret.AddRange(CreateEmpty(groupLength)); 
+                    ret.AddRange(CreateRandomSectionFromClef(clef, groupLength));
+                }
+            }
+
+            return ret;
         }
 
         private List<NoteSection> CreateRandomSections(Clef clef, int count, bool waits=true)
@@ -51,8 +73,10 @@ namespace XTestMan.Views.Music.NoteReader
                 var rnd = rand.Next(notes.Count - 1);
                 Func<string> nextIndex = () => 
                 {
-                    rnd = rand.Next(notes.Count - 1);
-                    return notes[rnd].Id;
+                    var isSharp = rand.NextDouble() < 0.3;
+                    rnd = rand.Next(notes.Count - 1); 
+
+                    return  isSharp ? notes[rnd].Sharped().Id : notes[rnd].Id;
                 };
 
                 if (rand.NextDouble() < 0.3)

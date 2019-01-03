@@ -29,24 +29,52 @@ namespace XTestMan.Views.Music.NoteReader
                 if (string.IsNullOrEmpty(section))
                     break;
 
-                var notesInSection = new List<Note>();
+                var notesInSection = NotesInChord(section);
 
-                foreach(var c in section.ToCharArray())
-                {
-                    if(c.ToString() == "x")
-                    {
-                        continue;
-                    }
+                //foreach(var c in section.ToCharArray())
+                //{
+                //    if(c.ToString() == "x")
+                //    {
+                //        continue;
+                //    }
+ 
+                //    var note = new Note(c.ToString());
+                //    //if(c.ToString() == "#")
+                //    //{
 
-                    var val = _sheet.GetNoteValueInClef(_clef,new Note(c.ToString()));
-                    var note = new Note(c.ToString()) { Value = val };
-                    notesInSection.Add(note);
-                }
+                //    //    continue;
+                //    //}
+
+                //    notesInSection.Add(note);
+                //}
 
                 createdSections.Add(NoteSection.CreateSectionFromNotes(notesInSection,_clef,_sheet));
             }
 
             return new List<NoteSection>(createdSections.Select(x => new PlayingNoteViewModel(x)).ToList());
+        }
+
+        private List<Note> NotesInChord(String notes)
+        {
+            var sharps = notes.Select((x, i) => new { val = x, index = i }).Where(x => x.val == '#' || x.val == '3').Select(x => x.index);
+
+            var ret =  new List<Note>();
+            if (notes.Length == 1)
+                return new List<Note>() { new Note(notes) };
+
+            for(var i = 0; i < notes.Length; i++)
+            {
+                var name = notes[i].ToString();
+                if (sharps.Contains(i+1))
+                {
+                    name += notes[i + 1];
+                    i++; // Advance to next whole note
+                }
+
+                ret.Add(new Note(name)); 
+            }
+
+            return ret;
         }
     }
 }

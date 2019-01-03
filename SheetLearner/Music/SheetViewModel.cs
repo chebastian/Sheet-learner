@@ -25,8 +25,10 @@ namespace XTestMan.Views.Music
  
         private void OnRandomize()
         {
-            TrebleNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateRandomSectionsFromClef(Clef.Treble));
-            BassNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateRandomSectionsFromClef(Clef.Bass));
+            //TrebleNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateRandomSectionsFromClef(Clef.Treble));
+            //BassNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateRandomSectionsFromClef(Clef.Bass));
+            TrebleNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateGroups(Clef.Treble, 8, 3, false).Select(x => new PlayingNoteViewModel(x)));
+            BassNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateGroups(Clef.Bass, 8, 3, true).Select(x => new PlayingNoteViewModel(x)));
             OnPropertyChanged("TrebleNotes");
             OnPropertyChanged("BassNotes");
         } 
@@ -81,7 +83,16 @@ namespace XTestMan.Views.Music
 
         private NoteSection FirstUnplayedInSequence(List<NoteSection> sections, out int foundAt)
         {
-            var res =  sections.Select((value,index) => new {section=value,index=index}).First(x => x.section.AllNotes.Count > 0 && !(x.section as PlayingNoteViewModel).IsPlayed);
+            var hasUnplayedNotes = sections.Any(x => x.AllNotes.Count > 0 && !(x as PlayingNoteViewModel).IsPlayed);
+
+            //TODO deal with this 
+            if(!hasUnplayedNotes)
+            {
+                foundAt = int.MaxValue;
+                return new NoteSection();
+            }
+
+            var res =  sections.Select((value,index) => new {section=value,index=index}).First(x => x.section.AllNotes.Count > 0 && !(x.section as PlayingNoteViewModel).IsPlayed); 
             foundAt = res.index;
             return res.section;
         }
@@ -113,8 +124,11 @@ namespace XTestMan.Views.Music
 
             var firstUnplayed = CurrentNoteSection();
 
-            var playedNotesIds = playedNotes.Select(x => scaleArr[x]).ToList();
-            var allPlayed = firstUnplayed.AllNotes.Select(x => x.Id.ToUpper()).All(x => playedNotesIds.Contains(x));
+            var playedNoteNames = playedNotes.Select(x => scaleArr[x]).ToList();
+            var pnotes = playedNotes.Select(x => new Note(scaleArr[x])).ToList();
+
+
+            var allPlayed = firstUnplayed.AllNotes.Select(x => x.Id.ToUpper()).All(x => playedNoteNames.Contains(x));
             if (allPlayed)
             {
                 MarkLastAsPlayed();

@@ -68,7 +68,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Music\RootNoteComparer.cs" />
+    <Compile Include="Utils\AddAdorner.cs" />
+    <Compile Include="Utils\BaseExtensions.cs" />
     <Compile Include="Utils\BoolToVisibility.cs" />
+    <Compile Include="Utils\Converters.cs" />
+    <Compile Include="Utils\Converter\BoolToVisibility.cs" />
+    <Compile Include="Utils\NoSizeDecortor.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -157,6 +163,9 @@
       <Project>{f583a8c8-e472-45ae-9123-3ce45f49cc3f}</Project>
       <Name>NoteReader</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Utils\Validation\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

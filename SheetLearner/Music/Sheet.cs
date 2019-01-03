@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using XTestMan.Views.Music.NoteReader;
 
 namespace XTestMan.Views.Music
 {
@@ -34,19 +35,20 @@ namespace XTestMan.Views.Music
         public void SwitchClef(Clef clef)
         {
             ActiveClef = clef;
-            RemapClef();
+            //RemapClef();
         }
 
         public static List<Note> GetNotesInClef(Clef c)
         {
             var str = String.Empty;
             if (c == Clef.Bass)
-                str= "efgabcdEFGABC";
+                str= "e,f,g,a,b,c,d,E,F,G,A,B,C";
             else
-                str= "cdefgabCDEFGA";
+                str= "c,d,e,f,g,a,b,C,D,E,F,G,A";
 
-            str =new string(str.Reverse().ToArray());
-            return Note.NotesFromString(str);
+            return str.Split(',').Select(x => new Note(x)).Reverse().ToList();
+            //str =new string(str.Reverse().ToArray());
+            //return Note.NotesFromString(str);
         } 
 
         //public bool IsTopLedger(Note n, Clef clef)
@@ -172,35 +174,22 @@ namespace XTestMan.Views.Music
         internal void AddNote(Note note)
         {
             var notes = new List<Note>();
-            int c = GetNoteValueInClef(ActiveClef, note);
-            note.Value = c;
 
-            var len = GetNotesInClef(ActiveClef).Count;
             notes.Add(note);
             Notes.Add(notes);
         }
 
         public int GetNoteValueInClef(Clef myClef, Note note)
         {
-            var map = NoteMapForClef(myClef);
-            map.TryGetValue(note,out int value);
-            return value;
-        }
-
-        internal void AddChord(List<Note> list)
-        {
-            var max = list.Max<Note>(x => GetNoteValueInClef(ActiveClef, x));
-            var notes = new List<Note>();
-            var newnotes = Enumerable.Repeat<Note>(new Note(),max+1).ToList();
-            newnotes.AddRange(Enumerable.Repeat<Note>(new Note(), GetNotesInClef(ActiveClef).Count - max));
-
-            foreach(var note in list)
+            var comparer = new Note(note);
+            if(note.IsSharp)
             {
-                note.Value = GetNoteValueInClef(ActiveClef, note);
-                newnotes[note.Value] = note;
+                comparer = new Note(note.Root); 
             }
 
-            Notes.Add(newnotes); 
-        }
+            var map = NoteMapForClef(myClef);
+            map.TryGetValue(comparer,out int value);
+            return value;
+        } 
     }
 }
