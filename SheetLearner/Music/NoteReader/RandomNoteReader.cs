@@ -73,7 +73,7 @@ namespace XTestMan.Views.Music.NoteReader
                 var rnd = rand.Next(notes.Count - 1);
                 Func<string> nextIndex = () => 
                 {
-                    var isSharp = rand.NextDouble() < 0.3;
+                    var isSharp = false;
                     rnd = rand.Next(notes.Count - 1); 
 
                     return  isSharp ? notes[rnd].Sharped().Id : notes[rnd].Id;
