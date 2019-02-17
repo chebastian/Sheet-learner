@@ -14,7 +14,7 @@ namespace NoteReader
         private InputDevice SelectedDevice { get; set; }
         private List<int> NotesPressed;
 
-        public MidiReader(INoteListener listener, IMidiListener midi)
+        public MidiReader(INoteListener listener, IMidiPublisher midi)
         {
             NotesPressed = new List<int>();
             _listener = listener;

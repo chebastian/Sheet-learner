@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="MidiKeyReader.cs" />
     <Compile Include="MidiReader.cs" />
     <Compile Include="NaudioReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

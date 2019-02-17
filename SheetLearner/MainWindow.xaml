@@ -44,13 +44,14 @@
         <tabnavigator:NavigationPane DataContext="{Binding NavigationViewModel}"/>
         <tabnavigator:NavigationPageView Grid.Column="1" DataContext="{Binding NavigationViewModel}">
             <tabnavigator:NavigationPageView.Resources>
-                <DataTemplate DataType="{x:Type vms:NavigationA}">
+                <DataTemplate DataType="{x:Type music:SheetViewModel}">
+                <!--<DataTemplate DataType="{x:Type vms:NavigationA}">-->
                     <Grid
                         Grid.Column="1"
                         >
                         <Grid Visibility="{Binding HasMidiDevice, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisibileHidden}}">
+                                    <!--DataContext="{Binding ElementName=root, Path=DataContext.SheetVm, UpdateSourceTrigger=PropertyChanged}"-->
                             <music:SheetView
-                                    DataContext="{Binding ElementName=root, Path=DataContext.SheetVm, UpdateSourceTrigger=PropertyChanged}"
                                     Padding="20"
                                     VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" Background="#0DEAD0"/>
                         </Grid>

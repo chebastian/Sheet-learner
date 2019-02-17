@@ -20,9 +20,16 @@ namespace NoteModel
         void OnNotesPressed(List<int> notes);
     }
 
-    public interface IMidiListener
+    public interface IMidiPublisher
     {
         event EventHandler MidiDeviceChanged;
+        event EventHandler<MidiKeyEventArgs> OnKeyPressed;
+        event EventHandler<MidiKeyEventArgs> OnKeyReleased;
+    }
+
+    public class MidiKeyEventArgs : EventArgs
+    {
+        public int KeyInOctave { get; set; }
     }
 
     public class MidiListenerEventArgs : EventArgs

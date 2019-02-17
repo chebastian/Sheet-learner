@@ -14,11 +14,11 @@ namespace XTestMan.Views.Music.NoteReader
     class KeyboardNoteReader : ViewModelBase,INoteReader 
     {
         private INoteListener _noteListener;
-        private IMidiListener _listener;
+        private IMidiPublisher _listener;
         private List<int> _pressedKeys;
         private Dictionary<char, int> _keyDict;
 
-        public KeyboardNoteReader(INoteListener nl, IMidiListener list)
+        public KeyboardNoteReader(INoteListener nl, IMidiPublisher list)
         {
             _noteListener = nl;
             _listener = list;

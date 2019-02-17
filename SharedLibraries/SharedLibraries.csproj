@@ -44,6 +44,7 @@
     <Compile Include="Interfaces\INavigationSource.cs" />
     <Compile Include="NavigationPaneViewModel.cs" />
     <Compile Include="NavigationSource.cs" />
+    <Compile Include="PageViewModels\SettingsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
   </ItemGroup>
@@ -51,6 +52,10 @@
     <ProjectReference Include="..\SheetLearner\MVVMCore\MVVMCore.csproj">
       <Project>{0707E7C7-CA38-484F-A262-0774C61CC4BE}</Project>
       <Name>MVVMCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SheetLearner\NoteReader\NoteReader.csproj">
+      <Project>{F583A8C8-E472-45AE-9123-3CE45F49CC3F}</Project>
+      <Name>NoteReader</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

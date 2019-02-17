@@ -1,6 +1,7 @@
 ﻿using MVVMHelpers;
 using NoteModel;
 using Prism.Commands;
+using SharedLibraries.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,7 +12,7 @@ using System.Windows.Input;
 
 namespace XTestMan.Views.Music
 {
-    public class SheetViewModel : ViewModelBase, INoteListener, IMidiListener
+    public class SheetViewModel : ViewModelBase, INoteListener, IMidiPublisher,INavigationSource
     {
         private Sheet _model;
 
@@ -27,6 +28,7 @@ namespace XTestMan.Views.Music
         {
             //TrebleNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateRandomSectionsFromClef(Clef.Treble));
             //BassNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateRandomSectionsFromClef(Clef.Bass));
+            Name = "Sheet";
             TrebleNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateGroups(Clef.Treble, 8, 3, false).Select(x => new PlayingNoteViewModel(x)));
             BassNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateGroups(Clef.Bass, 8, 3, true).Select(x => new PlayingNoteViewModel(x)));
             OnPropertyChanged("TrebleNotes");
@@ -157,7 +159,7 @@ namespace XTestMan.Views.Music
                 (section as PlayingNoteViewModel).IsPlayed = true;
             }
         }
-
+ 
         private ICommand _command;
 
         public ICommand RandomizeCommand
@@ -192,6 +194,8 @@ namespace XTestMan.Views.Music
         private String _selectedDevice;
 
         public event EventHandler MidiDeviceChanged;
+        public event EventHandler<MidiKeyEventArgs> OnKeyPressed;
+        public event EventHandler<MidiKeyEventArgs> OnKeyReleased;
 
         public String SelectedDevice
         {
@@ -206,6 +210,9 @@ namespace XTestMan.Views.Music
         {
             get { return _hasSelectedDevice; }
             set { _hasSelectedDevice = value; OnPropertyChanged(); }
-        } 
+        }
+
+        public string Name { get; set; }
+        public ICommand OnSelected { get; set; }
     }
 }

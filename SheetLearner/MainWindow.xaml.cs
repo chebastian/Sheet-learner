@@ -68,7 +68,7 @@ namespace XTestMan
             SheetVm = new SheetViewModel();
 
             NavigationViewModel = new NavigationPaneViewModel();
-
+            NavigationViewModel.NavigationSource.Add(SheetVm);
             _midi = new MidiReader(SheetVm, SheetVm);
             SheetVm.AvailableDevices = new System.Collections.ObjectModel.ObservableCollection<string>( _midi.AvailableDevices );
 
