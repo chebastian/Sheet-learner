@@ -10,6 +10,8 @@ namespace NoteModel
 {
     public interface INoteReader
     {
+        List<String> AvailableDevices { get; set; }
+        void SelectDefaultDevice();
     }
 
     public interface INoteListener

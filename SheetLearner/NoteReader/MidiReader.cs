@@ -10,11 +10,9 @@ namespace NoteReader
 {
     public class MidiReader : INoteReader
     {
-        private INoteListener _listener;
-
-        public InputDevice SelectedDevice { get; private set; }
-
-        public List<int> NotesPressed;
+        private INoteListener _listener; 
+        private InputDevice SelectedDevice { get; set; }
+        private List<int> NotesPressed;
 
         public MidiReader(INoteListener listener, IMidiListener midi)
         {
@@ -33,33 +31,34 @@ namespace NoteReader
 
         public void read()
         {
-            //var device = InputDevice.InstalledDevices.First();
-            //device.Open();
-            //device.NoteOn += _callback;
-            //device.StartReceiving(null); 
         } 
 
         public void SelectDefaultDevice()
         {
-            SelectDeviceWithName(AvailableDevices().First()); 
+            SelectDeviceWithName(AvailableDevices.First()); 
         }
 
-        public List<String> AvailableDevices()
+        public List<String> AvailableDevices
         {
-            var res = new List<string>();
-
-            var number = NAudio.Midi.MidiIn.NumberOfDevices;
-
-            for(var i = 0; i < number; i++)
+            set { }
+            get
             {
-                var device = NAudio.Midi.MidiIn.DeviceInfo(i);
-                res.Add(device.ProductName);
+                var res = new List<string>();
+
+                var number = NAudio.Midi.MidiIn.NumberOfDevices;
+
+                for (var i = 0; i < number; i++)
+                {
+                    var device = NAudio.Midi.MidiIn.DeviceInfo(i);
+                    res.Add(device.ProductName);
+                }
+
+                return res;
             }
 
-            return res;
         }
 
-        public bool SelectDeviceWithName(String deviceName)
+        private bool SelectDeviceWithName(String deviceName)
         {
             var devices = InputDevice.InstalledDevices.Any(X => X.Name == deviceName);
             if(!devices) 
@@ -90,11 +89,6 @@ namespace NoteReader
 
         private void _callback(NoteOnMessage msg)
         {
-
-
-            //Console.WriteLine( $"note: {msg.Pitch.PositionInOctave()}" +
-            //    $" or {msg.Pitch.ToString()}" );
-
             var test = msg.Pitch.NoteWithLetter('C');
 
             var idx = msg.Pitch.PositionInOctave();

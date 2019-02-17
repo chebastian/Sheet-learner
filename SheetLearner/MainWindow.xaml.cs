@@ -27,8 +27,7 @@ namespace XTestMan
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     { 
-        //private NoteReader reader;
-
+        //private NoteReader reader; 
         private SheetViewModel _sheetVm;
 
         public SheetViewModel SheetVm
@@ -37,7 +36,7 @@ namespace XTestMan
             set { _sheetVm = value; }
         }
 
-        private MidiReader _midi; 
+        private INoteReader _midi; 
         private bool _insertDevice;
 
         internal KeyboardNoteReader KeyReader { get; }
@@ -56,14 +55,13 @@ namespace XTestMan
             SheetVm = new SheetViewModel();
 
             _midi = new MidiReader(SheetVm, SheetVm);
-            SheetVm.AvailableDevices = new System.Collections.ObjectModel.ObservableCollection<string>( _midi.AvailableDevices() );
+            SheetVm.AvailableDevices = new System.Collections.ObjectModel.ObservableCollection<string>( _midi.AvailableDevices );
 
 
             KeyReader = new KeyboardNoteReader(SheetVm,SheetVm);
 
-            HasMidiDevice = false;
-            WaitForMidiDevice(); 
-            _midi.read();
+            HasMidiDevice = true;
+            WaitForMidiDevice();
 
             Closed += MainWindow_Closed;
         }
@@ -81,7 +79,7 @@ namespace XTestMan
 
         public bool FoundMidiDevice()
         {
-            return _midi.AvailableDevices().Count > 0;
+            return _midi.AvailableDevices.Count > 0;
         }
 
         private void MainWindow_Closed(object sender, EventArgs e)
