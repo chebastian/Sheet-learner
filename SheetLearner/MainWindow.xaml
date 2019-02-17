@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:music="clr-namespace:XTestMan.Views.Music"
+        xmlns:vms ="clr-namespace:SharedLibraries;assembly=SharedLibraries"
+        xmlns:tabnavigator="clr-namespace:SheetViews.TabNavigator;assembly=SheetViews"
         mc:Ignorable="d"
         Name="root"
         Width="800"
@@ -19,7 +21,7 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <Grid
+        <!--<Grid
             Grid.Column="1"
             >
             <Grid Visibility="{Binding HasMidiDevice, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisibileHidden}}"> 
@@ -37,6 +39,36 @@
                     Text="No MIDI device found, Please insert a device"
                     />
             </Grid>
-        </Grid>
+        </Grid>-->
+ 
+        <tabnavigator:NavigationPane DataContext="{Binding NavigationViewModel}"/>
+        <tabnavigator:NavigationPageView Grid.Column="1" DataContext="{Binding NavigationViewModel}">
+            <tabnavigator:NavigationPageView.Resources>
+                <DataTemplate DataType="{x:Type vms:NavigationA}">
+                    <Grid
+                        Grid.Column="1"
+                        >
+                        <Grid Visibility="{Binding HasMidiDevice, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisibileHidden}}">
+                            <music:SheetView
+                                    DataContext="{Binding ElementName=root, Path=DataContext.SheetVm, UpdateSourceTrigger=PropertyChanged}"
+                                    Padding="20"
+                                    VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" Background="#0DEAD0"/>
+                        </Grid>
+                        <Grid 
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Visibility="{Binding HasMidiDevice, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource HiddenWhenTrue}}">
+                            <TextBlock 
+                                FontSize="24"
+                                Text="No MIDI device found, Please insert a device"
+                    />
+                        </Grid>
+                    </Grid>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:NavigationB}">
+                    <TextBlock Text="Type b navigation"/>
+                </DataTemplate>
+            </tabnavigator:NavigationPageView.Resources>
+        </tabnavigator:NavigationPageView>
     </Grid>
 </Window>

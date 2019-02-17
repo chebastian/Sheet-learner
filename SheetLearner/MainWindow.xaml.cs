@@ -1,6 +1,7 @@
 ﻿using NoteModel;
 using NoteReader;
 using Prism.Events;
+using SharedLibraries;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -36,6 +37,18 @@ namespace XTestMan
             set { _sheetVm = value; }
         }
 
+        private NavigationPaneViewModel _navigationVm;
+        public NavigationPaneViewModel NavigationViewModel
+        {
+            get => _navigationVm;
+            set
+            {
+                _navigationVm = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         private INoteReader _midi; 
         private bool _insertDevice;
 
@@ -53,6 +66,8 @@ namespace XTestMan
 
             DataContext = this;
             SheetVm = new SheetViewModel();
+
+            NavigationViewModel = new NavigationPaneViewModel();
 
             _midi = new MidiReader(SheetVm, SheetVm);
             SheetVm.AvailableDevices = new System.Collections.ObjectModel.ObservableCollection<string>( _midi.AvailableDevices );

@@ -155,6 +155,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SharedLibraries\SharedLibraries.csproj">
+      <Project>{de0bae9e-3d9f-40fa-8f98-f0a9041faad9}</Project>
+      <Name>SharedLibraries</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SheetViews\SheetViews.csproj">
+      <Project>{bd45650a-d3fd-40c2-acfa-386fba6fbfbd}</Project>
+      <Name>SheetViews</Name>
+    </ProjectReference>
     <ProjectReference Include="MVVMCore\MVVMCore.csproj">
       <Project>{0707e7c7-ca38-484f-a262-0774c61cc4be}</Project>
       <Name>MVVMCore</Name>

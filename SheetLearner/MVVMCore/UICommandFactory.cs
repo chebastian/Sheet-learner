@@ -17,7 +17,7 @@
             return cmd;
         }
 
-        private class CommandWrapper : ICommand
+        public class CommandWrapper : ICommand
         {
             public event EventHandler CanExecuteChanged
             {
@@ -38,6 +38,11 @@
             {
                 theCommand = a;
                 canExecuteCondition = () => true;
+            }
+
+            public void RaiseCanExecuteChanged()
+            {
+                CommandManager.InvalidateRequerySuggested();
             }
 
             public static CommandWrapper Create(Action<object> a)
