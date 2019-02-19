@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace XTestMan.Views.Music
 {
-    public class SheetViewModel : ViewModelBase, INoteListener, IMidiPublisher,INavigationSource
+    public class SheetViewModel : ViewModelBase, INoteListener, IMidiPublisher, INavigationSource
     {
         private Sheet _model;
 
@@ -21,19 +21,17 @@ namespace XTestMan.Views.Music
         public SheetViewModel()
         {
             RandomizeCommand = new DelegateCommand(OnRandomize);
+            Name = "Sheet";
             _model = new Sheet(Clef.Treble);
         }
- 
+
         private void OnRandomize()
         {
-            //TrebleNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateRandomSectionsFromClef(Clef.Treble));
-            //BassNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateRandomSectionsFromClef(Clef.Bass));
-            Name = "Sheet";
             TrebleNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateGroups(Clef.Treble, 8, 3, false).Select(x => new PlayingNoteViewModel(x)));
             BassNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateGroups(Clef.Bass, 8, 3, true).Select(x => new PlayingNoteViewModel(x)));
             OnPropertyChanged("TrebleNotes");
             OnPropertyChanged("BassNotes");
-        } 
+        }
 
         public ObservableCollection<Note> Notes { get; set; }
 
@@ -42,73 +40,45 @@ namespace XTestMan.Views.Music
         public string TextNotes
         {
             get { return _textNotes; }
-            set { _textNotes = value; OnPropertyChanged();
+            set
+            {
+                _textNotes = value; OnPropertyChanged();
                 //SetNotes(value);
             }
         }
- 
-        //private void SetNotes(string value)
-        //{
-        //    Bars.Clear();
 
-        //    var bars = value.Split(',');
-        //    foreach(var section in bars)
-        //    {
-        //        if (string.IsNullOrEmpty(section))
-        //            break;
-
-        //        var res = new List<Note>();
-
-        //        foreach(var c in section.ToCharArray())
-        //        {
-        //            var notes = Sheet.GetNotesInActiveClef(_model.ActiveClef);
-        //            var val = _model.GetNoteValue(_model.ActiveClef,new Note(c.ToString()));
-        //            var note = new Note(c.ToString()) { Value = val };
-        //            res.Add(note);
-        //        }
-
-        //        Bars.Add(NoteSection.CreateSectionFromNotes(res,_model));
-        //    }
-
-        //    PlayingBars = new ObservableCollection<NoteSection>( Bars.Select(x => new PlayingNoteViewModel(x)) );
-
-
-
-        //    OnPropertyChanged("Bars");
-        //    OnPropertyChanged("PlayingBars");
-        //}
 
         public void OnNotePressed(int note)
         {
             OnNotesPressed(new List<int>() { note });
-        } 
+        }
 
         private NoteSection FirstUnplayedInSequence(List<NoteSection> sections, out int foundAt)
         {
             var hasUnplayedNotes = sections.Any(x => x.AllNotes.Count > 0 && !(x as PlayingNoteViewModel).IsPlayed);
 
             //TODO deal with this 
-            if(!hasUnplayedNotes)
+            if (!hasUnplayedNotes)
             {
                 foundAt = int.MaxValue;
                 return new NoteSection();
             }
 
-            var res =  sections.Select((value,index) => new {section=value,index=index}).First(x => x.section.AllNotes.Count > 0 && !(x.section as PlayingNoteViewModel).IsPlayed); 
+            var res = sections.Select((value, index) => new { section = value, index = index }).First(x => x.section.AllNotes.Count > 0 && !(x.section as PlayingNoteViewModel).IsPlayed);
             foundAt = res.index;
             return res.section;
         }
 
         public NoteSection CurrentNoteSection()
         {
-            var ts = FirstUnplayedInSequence(TrebleNotes.ToList(),out var treb);
+            var ts = FirstUnplayedInSequence(TrebleNotes.ToList(), out var treb);
             var bs = FirstUnplayedInSequence(BassNotes.ToList(), out var bass);
 
-            if(treb == bass)
+            if (treb == bass)
             {
                 var notes = ts.AllNotes.Union(bs.AllNotes).ToList();
                 //TODO check this out, what should this do with clef and sheet?
-                return NoteSection.CreateSectionFromNotes(notes.ToList(),Clef.Treble,_model);
+                return NoteSection.CreateSectionFromNotes(notes.ToList(), Clef.Treble, _model);
             }
 
             return treb < bass ? ts : bs;
@@ -137,10 +107,10 @@ namespace XTestMan.Views.Music
             }
 
             var anyUnplayed = CurrentNotes().Select(x => (PlayingNoteViewModel)x).Any(x => !x.IsPlayed);
-            if(!anyUnplayed)
+            if (!anyUnplayed)
             {
                 OnRandomize();
-            } 
+            }
         }
 
         private void MarkLastAsPlayed()
@@ -148,10 +118,10 @@ namespace XTestMan.Views.Music
             var ts = FirstUnplayedInSequence(TrebleNotes.ToList(), out var ti);
             var bs = FirstUnplayedInSequence(BassNotes.ToList(), out var bi);
 
-            if(ti == bi)
+            if (ti == bi)
             {
                 (ts as PlayingNoteViewModel).IsPlayed = true;
-                (bs as PlayingNoteViewModel).IsPlayed = true; 
+                (bs as PlayingNoteViewModel).IsPlayed = true;
             }
             else
             {
@@ -159,7 +129,7 @@ namespace XTestMan.Views.Music
                 (section as PlayingNoteViewModel).IsPlayed = true;
             }
         }
- 
+
         private ICommand _command;
 
         public ICommand RandomizeCommand
@@ -200,19 +170,20 @@ namespace XTestMan.Views.Music
         public String SelectedDevice
         {
             get { return _selectedDevice; }
-            set { _selectedDevice = value; MidiDeviceChanged(this,new MidiListenerEventArgs() { SelectedDevice = _selectedDevice }); }
+            set { _selectedDevice = value; MidiDeviceChanged(this, new MidiListenerEventArgs() { SelectedDevice = _selectedDevice }); }
         }
 
         private bool _hasSelectedDevice;
         private static Random rand = new Random();
+        private string _name;
 
-        public bool HasSelectedDevice 
+        public bool HasSelectedDevice
         {
             get { return _hasSelectedDevice; }
             set { _hasSelectedDevice = value; OnPropertyChanged(); }
         }
 
-        public string Name { get; set; }
+        public string Name { get => _name; set { _name = value; OnPropertyChanged(); } }
         public ICommand OnSelected { get; set; }
     }
 }

@@ -16,7 +16,24 @@ namespace XTestMan.Views.Music.NoteReader
         private INoteListener _noteListener;
         private IMidiPublisher _listener;
         private List<int> _pressedKeys;
-        private Dictionary<char, int> _keyDict;
+        private static Dictionary<char, int> KeyDictionary => new Dictionary<char, int>()
+            {
+                {'c',0}, 
+                {'d',2}, 
+                {'e',4}, 
+
+                {'f',5}, 
+                {'g',7}, 
+                {'a',9}, 
+
+                {'b',11},
+                {'k',8}, 
+                {'l',8}, 
+
+                {'m',8}, 
+                {'n',8}, 
+            };
+
 
         public KeyboardNoteReader(INoteListener nl, IMidiPublisher list)
         {
@@ -25,34 +42,16 @@ namespace XTestMan.Views.Music.NoteReader
             KeyPressedCommand = new DelegateCommand<object>(OnKeyPressed);
             KeyUpCommand = new DelegateCommand<object>(OnKeyUp);
             _pressedKeys = new List<int>();
-
-            _keyDict = new Dictionary<char, int>()
-            {
-                {'c',0}, //C
-                {'d',2}, //D
-                {'e',4}, //E
-
-                {'f',5}, //F
-                {'g',7}, //G
-                {'a',9},//A
-
-                {'b',11}, //B
-                {'k',8}, //G
-                {'l',8}, //G
-
-                {'m',8}, //G
-                {'n',8}, //G 
-            };
         }
 
-        private int MapToKey(object ob)
+        public static int MapToKey(object ob)
         {
             var strTest = (Key)ob;
             var strT = strTest.ToString().ToLower();
             var character = (char)strT.First();
-            if(_keyDict.ContainsKey(character))
+            if(KeyDictionary.ContainsKey(character))
             {
-                var da = _keyDict[character];
+                var da = KeyDictionary[character];
                 return da;
             }
             return -1;

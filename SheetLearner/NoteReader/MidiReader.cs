@@ -16,7 +16,6 @@ namespace NoteReader
 
         public MidiReader(INoteListener listener, IMidiPublisher midi)
         {
-            NotesPressed = new List<int>();
             _listener = listener;
             midi.MidiDeviceChanged += Midi_MidiDeviceChanged;
         }
@@ -28,11 +27,7 @@ namespace NoteReader
                 SelectDeviceWithName(arg.SelectedDevice);
             }
         }
-
-        public void read()
-        {
-        } 
-
+ 
         public void SelectDefaultDevice()
         {
             SelectDeviceWithName(AvailableDevices.First()); 

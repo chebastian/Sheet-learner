@@ -26,7 +26,7 @@ namespace XTestMan
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, INotifyPropertyChanged
+    public partial class MainWindow : Window, INotifyPropertyChanged, IMidiPublisher
     { 
         //private NoteReader reader; 
         private SheetViewModel _sheetVm;
@@ -49,10 +49,9 @@ namespace XTestMan
         }
 
 
-        private INoteReader _midi; 
+        internal INoteReader KeyReader { get; }
         private bool _insertDevice;
 
-        internal KeyboardNoteReader KeyReader { get; }
 
         public bool HasMidiDevice
         {
@@ -67,14 +66,11 @@ namespace XTestMan
             DataContext = this;
             SheetVm = new SheetViewModel();
 
+            KeyReader = new MidiKeyReader(this,SheetVm);
+
             NavigationViewModel = new NavigationPaneViewModel();
             NavigationViewModel.NavigationSource.Add(SheetVm);
-            _midi = new MidiReader(SheetVm, SheetVm);
-            SheetVm.AvailableDevices = new System.Collections.ObjectModel.ObservableCollection<string>( _midi.AvailableDevices );
-
-
-            KeyReader = new KeyboardNoteReader(SheetVm,SheetVm);
-
+ 
             HasMidiDevice = true;
             WaitForMidiDevice();
 
@@ -89,12 +85,12 @@ namespace XTestMan
             }
 
             HasMidiDevice = FoundMidiDevice();
-            _midi.SelectDefaultDevice();
+            KeyReader.SelectDefaultDevice();
         }
 
         public bool FoundMidiDevice()
         {
-            return _midi.AvailableDevices.Count > 0;
+            return KeyReader.AvailableDevices.Count > 0;
         }
 
         private void MainWindow_Closed(object sender, EventArgs e)
@@ -102,7 +98,10 @@ namespace XTestMan
             //reader.Close();
         }
 
-        public event PropertyChangedEventHandler PropertyChanged; 
+        public event PropertyChangedEventHandler PropertyChanged;
+        public event EventHandler MidiDeviceChanged;
+        public event EventHandler<MidiKeyEventArgs> OnKeyPressed;
+        public event EventHandler<MidiKeyEventArgs> OnKeyReleased;
 
         protected void OnPropertyChanged( [CallerMemberName] string propertyName = null)
         {
@@ -113,12 +112,20 @@ namespace XTestMan
 
         private void root_KeyDown(object sender, KeyEventArgs e)
         {
-            KeyReader.KeyPressedCommand.Execute(e.Key);
+            var key = KeyboardNoteReader.MapToKey(e.Key);
+            if(key >= 0)
+            {
+                OnKeyPressed(this, new MidiKeyEventArgs() { KeyInOctave = key });
+            }
         }
 
         private void root_KeyUp(object sender, KeyEventArgs e)
         {
-            KeyReader.KeyUpCommand.Execute(e.Key); 
+            var key = KeyboardNoteReader.MapToKey(e.Key);
+            if(key >= 0)
+            {
+                OnKeyReleased(this, new MidiKeyEventArgs() { KeyInOctave = key });
+            }
         }
     }
 }

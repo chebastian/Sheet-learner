@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <ListBox ItemsSource="{Binding NavigationSource}" SelectedItem="{Binding SelectedSource, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+        <ListBox ItemTemplateSelector="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataTemplateSelector}" ItemsSource="{Binding NavigationSource}" SelectedItem="{Binding SelectedSource, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Vertical"/>

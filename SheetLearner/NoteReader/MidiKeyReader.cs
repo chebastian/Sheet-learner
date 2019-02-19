@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NoteReader
 {
-    public class MidiKeyReader
+    public class MidiKeyReader : INoteReader
     {
         private IMidiPublisher _midi;
         private INoteListener _listener;
@@ -19,9 +19,15 @@ namespace NoteReader
             _midi.OnKeyReleased += _midi_OnKeyReleased;
             _midi.OnKeyPressed += _midi_OnKeyPressed;
             NotesPressed = new List<int>();
+            AvailableDevices = new List<string> { "Midi simulating Keyboard" };
         }
 
         public List<int> NotesPressed { get; set; }
+        public List<string> AvailableDevices { get; set; }
+
+        public void SelectDefaultDevice()
+        {
+        }
 
         private void _midi_OnKeyPressed(object sender, MidiKeyEventArgs e)
         {

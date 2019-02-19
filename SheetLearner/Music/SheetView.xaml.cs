@@ -23,7 +23,7 @@ namespace XTestMan.Views.Music
         public SheetView()
         {
             InitializeComponent();
-            DataContext = new SheetViewModel();
+            //DataContext = new SheetViewModel();
         }
 
 
