@@ -8,8 +8,46 @@ using System.Threading.Tasks;
 
 namespace NoteReader
 {
-    public class NAudioMidiPublisher : IMidiPublisher
+    public class NAudioRepo : IMidiRepository
     {
+        private string _name;
+
+        public NAudioRepo(IMidiPublisher publisher)
+        {
+            Publisher = publisher;
+            AvailableDevices = InputDevice.InstalledDevices.Select(x => x.Name).ToList(); 
+        }
+
+        public IMidiPublisher Publisher { get; }
+        public List<string> AvailableDevices { get; set; }
+
+        public IMidiPublisher GetCurrentPublisher()
+        {
+            return Publisher;
+        }
+
+        public IMidiPublisher GetPublisherWithName(string name)
+        {
+            var repo = new NAudioMidiPublisher(null);
+            repo.SelectDeviceWithName(name);
+            return repo;
+        }
+
+        public void SelectDefaultDevice()
+        {
+        }
+
+        public void SelectDeviceWithName(string name) 
+        {
+
+        }
+    }
+
+    public class NAudioMidiPublisher : IMidiPublisher
+
+    {
+        private IMidiDeviceListener _listener;
+
         public List<int> NotesPressed { get; }
 
 
@@ -19,8 +57,9 @@ namespace NoteReader
         public event EventHandler<MidiKeyEventArgs> OnKeyPressed;
         public event EventHandler<MidiKeyEventArgs> OnKeyReleased;
 
-        public NAudioMidiPublisher()
-        { 
+        public NAudioMidiPublisher(IMidiDeviceListener listener)
+        {
+            _listener = listener;
             NotesPressed = new List<int>();
         }
 
@@ -42,8 +81,9 @@ namespace NoteReader
             device.NoteOn += _callback;
             device.NoteOff += OnNoteOffCallback;
             if(!device.IsReceiving)
-                device.StartReceiving(null); 
+                device.StartReceiving(null);
 
+            MidiDeviceChanged?.Invoke(this, new MidiListenerEventArgs() { SelectedDevice = deviceName });
             return true; 
         }
 

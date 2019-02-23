@@ -6,6 +6,7 @@
         xmlns:music="clr-namespace:XTestMan.Views.Music"
         xmlns:vms ="clr-namespace:SharedLibraries;assembly=SharedLibraries"
         xmlns:tabnavigator="clr-namespace:SheetViews.TabNavigator;assembly=SheetViews"
+        xmlns:views="clr-namespace:SheetViews;assembly=SheetViews"
         xmlns:utils="clr-namespace:SheetLearner.Utils"
         xmlns:local="clr-namespace:XTestMan"
         mc:Ignorable="d"
@@ -61,8 +62,18 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <tabnavigator:NavigationPane DataTemplateSelector="{StaticResource single}" DataContext="{Binding NavigationViewModel}"/>
-        <tabnavigator:NavigationPageView Grid.Column="1" DataContext="{Binding NavigationViewModel}">
-        </tabnavigator:NavigationPageView>
+        <tabnavigator:NavigationPane 
+            DataTemplateSelector="{StaticResource single}" DataContext="{Binding NavigationViewModel}"/>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <views:MenuBarView DataContext="{Binding SettingsViewModel}"/>
+            <tabnavigator:NavigationPageView
+                Grid.Row="1"
+                DataContext="{Binding NavigationViewModel}">
+            </tabnavigator:NavigationPageView> 
+        </Grid>
     </Grid>
 </Window>

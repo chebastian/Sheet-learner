@@ -68,6 +68,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MockedMidiRepo.cs" />
     <Compile Include="Music\RootNoteComparer.cs" />
     <Compile Include="Utils\AddAdorner.cs" />
     <Compile Include="Utils\BaseExtensions.cs" />

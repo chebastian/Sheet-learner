@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace XTestMan.Views.Music.NoteReader
 {
-    class KeyboardNoteReader : ViewModelBase,INoteReader 
+    class KeyboardNoteReader : ViewModelBase,IMidiRepository 
     {
         private INoteListener _noteListener;
         private IMidiPublisher _listener;
@@ -77,6 +77,21 @@ namespace XTestMan.Views.Music.NoteReader
 
         public void SelectDefaultDevice()
         {
+        }
+
+        public void SelectDeviceWithName(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IMidiPublisher GetCurrentPublisher()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IMidiPublisher GetPublisherWithName(string name)
+        {
+            throw new NotImplementedException();
         }
 
         private ICommand _onKeyPressed;

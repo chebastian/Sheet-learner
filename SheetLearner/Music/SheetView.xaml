@@ -8,18 +8,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <StackPanel>
-        <TextBlock Text="Devices:" HorizontalAlignment="Right"/>
-        <ComboBox SelectedItem="{Binding SelectedDevice, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding AvailableDevices, UpdateSourceTrigger=PropertyChanged}"/>
-
         <TextBlock Text="Notes:"/>
         <TextBox Padding="5" Text="{Binding TextNotes, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Margin="3"/>
-        <TextBlock Text="Clef:"/>
-        <ComboBox 
-            HorizontalAlignment="Left"
-            SelectedValue="{Binding ActiveClef, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" >
-            <local:Clef>0</local:Clef>
-            <local:Clef>1</local:Clef> 
-        </ComboBox>
         <ItemsControl 
         BorderBrush="Beige"
         BorderThickness="2"

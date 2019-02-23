@@ -10,8 +10,21 @@ namespace NoteModel
 {
     public interface INoteReader
     {
+
+    }
+
+    public interface IMidiDeviceListener
+    {
+        void OnDeviceSelected(IMidiPublisher name);
+    }
+
+    public interface IMidiRepository
+    {
         List<String> AvailableDevices { get; set; }
         void SelectDefaultDevice();
+        void SelectDeviceWithName(string name);
+        IMidiPublisher GetPublisherWithName(string name);
+
     }
 
     public interface INoteListener
