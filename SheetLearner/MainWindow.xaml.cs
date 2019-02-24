@@ -27,9 +27,8 @@ namespace XTestMan
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, INotifyPropertyChanged, IMidiPublisher, IMidiDeviceListener
+    public partial class MainWindow : Window, INotifyPropertyChanged, IMidiDeviceListener
     {
-        //private NoteReader reader; 
         private SheetViewModel _sheetVm;
 
         public SheetViewModel SheetVm
@@ -51,7 +50,7 @@ namespace XTestMan
 
 
         internal IMidiRepository MidiRepo { get; set; }
-        internal INoteReader KeyReader { get; }
+        internal MidiKeyReader KeyReader { get; }
 
         private SettingsViewModel _settingsViewModel;
         public SettingsViewModel SettingsViewModel
@@ -78,8 +77,9 @@ namespace XTestMan
             DataContext = this;
             SheetVm = new SheetViewModel();
 
-            KeyReader = new MidiKeyReader(this, SheetVm);
-            MidiRepo = new NAudioRepo(new NAudioMidiPublisher(this));
+            var naudio = new NAudioMidiPublisher();
+            KeyReader = new MidiKeyReader(naudio, SheetVm);
+            MidiRepo = new NAudioRepo(naudio);
             SettingsViewModel = new SettingsViewModel(MidiRepo,this);
 
             NavigationViewModel = new NavigationPaneViewModel();
@@ -109,13 +109,9 @@ namespace XTestMan
 
         private void MainWindow_Closed(object sender, EventArgs e)
         {
-            //reader.Close();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        public event EventHandler MidiDeviceChanged;
-        public event EventHandler<MidiKeyEventArgs> OnKeyPressed;
-        public event EventHandler<MidiKeyEventArgs> OnKeyReleased;
 
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -129,7 +125,7 @@ namespace XTestMan
             var key = KeyboardNoteReader.MapToKey(e.Key);
             if (key >= 0)
             {
-                OnKeyPressed(this, new MidiKeyEventArgs() { KeyInOctave = key });
+                KeyReader.OnNotePressed(key);
             }
         }
 
@@ -138,18 +134,13 @@ namespace XTestMan
             var key = KeyboardNoteReader.MapToKey(e.Key);
             if (key >= 0)
             {
-                OnKeyReleased(this, new MidiKeyEventArgs() { KeyInOctave = key });
+                KeyReader.OnNoteReleased(key);
             }
-        }
-
-        public void OnDeviceSelected(string name)
-        {
-
         }
 
         public void OnDeviceSelected(IMidiPublisher name)
         {
-            SheetVm.OnKeyPressed
-        }
+            name.Register(SheetVm);
+        } 
     }
 }

@@ -7,12 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace NoteModel
-{
-    public interface INoteReader
-    {
-
-    }
-
+{ 
     public interface IMidiDeviceListener
     {
         void OnDeviceSelected(IMidiPublisher name);
@@ -29,15 +24,14 @@ namespace NoteModel
 
     public interface INoteListener
     {
+        void OnNoteReleased(int note);
         void OnNotePressed(int note);
         void OnNotesPressed(List<int> notes);
     }
 
     public interface IMidiPublisher
     {
-        event EventHandler MidiDeviceChanged;
-        event EventHandler<MidiKeyEventArgs> OnKeyPressed;
-        event EventHandler<MidiKeyEventArgs> OnKeyReleased;
+        void Register(INoteListener listener);
     }
 
     public class MidiKeyEventArgs : EventArgs

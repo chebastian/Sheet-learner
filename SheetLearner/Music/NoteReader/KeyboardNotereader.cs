@@ -11,6 +11,20 @@ using System.Windows.Input;
 
 namespace XTestMan.Views.Music.NoteReader
 {
+    public class WpfKeyReader : IMidiPublisher
+    {
+        public WpfKeyReader()
+        { 
+        }
+
+        private INoteListener _listener;
+
+        public void Register(INoteListener listener)
+        {
+            _listener = listener;
+        }
+    }
+
     class KeyboardNoteReader : ViewModelBase,IMidiRepository 
     {
         private INoteListener _noteListener;

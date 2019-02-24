@@ -28,9 +28,8 @@ namespace NoteReader
 
         public IMidiPublisher GetPublisherWithName(string name)
         {
-            var repo = new NAudioMidiPublisher(null);
-            repo.SelectDeviceWithName(name);
-            return repo;
+            (Publisher as NAudioMidiPublisher).SelectDeviceWithName(name);
+            return Publisher;
         }
 
         public void SelectDefaultDevice()
@@ -46,20 +45,15 @@ namespace NoteReader
     public class NAudioMidiPublisher : IMidiPublisher
 
     {
-        private IMidiDeviceListener _listener;
+        private List<INoteListener> _listeners;
 
         public List<int> NotesPressed { get; }
 
 
         public InputDevice SelectedDevice { get; private set; }
 
-        public event EventHandler MidiDeviceChanged;
-        public event EventHandler<MidiKeyEventArgs> OnKeyPressed;
-        public event EventHandler<MidiKeyEventArgs> OnKeyReleased;
-
-        public NAudioMidiPublisher(IMidiDeviceListener listener)
+        public NAudioMidiPublisher()
         {
-            _listener = listener;
             NotesPressed = new List<int>();
         }
 
@@ -83,18 +77,29 @@ namespace NoteReader
             if(!device.IsReceiving)
                 device.StartReceiving(null);
 
-            MidiDeviceChanged?.Invoke(this, new MidiListenerEventArgs() { SelectedDevice = deviceName });
             return true; 
         }
 
         private void OnNoteOffCallback(NoteOffMessage msg)
         {
-            OnKeyReleased(this, new MidiKeyEventArgs() { KeyInOctave = msg.Pitch.PositionInOctave() }); 
+            foreach(var listener in _listeners)
+            {
+                listener.OnNoteReleased(msg.Pitch.PositionInOctave());
+            }
         }
 
         private void _callback(NoteOnMessage msg)
         {
-            OnKeyPressed(this, new MidiKeyEventArgs() { KeyInOctave = msg.Pitch.PositionInOctave() }); 
-        } 
+            foreach(var listener in _listeners)
+            {
+                listener.OnNotePressed(msg.Pitch.PositionInOctave());
+            }
+        }
+
+        public void Register(INoteListener listener)
+        {
+            _listeners = _listeners ?? new List<INoteListener>();
+            _listeners.Add(listener);
+        }
     }
 }

@@ -130,6 +130,16 @@ namespace XTestMan.Views.Music
             }
         }
 
+        public void Register(INoteListener listener)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnNoteReleased(int note)
+        {
+            //throw new NotImplementedException();
+        }
+
         private ICommand _command;
 
         public ICommand RandomizeCommand
@@ -163,14 +173,15 @@ namespace XTestMan.Views.Music
 
         private String _selectedDevice;
 
-        public event EventHandler MidiDeviceChanged;
-        public event EventHandler<MidiKeyEventArgs> OnKeyPressed;
-        public event EventHandler<MidiKeyEventArgs> OnKeyReleased;
+        //public event EventHandler MidiDeviceChanged;
+        //public event EventHandler<MidiKeyEventArgs> OnKeyPressed;
+        //public event EventHandler<MidiKeyEventArgs> OnKeyReleased;
 
         public String SelectedDevice
         {
             get { return _selectedDevice; }
-            set { _selectedDevice = value; MidiDeviceChanged(this, new MidiListenerEventArgs() { SelectedDevice = _selectedDevice }); }
+            //set { _selectedDevice = value; MidiDeviceChanged(this, new MidiListenerEventArgs() { SelectedDevice = _selectedDevice }); }
+            set { _selectedDevice = value; OnPropertyChanged(); }
         }
 
         private bool _hasSelectedDevice;
