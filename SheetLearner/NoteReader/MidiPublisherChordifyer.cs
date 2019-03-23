@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace NoteReader
 {
-    public class NoteListenerChordifyer :  IMidiPublisher, INoteListener
+    public class MidiPublisherChordifyer :  IMidiPublisher, INoteListener
     {
         private IMidiPublisher _midi;
         private INoteListener _listener;
         private List<INoteListener> _listeners;
 
-        public NoteListenerChordifyer(IMidiPublisher midi)
+        public MidiPublisherChordifyer(IMidiPublisher midi)
         {
             _midi = midi;
             _midi.Register(this);

@@ -50,7 +50,7 @@ namespace XTestMan
 
 
         internal IMidiRepository MidiRepo { get; set; }
-        internal NoteListenerChordifyer KeyReader { get; }
+        internal MidiPublisherChordifyer KeyReader { get; }
 
         private SettingsViewModel _settingsViewModel;
         public SettingsViewModel SettingsViewModel
@@ -138,7 +138,7 @@ namespace XTestMan
 
         public void OnDeviceSelected(IMidiPublisher name)
         {
-            var test = new NoteListenerChordifyer(name);
+            var test = new MidiPublisherChordifyer(name);
             test.Register(SheetVm);
         } 
     }
