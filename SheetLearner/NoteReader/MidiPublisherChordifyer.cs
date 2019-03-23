@@ -7,33 +7,34 @@ using System.Threading.Tasks;
 
 namespace NoteReader
 {
-    public class MidiPublisherChordifyer :  IMidiPublisher, INoteListener
+    public class MidiPublisherChordifyer :  INotePublisher, INoteListener
     {
-        private IMidiPublisher _midi;
         private INoteListener _listener;
         private List<INoteListener> _listeners;
 
-        public MidiPublisherChordifyer(IMidiPublisher midi)
+        public MidiPublisherChordifyer()
         {
-            _midi = midi;
-            _midi.Register(this);
             NotesPressed = new List<int>();
-            AvailableDevices = new List<string> { "Midi simulating Keyboard" };
+        }
+
+        public static MidiPublisherChordifyer CreateChordsFromMidiNotes(INotePublisher publisher)
+        {
+            var chordifyer = new MidiPublisherChordifyer();
+            publisher.Register(chordifyer);
+            return chordifyer;
+        }
+
+        public void PublishNotesToListener(INoteListener listener)
+        {
+            _listener = listener;
         }
 
         public List<int> NotesPressed { get; set; }
-        public List<string> AvailableDevices { get; set; }
  
         public void Register(INoteListener listener)
         {
             _listener = listener;
-        }
- 
-        private void _midi_OnKeyReleased(object sender, MidiKeyEventArgs e)
-        {
-            if (NotesPressed.Contains(e.KeyInOctave))
-                NotesPressed.Remove(e.KeyInOctave);
-        }
+        } 
 
         public void OnNotePressed(int note)
         {

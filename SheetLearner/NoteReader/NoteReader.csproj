@@ -48,10 +48,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="MidiNotePublisher.cs" />
     <Compile Include="MidiPublisherChordifyer.cs" />
-    <Compile Include="MidiReader.cs" />
     <Compile Include="MidiDeviceRepository.cs" />
-    <Compile Include="NaudioReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -7,12 +7,12 @@ namespace XTestMan
     {
         public List<string> AvailableDevices { get; set; }
  
-        public IMidiPublisher GetCurrentPublisher()
+        public INotePublisher GetCurrentPublisher()
         {
             return null;
         }
 
-        public IMidiPublisher GetPublisherWithName(string name)
+        public INotePublisher GetPublisherWithName(string name)
         {
             return null;
         }

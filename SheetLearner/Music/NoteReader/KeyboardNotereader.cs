@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace XTestMan.Views.Music.NoteReader
 {
-    public class WpfKeyReader : IMidiPublisher
+    public class WpfKeyReader : INotePublisher
     {
         public WpfKeyReader()
         { 
@@ -32,7 +32,7 @@ namespace XTestMan.Views.Music.NoteReader
     class KeyboardNoteReader : ViewModelBase,IMidiRepository 
     {
         private INoteListener _noteListener;
-        private IMidiPublisher _listener;
+        private INotePublisher _listener;
         private List<int> _pressedKeys;
         private static Dictionary<char, int> KeyDictionary => new Dictionary<char, int>()
             {
@@ -53,7 +53,7 @@ namespace XTestMan.Views.Music.NoteReader
             };
 
 
-        public KeyboardNoteReader(INoteListener nl, IMidiPublisher list)
+        public KeyboardNoteReader(INoteListener nl, INotePublisher list)
         {
             _noteListener = nl;
             _listener = list;
@@ -93,12 +93,12 @@ namespace XTestMan.Views.Music.NoteReader
             _noteListener.OnNotesPressed(_pressedKeys);
         } 
  
-        public IMidiPublisher GetCurrentPublisher()
+        public INotePublisher GetCurrentPublisher()
         {
             throw new NotImplementedException();
         }
 
-        public IMidiPublisher GetPublisherWithName(string name)
+        public INotePublisher GetPublisherWithName(string name)
         {
             throw new NotImplementedException();
         }

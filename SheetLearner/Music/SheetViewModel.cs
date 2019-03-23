@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace XTestMan.Views.Music
 {
-    public class SheetViewModel : ViewModelBase, INoteListener, IMidiPublisher, INavigationSource
+    public class SheetViewModel : ViewModelBase, INoteListener, INotePublisher, INavigationSource
     {
         private Sheet _model;
 

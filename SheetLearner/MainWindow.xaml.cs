@@ -136,10 +136,10 @@ namespace XTestMan
             }
         }
 
-        public void OnDeviceSelected(IMidiPublisher name)
+        public void OnDeviceSelected(INotePublisher selectedPublisher)
         {
-            var test = new MidiPublisherChordifyer(name);
-            test.Register(SheetVm);
+            var chordifyer = MidiPublisherChordifyer.CreateChordsFromMidiNotes(selectedPublisher);
+            chordifyer.PublishNotesToListener(SheetVm);
         } 
     }
 }

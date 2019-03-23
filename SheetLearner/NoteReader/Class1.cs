@@ -10,13 +10,13 @@ namespace NoteModel
 { 
     public interface IMidiDeviceListener
     {
-        void OnDeviceSelected(IMidiPublisher name);
+        void OnDeviceSelected(INotePublisher name);
     }
 
     public interface IMidiRepository
     {
         List<String> AvailableDevices { get; set; }
-        IMidiPublisher GetPublisherWithName(string name);
+        INotePublisher GetPublisherWithName(string name);
 
     }
 
@@ -27,7 +27,7 @@ namespace NoteModel
         void OnNotesPressed(List<int> notes);
     }
 
-    public interface IMidiPublisher
+    public interface INotePublisher
     {
         void Register(INoteListener listener);
         void Unregister(INoteListener listener);
