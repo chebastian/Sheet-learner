@@ -77,9 +77,7 @@ namespace XTestMan
             DataContext = this;
             SheetVm = new SheetViewModel();
 
-            var naudio = new NAudioMidiPublisher();
-            //KeyReader = new NoteListenerChordifyer(naudio, SheetVm);
-            MidiRepo = new NAudioRepo();
+            MidiRepo = new MidiDeviceRepository();
             SettingsViewModel = new SettingsViewModel(MidiRepo,this);
 
             NavigationViewModel = new NavigationPaneViewModel();

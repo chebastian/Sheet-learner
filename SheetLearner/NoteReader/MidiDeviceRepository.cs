@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace NoteReader
 {
-    public class NAudioRepo : IMidiRepository
+    public class MidiDeviceRepository : IMidiRepository
     {
-        public NAudioRepo()
+        public MidiDeviceRepository()
         {
             AvailableDevices = InputDevice.InstalledDevices.Select(x => x.Name).ToList(); 
         }
