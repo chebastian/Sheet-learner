@@ -6,16 +6,7 @@ namespace XTestMan
     internal class MockedMidiRepo : IMidiRepository
     {
         public List<string> AvailableDevices { get; set; }
-
-        public void SelectDefaultDevice()
-        {
-        }
-
-        public void SelectDeviceWithName(string name)
-        {
-            throw new System.NotImplementedException();
-        }
-
+ 
         public IMidiPublisher GetCurrentPublisher()
         {
             return null;

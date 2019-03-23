@@ -50,7 +50,7 @@ namespace XTestMan
 
 
         internal IMidiRepository MidiRepo { get; set; }
-        internal MidiKeyReader KeyReader { get; }
+        internal NoteListenerChordifyer KeyReader { get; }
 
         private SettingsViewModel _settingsViewModel;
         public SettingsViewModel SettingsViewModel
@@ -78,12 +78,13 @@ namespace XTestMan
             SheetVm = new SheetViewModel();
 
             var naudio = new NAudioMidiPublisher();
-            KeyReader = new MidiKeyReader(naudio, SheetVm);
-            MidiRepo = new NAudioRepo(naudio);
+            //KeyReader = new NoteListenerChordifyer(naudio, SheetVm);
+            MidiRepo = new NAudioRepo();
             SettingsViewModel = new SettingsViewModel(MidiRepo,this);
 
             NavigationViewModel = new NavigationPaneViewModel();
             NavigationViewModel.NavigationSource.Add(SheetVm);
+            NavigationViewModel.SelectedSource = SheetVm;
 
             HasMidiDevice = true;
             WaitForMidiDevice();
@@ -99,7 +100,6 @@ namespace XTestMan
             }
 
             HasMidiDevice = FoundMidiDevice();
-            MidiRepo.SelectDefaultDevice();
         }
 
         public bool FoundMidiDevice()
@@ -140,7 +140,8 @@ namespace XTestMan
 
         public void OnDeviceSelected(IMidiPublisher name)
         {
-            name.Register(SheetVm);
+            var test = new NoteListenerChordifyer(name);
+            test.Register(SheetVm);
         } 
     }
 }

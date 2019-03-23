@@ -23,6 +23,10 @@ namespace XTestMan.Views.Music.NoteReader
         {
             _listener = listener;
         }
+
+        public void Unregister(INoteListener listener)
+        {
+        }
     }
 
     class KeyboardNoteReader : ViewModelBase,IMidiRepository 
@@ -87,17 +91,8 @@ namespace XTestMan.Views.Music.NoteReader
 
             //_noteListener.OnNotePressed(ikey);
             _noteListener.OnNotesPressed(_pressedKeys);
-        }
-
-        public void SelectDefaultDevice()
-        {
-        }
-
-        public void SelectDeviceWithName(string name)
-        {
-            throw new NotImplementedException();
-        }
-
+        } 
+ 
         public IMidiPublisher GetCurrentPublisher()
         {
             throw new NotImplementedException();

@@ -7,16 +7,15 @@ using System.Threading.Tasks;
 
 namespace NoteReader
 {
-    public class MidiKeyReader :  IMidiPublisher, INoteListener
+    public class NoteListenerChordifyer :  IMidiPublisher, INoteListener
     {
         private IMidiPublisher _midi;
         private INoteListener _listener;
         private List<INoteListener> _listeners;
 
-        public MidiKeyReader(IMidiPublisher midi,INoteListener listener)
+        public NoteListenerChordifyer(IMidiPublisher midi)
         {
             _midi = midi;
-            _listener = listener;
             _midi.Register(this);
             NotesPressed = new List<int>();
             AvailableDevices = new List<string> { "Midi simulating Keyboard" };
@@ -27,7 +26,7 @@ namespace NoteReader
  
         public void Register(INoteListener listener)
         {
-            _listeners = _listeners ?? new List<INoteListener>();
+            _listener = listener;
         }
  
         private void _midi_OnKeyReleased(object sender, MidiKeyEventArgs e)
@@ -54,6 +53,10 @@ namespace NoteReader
         {
             if (NotesPressed.Contains(note))
                 NotesPressed.Remove(note);
+        }
+
+        public void Unregister(INoteListener listener)
+        {
         }
     }
 }

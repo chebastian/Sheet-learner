@@ -10,74 +10,70 @@ namespace NoteReader
 {
     public class NAudioRepo : IMidiRepository
     {
-        private string _name;
-
-        public NAudioRepo(IMidiPublisher publisher)
+        public NAudioRepo()
         {
-            Publisher = publisher;
             AvailableDevices = InputDevice.InstalledDevices.Select(x => x.Name).ToList(); 
         }
 
-        public IMidiPublisher Publisher { get; }
+        private IMidiPublisher CurrentPublisher { get; set; }
         public List<string> AvailableDevices { get; set; }
 
         public IMidiPublisher GetCurrentPublisher()
         {
-            return Publisher;
+            return CurrentPublisher;
         }
 
         public IMidiPublisher GetPublisherWithName(string name)
         {
-            (Publisher as NAudioMidiPublisher).SelectDeviceWithName(name);
-            return Publisher;
-        }
+            var theDevice = InputDevice.InstalledDevices.Where(x => x.Name == name);
+            if(theDevice.Any())
+            {
+                if(CurrentPublisher != null)
+                {
+                    CurrentPublisher.Unregister(null);
+                }
 
-        public void SelectDefaultDevice()
-        {
-        }
+                var publisher = new NAudioMidiPublisher(theDevice.First());
+                CurrentPublisher = publisher;
+            }
 
-        public void SelectDeviceWithName(string name) 
-        {
-
-        }
+            return CurrentPublisher;
+        } 
     }
 
     public class NAudioMidiPublisher : IMidiPublisher
-
     {
+        public NAudioMidiPublisher(InputDevice device)
+        {
+            _device = device;
+        }
+
         private List<INoteListener> _listeners;
+        private InputDevice _device;
 
-        public List<int> NotesPressed { get; }
-
-
-        public InputDevice SelectedDevice { get; private set; }
+        public List<int> NotesPressed { get; } 
 
         public NAudioMidiPublisher()
         {
             NotesPressed = new List<int>();
         }
 
-        public bool SelectDeviceWithName(String deviceName)
-        {
-            var devices = InputDevice.InstalledDevices.Any(X => X.Name == deviceName);
-            if(!devices) 
-                return false;
-
-            var device = InputDevice.InstalledDevices.First(x => deviceName.Equals(x.Name));
-            if (SelectedDevice != null)
-            {
-                SelectedDevice.NoteOn -= _callback;
-            }
-
-            SelectedDevice = device;
-            if(!device.IsOpen)
-                device.Open();
-            device.NoteOn += _callback;
-            device.NoteOff += OnNoteOffCallback;
-            if(!device.IsReceiving)
-                device.StartReceiving(null);
+        public bool RegisterMidiListeners()
+        { 
+            if(!_device.IsOpen)
+                _device.Open();
+            _device.NoteOn += _callback;
+            _device.NoteOff += OnNoteOffCallback;
+            if(!_device.IsReceiving)
+                _device.StartReceiving(null);
 
             return true; 
+        }
+
+        public void Unregister(INoteListener listener)
+        {
+            _device.NoteOn -= _callback;
+            _device.NoteOff -= OnNoteOffCallback; 
         }
 
         private void OnNoteOffCallback(NoteOffMessage msg)
@@ -98,8 +94,9 @@ namespace NoteReader
 
         public void Register(INoteListener listener)
         {
+            RegisterMidiListeners();
             _listeners = _listeners ?? new List<INoteListener>();
             _listeners.Add(listener);
-        }
+        } 
     }
 }

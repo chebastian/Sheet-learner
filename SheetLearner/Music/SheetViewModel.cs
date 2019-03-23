@@ -132,12 +132,16 @@ namespace XTestMan.Views.Music
 
         public void Register(INoteListener listener)
         {
-            throw new NotImplementedException();
         }
 
         public void OnNoteReleased(int note)
         {
             //throw new NotImplementedException();
+        }
+
+        public void Unregister(INoteListener listener)
+        {
+            throw new NotImplementedException();
         }
 
         private ICommand _command;
