@@ -6,6 +6,8 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <converter:CollapsedWhenFalse x:Key="BoolToVisibleCollapsed"/>
+        <converter:CollapsedWhenTrue x:Key="CollapsedWhenTrue"/>
+        <converter:CollapsedWhenFalse x:Key="CollapsedWhenFalse"/>
         <converter:HiddenWhenFalse x:Key="BoolToVisibileHidden"/>
         <converter:HiddenWhenTrue x:Key="HiddenWhenTrue"/> 
     </Application.Resources>

@@ -69,7 +69,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="MockedMidiRepo.cs" />
+    <Compile Include="Music\ClefView.xaml.cs">
+      <DependentUpon>ClefView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Music\RootNoteComparer.cs" />
+    <Compile Include="Music\ViewModels\ClefViewModel.cs" />
     <Compile Include="Utils\AddAdorner.cs" />
     <Compile Include="Utils\BaseExtensions.cs" />
     <Compile Include="Utils\BoolToVisibility.cs" />
@@ -96,6 +100,10 @@
     <Page Include="Music\BarView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Music\ClefView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Music\PlayableNote.xaml">
       <Generator>MSBuild:Compile</Generator>

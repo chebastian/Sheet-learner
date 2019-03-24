@@ -123,7 +123,7 @@ namespace XTestMan
             var key = KeyboardNoteReader.MapToKey(e.Key);
             if (key >= 0)
             {
-                KeyReader.OnNotePressed(key);
+                //KeyReader.OnNotePressed(key);
             }
         }
 
@@ -132,7 +132,7 @@ namespace XTestMan
             var key = KeyboardNoteReader.MapToKey(e.Key);
             if (key >= 0)
             {
-                KeyReader.OnNoteReleased(key);
+                //KeyReader.OnNoteReleased(key);
             }
         }
 

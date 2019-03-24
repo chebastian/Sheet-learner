@@ -1,4 +1,5 @@
 ﻿using MVVMHelpers;
+using SheetLearner.Music.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,11 +24,26 @@ namespace XTestMan.Views.Music
                 BottomLedger = Enumerable.Repeat<LedgerNote>(new LedgerNote(new Note(),false),2).ToList();
                 TopLedger = Enumerable.Repeat<LedgerNote>(new LedgerNote(new Note(),false),2).ToList();
             AllNotes = new List<Note>();
+        } 
+
+        public NoteSection(List<NoteViewModel> notes)
+        {
+            Notes = notes;
         }
 
         public static NoteSection EmptySection()
         {
             return new NoteSection();
+        }
+
+        public bool IsAllPlayed()
+        {
+            return Notes.All(x => x.Played);
+        }
+
+        public void SetAllPlayed()
+        {
+            Notes.ForEach(x => x.Played = true);
         }
 
         public static NoteSection CreateSectionFromNotes(List<Note> bar, Clef clef, Sheet sheet)
@@ -109,7 +125,7 @@ namespace XTestMan.Views.Music
             set { _bottomLedger = value; OnPropertyChanged(); }
         }
 
-
+        public List<NoteViewModel> Notes { get; set; }
     }
 
 }

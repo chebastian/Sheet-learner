@@ -2,6 +2,7 @@
 using NoteModel;
 using Prism.Commands;
 using SharedLibraries.Interfaces;
+using SheetLearner.Music.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,17 +19,54 @@ namespace XTestMan.Views.Music
 
         public ObservableCollection<NoteSection> Bars { get; set; }
 
+
+        private ClefViewModel _bassClefViewModel;
+        public ClefViewModel BassClefViewModel
+        {
+            get => _bassClefViewModel;
+            set
+            {
+                _bassClefViewModel = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private ClefViewModel _clefView;
+        public ClefViewModel ClefViewModel
+        {
+            get => _clefView;
+            set
+            {
+                _clefView = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         public SheetViewModel()
         {
             RandomizeCommand = new DelegateCommand(OnRandomize);
             Name = "Sheet";
             _model = new Sheet(Clef.Treble);
+            ClefViewModel = new ClefViewModel(Clef.Treble);
+            BassClefViewModel = new ClefViewModel(Clef.Bass);
         }
 
         private void OnRandomize()
         {
             TrebleNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateGroups(Clef.Treble, 8, 3, false).Select(x => new PlayingNoteViewModel(x)));
             BassNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateGroups(Clef.Bass, 8, 3, true).Select(x => new PlayingNoteViewModel(x)));
+
+            foreach(var section in TrebleNotes)
+            {
+                ClefViewModel.AddNoteGroup(section.AllNotes);
+            }
+
+            foreach(var section in BassNotes)
+            {
+                BassClefViewModel.AddNoteGroup(section.AllNotes);
+            }
+
             OnPropertyChanged("TrebleNotes");
             OnPropertyChanged("BassNotes");
         }
@@ -55,30 +93,33 @@ namespace XTestMan.Views.Music
 
         private NoteSection FirstUnplayedInSequence(List<NoteSection> sections, out int foundAt)
         {
-            var hasUnplayedNotes = sections.Any(x => x.AllNotes.Count > 0 && !(x as PlayingNoteViewModel).IsPlayed);
+            //var hasUnplayedNotes = sections.Any(x => x.Notes.Count > 0 && !(x as NoteViewModel).IsPlayed);
 
-            //TODO deal with this 
-            if (!hasUnplayedNotes)
-            {
-                foundAt = int.MaxValue;
-                return new NoteSection();
-            }
+            ////TODO deal with this 
+            //if (!hasUnplayedNotes)
+            //{
+            //    foundAt = int.MaxValue;
+            //    return new NoteSection();
+            //}
 
-            var res = sections.Select((value, index) => new { section = value, index = index }).First(x => x.section.AllNotes.Count > 0 && !(x.section as PlayingNoteViewModel).IsPlayed);
+            var res = sections.Select((value, index) => new { section = value, index = index }).First(x => x.section.Notes.Count > 0 && !(x.section.IsAllPlayed()));
             foundAt = res.index;
             return res.section;
         }
 
         public NoteSection CurrentNoteSection()
         {
-            var ts = FirstUnplayedInSequence(TrebleNotes.ToList(), out var treb);
-            var bs = FirstUnplayedInSequence(BassNotes.ToList(), out var bass);
+            //var ts = FirstUnplayedInSequence(TrebleNotes.ToList(), out var treb);
+            //var bs = FirstUnplayedInSequence(BassNotes.ToList(), out var bass);
+            var ts = FirstUnplayedInSequence(ClefViewModel.Groups, out var treb);
+            var bs = FirstUnplayedInSequence(BassClefViewModel.Groups, out var bass);
 
             if (treb == bass)
             {
-                var notes = ts.AllNotes.Union(bs.AllNotes).ToList();
+                var notes = ts.Notes.Union(bs.Notes).ToList();
                 //TODO check this out, what should this do with clef and sheet?
-                return NoteSection.CreateSectionFromNotes(notes.ToList(), Clef.Treble, _model);
+                //return NoteSection.CreateSectionFromNotes(notes.ToList(), Clef.Treble, _model);
+                return new NoteSection(notes);
             }
 
             return treb < bass ? ts : bs;
@@ -100,7 +141,7 @@ namespace XTestMan.Views.Music
             var pnotes = playedNotes.Select(x => new Note(scaleArr[x])).ToList();
 
 
-            var allPlayed = firstUnplayed.AllNotes.Select(x => x.Id.ToUpper()).All(x => playedNoteNames.Contains(x));
+            var allPlayed = firstUnplayed.Notes.Select(x => x.Note.Id.ToUpper()).All(x => playedNoteNames.Contains(x));
             if (allPlayed)
             {
                 MarkLastAsPlayed();
@@ -115,24 +156,25 @@ namespace XTestMan.Views.Music
 
         private void MarkLastAsPlayed()
         {
-            var ts = FirstUnplayedInSequence(TrebleNotes.ToList(), out var ti);
-            var bs = FirstUnplayedInSequence(BassNotes.ToList(), out var bi);
+            //var ts = FirstUnplayedInSequence(TrebleNotes.ToList(), out var ti);
+            //var bs = FirstUnplayedInSequence(BassNotes.ToList(), out var bi);
+            var ts = FirstUnplayedInSequence(ClefViewModel.Groups,out var ti);
+            var bs = FirstUnplayedInSequence(BassClefViewModel.Groups,out var bi);
 
             if (ti == bi)
             {
-                (ts as PlayingNoteViewModel).IsPlayed = true;
-                (bs as PlayingNoteViewModel).IsPlayed = true;
+                ts.SetAllPlayed();
+                bs.SetAllPlayed();
             }
             else
             {
                 var section = ti < bi ? ts : bs;
-                (section as PlayingNoteViewModel).IsPlayed = true;
+                (section).SetAllPlayed();
             }
         }
 
         public void OnNoteReleased(int note)
         {
-            //throw new NotImplementedException();
         }
 
         private ICommand _command;
@@ -151,31 +193,20 @@ namespace XTestMan.Views.Music
             }
             set
             {
-                //TODO renable this for single  clef mode
-                //_model.SwitchClef(value);
                 OnPropertyChanged();
-                //SetNotes(TextNotes);
             }
 
         }
 
         public ObservableCollection<String> AvailableDevices { get; set; }
-
         public ObservableCollection<NoteSection> PlayingBars { get; set; }
-
         public ObservableCollection<NoteSection> TrebleNotes { get; set; }
         public ObservableCollection<NoteSection> BassNotes { get; set; }
 
         private String _selectedDevice;
-
-        //public event EventHandler MidiDeviceChanged;
-        //public event EventHandler<MidiKeyEventArgs> OnKeyPressed;
-        //public event EventHandler<MidiKeyEventArgs> OnKeyReleased;
-
         public String SelectedDevice
         {
             get { return _selectedDevice; }
-            //set { _selectedDevice = value; MidiDeviceChanged(this, new MidiListenerEventArgs() { SelectedDevice = _selectedDevice }); }
             set { _selectedDevice = value; OnPropertyChanged(); }
         }
 

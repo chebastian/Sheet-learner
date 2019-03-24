@@ -5,59 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:XTestMan.Views.Music"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:music="clr-namespace:SheetLearner.Music"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <StackPanel>
         <TextBlock Text="Notes:"/>
         <TextBox Padding="5" Text="{Binding TextNotes, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Margin="3"/>
-        <ItemsControl 
-        BorderBrush="Beige"
-        BorderThickness="2"
-        HorizontalAlignment="Center"
-        ItemsSource="{Binding TrebleNotes, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" 
-            >
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel 
-                        SnapsToDevicePixels="True"
-                        Background="Blue"
-                        Orientation="Horizontal" 
-                        Style="{x:Null}"
-                                />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <local:AltBarView DataContext="{Binding}"  /> 
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-            
-        </ItemsControl>
-        <ItemsControl 
-        BorderBrush="Beige"
-        BorderThickness="2"
-        HorizontalAlignment="Center"
-        ItemsSource="{Binding BassNotes, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" 
-            >
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel 
-                        SnapsToDevicePixels="True"
-                        Background="Blue"
-                        Orientation="Horizontal" 
-                        Style="{x:Null}"
-                                />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <local:AltBarView DataContext="{Binding}"  /> 
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-            
-        </ItemsControl>
+        <music:ClefView DataContext="{Binding ClefViewModel, UpdateSourceTrigger=PropertyChanged}" Background="Pink"   HorizontalAlignment="Stretch"/> 
+        <music:ClefView DataContext="{Binding BassClefViewModel, UpdateSourceTrigger=PropertyChanged}" Background="Pink"   HorizontalAlignment="Stretch"/> 
         <Button 
             Margin="5"
             Style="{x:Null}"

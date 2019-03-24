@@ -28,7 +28,27 @@ namespace XTestMan.Views.Music
         public static Note G2 = new Note("G");
         public static Note A2 = new Note("A");
         public static Note B2 = new Note("B");
-        public static Note C3 = new Note("C");
+        public static Note C3 = new Note("C1");
+        public static Note D3 = new Note("D1");
+        public static Note E3 = new Note("E1");
+        public static Note F3 = new Note("F1");
+        public static Note G3 = new Note("G1");
+        public static Note A3 = new Note("A1");
+        public static Note B3 = new Note("B1");
+
+        public static List<Note> BassNote => new List<Note>
+        { 
+            A1,B1,C1,D1,E1,F1,G1,
+            A2,B2,C2,D2,E2,F2,G2,
+            A3,B3,C3,D3,E3,F3,G3,
+        };
+
+        public static List<Note> TrebleNote => new List<Note>
+        { 
+            F1, G1, A1, B1, C1, D1, E1,
+            F2, G2, A2, B2, C2, D2, E2,
+            F3, G3, A3, B3, C3, D3, E3,
+        };
 
         public static List<Note> BassLowerLedger => new List<Note>()
         {

@@ -45,6 +45,15 @@ namespace SheetLearner.Utils
         }
     }
 
+    public class CollapsedWhenTrue : BoolToVisibility
+    {
+        public CollapsedWhenTrue()
+        {
+            TrueValue = Visibility.Collapsed;
+            FalseValue = Visibility.Visible;
+        }
+    }
+
     public class HiddenWhenFalse : BoolToVisibility
     {
         public HiddenWhenFalse()
