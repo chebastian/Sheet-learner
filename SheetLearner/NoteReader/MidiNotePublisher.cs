@@ -18,11 +18,8 @@ namespace NoteReader
         private List<INoteListener> _listeners;
         private InputDevice _device;
 
-        public List<int> NotesPressed { get; } 
-
         public NAudioMidiPublisher()
         {
-            NotesPressed = new List<int>();
         }
 
         public bool RegisterMidiListeners()

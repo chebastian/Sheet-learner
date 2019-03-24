@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace XTestMan.Views.Music
 {
-    public class SheetViewModel : ViewModelBase, INoteListener, INotePublisher, INavigationSource
+    public class SheetViewModel : ViewModelBase, INoteListener, INavigationSource
     {
         private Sheet _model;
 
@@ -130,18 +130,9 @@ namespace XTestMan.Views.Music
             }
         }
 
-        public void Register(INoteListener listener)
-        {
-        }
-
         public void OnNoteReleased(int note)
         {
             //throw new NotImplementedException();
-        }
-
-        public void Unregister(INoteListener listener)
-        {
-            throw new NotImplementedException();
         }
 
         private ICommand _command;
