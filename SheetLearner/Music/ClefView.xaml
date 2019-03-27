@@ -90,6 +90,38 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
+
+            <ItemsControl ItemsSource="{Binding Lines, UpdateSourceTrigger=PropertyChanged}"
+                Style="{x:Null}" 
+                Margin="0"
+                Padding="0"
+                Width="{Binding ElementName=root, Path=ActualWidth}"
+                Height="{Binding ElementName=root, Path=ActualHeight}"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch" 
+                >
+
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Canvas>
+                            <Rectangle Fill="Green" Width="{Binding ElementName=root, Path=ActualWidth}">
+                                <Rectangle.RenderTransform>
+                                    <TransformGroup>
+                                    <TranslateTransform 
+                                        Y="16"
+                                        X="{Binding X, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </TransformGroup>
+                                </Rectangle.RenderTransform>
+                            </Rectangle>
+                        </Canvas>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </Canvas> 
     </Grid>
 </UserControl>

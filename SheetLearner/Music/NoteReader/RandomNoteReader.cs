@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SheetLearner.Music.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -67,6 +68,7 @@ namespace XTestMan.Views.Music.NoteReader
             var res = new List<String>();
             var notes = Sheet.GetNotesInActiveClef(clef);
             rand = rand ?? new Random();
+            var list = new List<NoteSection>();
 
             for(var i =0; i < count; i++)
             {
@@ -81,18 +83,22 @@ namespace XTestMan.Views.Music.NoteReader
 
                 if (rand.NextDouble() < 0.3)
                 {
-                    var first = nextIndex();
+                    var first = rand.Next(notes.Count - 1);
                     var second = "";
-                    var third = nextIndex();
-                    b.Append($"{first}{second}{third},");
+                    var third = rand.Next(notes.Count - 1);
+                    var noteA = new NoteViewModel(notes[first]);
+                    var noteB = new NoteViewModel(notes[third]);
+                    list.Add(new NoteSection(new List<NoteViewModel> { noteA, noteB }));
+
                 }
                 else if (rand.NextDouble() < 0.2 && waits)
-                    b.Append("x,x,x,x,");
+                    list.Add(new NoteSection());
                 else
-                    b.Append($"{nextIndex()},"); 
+                    list.Add(new NoteSection(new List<NoteViewModel>(){ new NoteViewModel(notes[rand.Next(notes.Count - 1)])}));
             }
 
-            return (new NoteStringReader(b.ToString(), clef)).GetNoteSections();
+            return list;
+            //return (new NoteStringReader(b.ToString(), clef)).GetNoteSections();
         }
     }
 }

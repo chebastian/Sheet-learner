@@ -9,6 +9,57 @@ using XTestMan.Views.Music;
 
 namespace SheetLearner.Music.ViewModels
 {
+    public class NotesLedgerViewModel : ViewModelBase
+    {
+
+        private int _x;
+        public int X
+        {
+            get => _x;
+            set
+            {
+                _x = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private int _y;
+        public int Y
+        {
+            get => _y;
+            set
+            {
+                _y = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private int _topLedgerCount;
+        public int TopLedgerCount
+        {
+            get => _topLedgerCount;
+            set
+            {
+                _topLedgerCount = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private int _bottomLedgerCount;
+        public int BottomLedgercount
+        {
+            get => _bottomLedgerCount;
+            set
+            {
+                _bottomLedgerCount = value;
+                OnPropertyChanged();
+            }
+        } 
+    }
+
     public class NoteViewModel : ViewModelBase
     {
  
@@ -79,6 +130,7 @@ namespace SheetLearner.Music.ViewModels
         }
         public int NoteWidth { get; set; } = 16;
         public Clef ActiveClef { get; private set; }
+        public ObservableCollection<NotesLedgerViewModel> Lines { get; private set; }
 
         public ClefViewModel(Clef clef)
         {
@@ -103,7 +155,7 @@ namespace SheetLearner.Music.ViewModels
             };
 
             //AddNoteGroup(notes);
-            //AddNoteGroup(two); 
+            //AddNoteGroup(two);
         }
 
         public void AddNoteGroup(List<Note> notes)
@@ -136,6 +188,32 @@ namespace SheetLearner.Music.ViewModels
 
             Groups.Add(new NoteSection(vms));
 
+            AddLedgerLines(new NoteSection(vms));
+
+        }
+
+        public int GetNumberOfLedgerLinesInNote(Note note)
+        {
+            return NotesFactory.NumberOfLedgerLines(note, ActiveClef);
+        }
+
+        private void AddLedgerLines(NoteSection noteSection)
+        {
+            if (noteSection.Notes.Count <= 0)
+                return;
+
+            var notes = ActiveClef == Clef.Bass ? NotesFactory.BassNote : NotesFactory.TrebleNote;
+            var order = noteSection.Notes.Select(x => new { idx = NoteToPisitionInClef(x.Note,ActiveClef), val = x }).OrderBy(x => x.idx);
+            var minNote = order.First();
+            var maxNote = order.Last();
+
+            Lines = Lines ?? new ObservableCollection<NotesLedgerViewModel>();
+            Lines.Add(new NotesLedgerViewModel()
+            {
+                X = Lines.Count * NoteWidth,
+                TopLedgerCount = NotesFactory.TopLedgerLines(minNote.val.Note, ActiveClef),
+                BottomLedgercount = NotesFactory.BottomLedgerLines(maxNote.val.Note, ActiveClef)
+            });
         }
 
         private int NoteToPisitionInClef(Note note, Clef clef)

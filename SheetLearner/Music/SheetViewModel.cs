@@ -141,8 +141,10 @@ namespace XTestMan.Views.Music
             var pnotes = playedNotes.Select(x => new Note(scaleArr[x])).ToList();
 
 
-            var allPlayed = firstUnplayed.Notes.Select(x => x.Note.Id.ToUpper()).All(x => playedNoteNames.Contains(x));
-            if (allPlayed)
+            //var allPlayed = firstUnplayed.Notes.Select(x => x.Note.Id.ToUpper().Take(1)).All(x => playedNoteNames.Contains(x));
+            var allPlayed = firstUnplayed.Notes.Select(x => x.Note.Id.ToUpper().Substring(0,1)).ToList();
+            var isAllPlayed = allPlayed.All(x => playedNoteNames.Contains(x));
+            if (isAllPlayed)
             {
                 MarkLastAsPlayed();
             }

@@ -21,6 +21,7 @@ namespace XTestMan.Views.Music
 
         public NoteSection()
         {
+            Notes = new List<NoteViewModel>();
                 BottomLedger = Enumerable.Repeat<LedgerNote>(new LedgerNote(new Note(),false),2).ToList();
                 TopLedger = Enumerable.Repeat<LedgerNote>(new LedgerNote(new Note(),false),2).ToList();
             AllNotes = new List<Note>();
@@ -58,12 +59,7 @@ namespace XTestMan.Views.Music
             {
                 var c = sheet.GetNoteValueInClef(clef, note);
 
-                if (IsTopLedger(note,clef))
-                    section.AddToTopLedger(note,c);
-                else if (IsBottomLedger(note,clef))
-                    section.AddToBottomLedger(note,c);
-                else 
-                    notes[c] = note;
+                notes[c] = note;
 
                 section.AllNotes.Add(note);
             }

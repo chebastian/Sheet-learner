@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace XTestMan.Views.Music
 {
@@ -17,7 +18,7 @@ namespace XTestMan.Views.Music
             this.x = x;
             TopLedger = x.TopLedger;
             BottomLedger = x.BottomLedger;
-            AllNotes = x.AllNotes;
+            AllNotes = x.Notes.Select(theNote => theNote.Note).ToList();
             IsPlayed = false;
         }
 

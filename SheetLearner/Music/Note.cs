@@ -50,6 +50,154 @@ namespace XTestMan.Views.Music
             F3, G3, A3, B3, C3, D3, E3,
         };
 
+        public static int BottomLedgerLines(Note note, Clef clef )
+        {
+            var count = 0;
+            if(clef == Clef.Bass)
+            {
+                var ledgerDict = new Dictionary<Note, int>()
+                {
+                    //bottom
+                    {A1,3},
+                    {B1,2},
+                    {C1,2},
+                    {D1,1},
+                    {E1,1},
+                    {F1,0},
+                };
+
+                if(ledgerDict.TryGetValue(note,out var bassCount))
+                {
+                    return bassCount;
+                }
+            }
+
+            if(clef == Clef.Treble)
+            {
+                var ledgerDict = new Dictionary<Note, int>()
+                {
+                    //F1, G1, A1, B1, C1, D1, E1,
+                    //bottom
+                    {F1,3},
+                    {G1,2},
+                    {A1,2},
+                    {B1,1},
+                    {C1,1},
+                    {D1,0}, 
+                };
+
+                if(ledgerDict.TryGetValue(note,out var bassCount))
+                {
+                    return bassCount;
+                }
+            }
+
+            return 0;
+
+        }
+
+        public static int TopLedgerLines(Note note, Clef clef)
+        {
+            var count = 0;
+            if(clef == Clef.Bass)
+            {
+                var ledgerDict = new Dictionary<Note, int>()
+                {
+                    //Top
+                    {B3,0},
+                    {C3,1},
+                    {D3,1},
+                    {E3,2},
+                    {F3,2}, 
+                };
+
+                if(ledgerDict.TryGetValue(note,out var bassCount))
+                {
+                    return bassCount;
+                }
+            }
+
+            if(clef == Clef.Treble)
+            {
+                var ledgerDict = new Dictionary<Note, int>()
+                { 
+                    //Top F3, G3, A3, B3, C3, D3, E3,
+                    {F3,0},
+                    {G3,0},
+                    {A3,1},
+                    {B3,1},
+                    {C3,2}, 
+                };
+
+                if(ledgerDict.TryGetValue(note,out var bassCount))
+                {
+                    return bassCount;
+                }
+            }
+
+            return 0;
+
+        }
+
+        public static int NumberOfLedgerLines(Note note, Clef clef)
+        {
+            var count = 0;
+            if(clef == Clef.Bass)
+            {
+                var ledgerDict = new Dictionary<Note, int>()
+                {
+                    //bottom
+                    {A1,3},
+                    {B1,2},
+                    {C1,2},
+                    {D1,1},
+                    {E1,1},
+                    {F1,0},
+
+                    //Top
+                    {B3,0},
+                    {C3,1},
+                    {D3,1},
+                    {E3,2},
+                    {F3,2}, 
+                };
+
+                if(ledgerDict.TryGetValue(note,out var bassCount))
+                {
+                    return bassCount;
+                }
+            }
+
+            if(clef == Clef.Treble)
+            {
+                var ledgerDict = new Dictionary<Note, int>()
+                {
+                    //F1, G1, A1, B1, C1, D1, E1,
+                    //bottom
+                    {F1,3},
+                    {G1,2},
+                    {A1,2},
+                    {B1,1},
+                    {C1,1},
+                    {D1,0},
+
+                    //Top F3, G3, A3, B3, C3, D3, E3,
+                    {F3,0},
+                    {G3,0},
+                    {A3,1},
+                    {B3,1},
+                    {C3,2}, 
+                };
+
+                if(ledgerDict.TryGetValue(note,out var bassCount))
+                {
+                    return bassCount;
+                }
+            }
+
+            return 0;
+        }
+
         public static List<Note> BassLowerLedger => new List<Note>()
         {
             E1,
@@ -167,6 +315,13 @@ namespace XTestMan.Views.Music
         {
             var note = obj as Note;
             return note != null && _note == note._note;
+        }
+
+        public bool Equals(Note note)
+        {
+            var idx = NotesFactory.TrebleNote.IndexOf(note) % 8;
+            var myidx = NotesFactory.TrebleNote.IndexOf(this) % 8;
+            return idx == myidx;
         }
 
         public override int GetHashCode()

@@ -29,7 +29,10 @@ namespace XTestMan.Views.Music
 
         public static List<Note> GetNotesInActiveClef(Clef clef)
         {
-            return GetNotesInClef(clef);
+            if (clef == Clef.Bass)
+                return NotesFactory.BassNote;
+
+            return NotesFactory.TrebleNote;
         }
 
         public void SwitchClef(Clef clef)
@@ -121,22 +124,22 @@ namespace XTestMan.Views.Music
                 count++;
             }
 
-            count = 0;
-            if(clef.Equals(Clef.Bass))
-            {
-                map.Add(NotesFactory.E1, 1);
-                map.Add(NotesFactory.F1, 0);
-                map.Add(NotesFactory.B2, 1);
-                map.Add(NotesFactory.C2, 0);
-            }
+            //count = 0;
+            //if(clef.Equals(Clef.Bass))
+            //{
+            //    map.Add(NotesFactory.E1, 1);
+            //    map.Add(NotesFactory.F1, 0);
+            //    map.Add(NotesFactory.B2, 1);
+            //    map.Add(NotesFactory.C2, 0);
+            //}
 
-            if(clef.Equals(Clef.Treble))
-            {
-                map.Add(NotesFactory.C1, 1);
-                map.Add(NotesFactory.D1, 0);
-                map.Add(NotesFactory.G2, 1);
-                map.Add(NotesFactory.A2, 0); 
-            }
+            //if(clef.Equals(Clef.Treble))
+            //{
+            //    map.Add(NotesFactory.C1, 1);
+            //    map.Add(NotesFactory.D1, 0);
+            //    map.Add(NotesFactory.G2, 1);
+            //    map.Add(NotesFactory.A2, 0); 
+            //}
             return map;
         }
 

@@ -1,4 +1,6 @@
 using NUnit.Framework;
+using SheetLearner.Music.ViewModels;
+using System.Collections.Generic;
 using XTestMan.Views.Music;
 
 namespace Tests
@@ -22,6 +24,18 @@ namespace Tests
 
             Assert.That(f2Val,Is.EqualTo(2),"ERror");
             Assert.That(f2Val, Is.EqualTo(valSharped), "Error when sharp");
+        }
+
+        [Test]
+        public void NoteLedgerCountIsCorrect()
+        {
+            var cf = new ClefViewModel(Clef.Treble);
+            var notes = new List<Note>()
+            { 
+                NotesFactory.C1
+            };
+
+            cf.AddNoteGroup(notes);
         }
     }
 }
