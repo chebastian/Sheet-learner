@@ -50,6 +50,18 @@ namespace XTestMan.Views.Music
             F3, G3, A3, B3, C3, D3, E3,
         };
 
+        public static Note GetInterval(Note n, int interval, Clef clef)
+        {
+            var source = clef == Clef.Bass ? BassNote : TrebleNote;
+
+            var idx = source.IndexOf(n);
+            var maxIdx = Math.Min(idx + interval, source.Count - 1);
+            return source.ElementAt(maxIdx);
+        }
+
+
+
+
         private static List<Note> NotesInRange(List<Note> range, Note min, Note max)
         {
             var indexMin = range.IndexOf(min);

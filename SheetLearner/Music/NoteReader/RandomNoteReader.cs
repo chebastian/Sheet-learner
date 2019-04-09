@@ -72,30 +72,27 @@ namespace XTestMan.Views.Music.NoteReader
             rand = rand ?? new Random();
             var list = new List<NoteSection>();
 
+            var lastNote = NotesFactory.C1;
+            var stepSize = 8;
             for(var i =0; i < count; i++)
             {
-                var rnd = rand.Next(notes.Count - 1);
-                Func<string> nextIndex = () => 
-                {
-                    var isSharp = false;
-                    rnd = rand.Next(notes.Count - 1); 
-
-                    return  isSharp ? notes[rnd].Sharped().Id : notes[rnd].Id;
-                };
-
                 if (rand.NextDouble() < 0.3)
                 {
                     var first = rand.Next(notes.Count - 1);
                     var third = rand.Next(notes.Count - 1);
                     var noteA = new NoteViewModel(notes[first]);
-                    var noteB = new NoteViewModel(notes[third]);
+                    if (list.Count > 0)
+                        noteA = new NoteViewModel( NotesFactory.GetInterval(lastNote, rand.Next(stepSize), clef) );
+                    //var noteB = new NoteViewModel(notes[third]);
+                    var noteB = new NoteViewModel(NotesFactory.GetInterval(noteA.Note, rand.Next(stepSize),clef));
                     list.Add(new NoteSection(new List<NoteViewModel> { noteA, noteB }));
 
                 }
                 else if (rand.NextDouble() < 0.2 && waits)
                     list.Add(new NoteSection());
                 else
-                    list.Add(new NoteSection(new List<NoteViewModel>(){ new NoteViewModel(notes[rand.Next(notes.Count - 1)])}));
+                    list.Add(new NoteSection(new List<NoteViewModel>(){ new NoteViewModel(NotesFactory.GetInterval(lastNote,rand.Next(stepSize),clef))}));
+                    //list.Add(new NoteSection(new List<NoteViewModel>(){ new NoteViewModel(notes[rand.Next(notes.Count - 1)])}));
             }
 
             return list;
