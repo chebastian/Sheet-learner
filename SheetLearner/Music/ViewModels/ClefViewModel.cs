@@ -18,18 +18,6 @@ namespace SheetLearner.Music.ViewModels
             Played = false;
         }
 
-
-        private bool _isLedger;
-        public bool IsLedger
-        {
-            get => _isLedger;
-            set
-            {
-                _isLedger = value;
-                OnPropertyChanged();
-            }
-        } 
-
         private bool _played;
 
         public Note Note { get; }
@@ -112,22 +100,26 @@ namespace SheetLearner.Music.ViewModels
 
             var xoffset = 1 + Groups.Count * NoteWidth;
             var left = false;
-            var last = -1;
+            var lastNotePosition = -1;
             foreach(var note in notes.OrderBy(x => x.Id))
             {
-                var ypos = NoteToPisitionInClef(note, ActiveClef); 
-                var newNote = new NoteViewModel(note) { X = xoffset, Y = 6 * ypos };
-
-                newNote.IsLedger = ypos % 2 == 1;
-
-                var is2nd = last - ypos == 1;
-                if(is2nd)
+                var currentNoteY = NoteToPisitionInClef(note, ActiveClef); 
+                var newNote = new NoteViewModel(note)
                 {
-                    left = !left;
+                    X = xoffset,
+                    Y = 6 * currentNoteY,
+                }; 
+
+                var isDirectlyAboveLastNote = lastNotePosition - currentNoteY == 1;
+                if(isDirectlyAboveLastNote)
+                {
+                    left = !left;  // If more than one note is in succesion it should go left, right left
                     newNote.X += left ? 4 : 0;
                 }
-                last = ypos;
+                else
+                    left = false;
 
+                lastNotePosition = currentNoteY; 
                 Notes.Add(newNote);
                 notesInSection.Add(newNote);
             } 
