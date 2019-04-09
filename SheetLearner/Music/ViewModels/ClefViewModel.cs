@@ -103,10 +103,7 @@ namespace SheetLearner.Music.ViewModels
             {
                 NotesFactory.F1,
                 NotesFactory.E2
-            };
-
-            //AddNoteGroup(notes);
-            //AddNoteGroup(two);
+            }; 
         }
 
         public void AddNoteGroup(List<Note> notes)
