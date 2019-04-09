@@ -83,7 +83,6 @@ namespace XTestMan.Views.Music.NoteReader
                     var noteA = new NoteViewModel(notes[first]);
                     if (list.Count > 0)
                         noteA = new NoteViewModel( NotesFactory.GetInterval(lastNote, rand.Next(stepSize), clef) );
-                    //var noteB = new NoteViewModel(notes[third]);
                     var noteB = new NoteViewModel(NotesFactory.GetInterval(noteA.Note, rand.Next(stepSize),clef));
                     list.Add(new NoteSection(new List<NoteViewModel> { noteA, noteB }));
 
@@ -92,11 +91,9 @@ namespace XTestMan.Views.Music.NoteReader
                     list.Add(new NoteSection());
                 else
                     list.Add(new NoteSection(new List<NoteViewModel>(){ new NoteViewModel(NotesFactory.GetInterval(lastNote,rand.Next(stepSize),clef))}));
-                    //list.Add(new NoteSection(new List<NoteViewModel>(){ new NoteViewModel(notes[rand.Next(notes.Count - 1)])}));
             }
 
             return list;
-            //return (new NoteStringReader(b.ToString(), clef)).GetNoteSections();
         }
     }
 }
