@@ -153,15 +153,11 @@ namespace SheetLearner.Music.ViewModels
         {
             if (noteSection.Notes.Count <= 0)
                 return new List<NoteViewModel>();
- 
-            var order = noteSection.Notes.Select(x => new { idx = NoteToPisitionInClef(x.Note,ActiveClef), val = x }).OrderBy(x => x.idx).ToList();
-            var minNote = order.First().val.Note;
-            var maxNote = order.Last().val.Note;
 
             var linesToFill = new List<NoteViewModel>();
 
-            linesToFill.AddRange(NotesFactory.GetLineNotesInLedger(minNote, ActiveClef).Select(x => new NoteViewModel(x)));
-            linesToFill.AddRange(NotesFactory.GetLineNotesInLedger(maxNote, ActiveClef).Select(x => new NoteViewModel(x)));
+            linesToFill.AddRange(NotesFactory.GetLineNotesInLedger(noteSection.HighestNote, ActiveClef).Select(x => new NoteViewModel(x)));
+            linesToFill.AddRange(NotesFactory.GetLineNotesInLedger(noteSection.LowestNote, ActiveClef).Select(x => new NoteViewModel(x)));
 
             return linesToFill;
         }
