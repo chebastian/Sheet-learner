@@ -86,7 +86,6 @@ namespace XTestMan.Views.Music
             set
             {
                 _textNotes = value; OnPropertyChanged();
-                //SetNotes(value);
             }
         }
 
@@ -97,16 +96,7 @@ namespace XTestMan.Views.Music
         }
 
         private NoteSection FirstUnplayedInSequence(List<NoteSection> sections, out int foundAt)
-        {
-            //var hasUnplayedNotes = sections.Any(x => x.Notes.Count > 0 && !(x as NoteViewModel).IsPlayed);
-
-            ////TODO deal with this 
-            //if (!hasUnplayedNotes)
-            //{
-            //    foundAt = int.MaxValue;
-            //    return new NoteSection();
-            //}
-
+        { 
             var res = sections.Select((value, index) => new { section = value, index = index }).First(x => x.section.Notes.Count > 0 && !(x.section.IsAllPlayed()));
             foundAt = res.index;
             return res.section;
@@ -114,16 +104,12 @@ namespace XTestMan.Views.Music
 
         public NoteSection CurrentNoteSection()
         {
-            //var ts = FirstUnplayedInSequence(TrebleNotes.ToList(), out var treb);
-            //var bs = FirstUnplayedInSequence(BassNotes.ToList(), out var bass);
             var ts = FirstUnplayedInSequence(ClefViewModel.Groups, out var treb);
             var bs = FirstUnplayedInSequence(BassClefViewModel.Groups, out var bass);
 
             if (treb == bass)
             {
                 var notes = ts.Notes.Union(bs.Notes).ToList();
-                //TODO check this out, what should this do with clef and sheet?
-                //return NoteSection.CreateSectionFromNotes(notes.ToList(), Clef.Treble, _model);
                 return new NoteSection(notes);
             }
 
@@ -146,7 +132,6 @@ namespace XTestMan.Views.Music
             var pnotes = playedNotes.Select(x => new Note(scaleArr[x])).ToList();
 
 
-            //var allPlayed = firstUnplayed.Notes.Select(x => x.Note.Id.ToUpper().Take(1)).All(x => playedNoteNames.Contains(x));
             var allPlayed = firstUnplayed.Notes.Select(x => x.Note.Id.ToUpper().Substring(0,1)).ToList();
             var isAllPlayed = allPlayed.All(x => playedNoteNames.Contains(x));
             if (isAllPlayed)
@@ -163,8 +148,6 @@ namespace XTestMan.Views.Music
 
         private void MarkLastAsPlayed()
         {
-            //var ts = FirstUnplayedInSequence(TrebleNotes.ToList(), out var ti);
-            //var bs = FirstUnplayedInSequence(BassNotes.ToList(), out var bi);
             var ts = FirstUnplayedInSequence(ClefViewModel.Groups,out var ti);
             var bs = FirstUnplayedInSequence(BassClefViewModel.Groups,out var bi);
 
