@@ -22,8 +22,8 @@ namespace XTestMan.Views.Music
         public NoteSection()
         {
             Notes = new List<NoteViewModel>();
-                BottomLedger = Enumerable.Repeat<LedgerNote>(new LedgerNote(new Note(),false),2).ToList();
-                TopLedger = Enumerable.Repeat<LedgerNote>(new LedgerNote(new Note(),false),2).ToList();
+            BottomLedger = Enumerable.Repeat<LedgerNote>(new LedgerNote(new Note(), false), 2).ToList();
+            TopLedger = Enumerable.Repeat<LedgerNote>(new LedgerNote(new Note(), false), 2).ToList();
             AllNotes = new List<Note>();
         } 
 
@@ -47,63 +47,22 @@ namespace XTestMan.Views.Music
             Notes.ForEach(x => x.Played = true);
         }
 
+        public Note HighestNote
+        {
+            get
+            {
+                return NotesFactory.A1;
+            }
+        }
+
         public static NoteSection CreateSectionFromNotes(List<Note> bar, Clef clef, Sheet sheet)
         {
             var section = new NoteSection();
-
-            var possible = Sheet.GetNonLedgerNotesInClef(clef);
             var notes = new List<Note>();
-            notes.AddRange(Enumerable.Repeat<Note>(new Note(), possible.Count));
-
-            foreach(var note in bar)
-            {
-                var c = sheet.GetNoteValueInClef(clef, note);
-
-                notes[c] = note;
-
-                section.AllNotes.Add(note);
-            }
-
-
+            notes.AddRange(Enumerable.Repeat<Note>(new Note(), NotesFactory.BassNote.Count));
             section.Section = notes;
-            return section;
-        }
-
-        private static bool IsTopLedger(Note n, Clef clef)
-        {
-            if (clef.Equals(Clef.Treble))
-                return NotesFactory.TrebbleUpperLedger.Contains(n, new RootNoteComparer()); 
-
-            return NotesFactory.BassUpperLedger.Contains(n, new RootNoteComparer()); 
-        }
-
-        private static bool IsBottomLedger(Note n, Clef clef)
-        {
-            if (clef.Equals(Clef.Treble))
-                return NotesFactory.TrebbleLowerLedger.Contains(n,new RootNoteComparer());
-
-            return NotesFactory.BassLowerLedger.Contains(n,new RootNoteComparer());
-        }
-
-        private void AddToBottomLedger(Note note, int index)
-        {
-            if (BottomLedger == null)
-                BottomLedger = Enumerable.Repeat<LedgerNote>(new LedgerNote(note,false),2).ToList();
-
- 
-            //BottomLedger[note.Value] = new LedgerNote(note, note.Value%2 > 0);
-            BottomLedger[index] = new LedgerNote(note, index%2 > 0);
-        }
-
-        private void AddToTopLedger(Note note, int index)
-        {
-            if (TopLedger == null)
-                BottomLedger = Enumerable.Repeat<LedgerNote>(new LedgerNote(note,false),2).ToList();
-
-
-            //TopLedger[note.Value] = new LedgerNote(note, note.Value % 2 == 0);
-            TopLedger[index] = new LedgerNote(note, index%2 == 0);
-        }
+            return section; 
+        } 
 
         private List<LedgerNote> _topLedger;
         public List<LedgerNote> TopLedger { get => _topLedger; 

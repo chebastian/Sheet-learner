@@ -31,8 +31,12 @@ namespace XTestMan.Views.Music.NoteReader
 
         public static List<NoteSection> CreateEmpty(int len)
         {
-            var empty = NoteSection.CreateSectionFromNotes(new List<Note>(), Clef.Bass, new Sheet(Clef.Bass));
-            return Enumerable.Repeat(empty,len).ToList(); 
+            var section = new NoteSection();
+            var notes = new List<Note>();
+            notes.AddRange(Enumerable.Repeat<Note>(new Note(), NotesFactory.BassNote.Count));
+            section.Section = notes;
+
+            return Enumerable.Repeat(section,len).ToList(); 
         }
 
         public static List<NoteSection> CreateRandomSectionFromClef(Clef clef, int len)
