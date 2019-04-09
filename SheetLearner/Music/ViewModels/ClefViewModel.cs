@@ -68,6 +68,7 @@ namespace SheetLearner.Music.ViewModels
         public int NoteWidth { get; set; } = 16;
         public Clef ActiveClef { get; private set; }
         public ObservableCollection<NoteViewModel> NotesInLedger { get; set; }
+        public int NudgeWidth { get; private set; } = 4;
 
         public ClefViewModel(Clef clef)
         {
@@ -115,13 +116,11 @@ namespace SheetLearner.Music.ViewModels
                 Notes.Add(newNote);
                 notesInSection.Add(newNote);
             } 
-            Groups.Add(new NoteSection(notesInSection));
 
-            NotesInLedger = NotesInLedger ?? new ObservableCollection<NoteViewModel>();
+            Groups.Add(new NoteSection(notesInSection)); 
 
-            var ledger = CreateTrailingLinesForSection(new NoteSection(notesInSection));
-
-            ledger.ForEach( note => NotesInLedger.Add(
+            CreateTrailingLinesForSection(new NoteSection(notesInSection))
+            .ForEach( note => NotesInLedger.Add(
                     new NoteViewModel(note.Note)
                     {
                         X = startPosX,
@@ -136,7 +135,7 @@ namespace SheetLearner.Music.ViewModels
             if (isDirectlyAboveLastNote)
             {
                 nudgeToFit = !nudgeToFit;
-                newNote.X += nudgeToFit ? 4 : 0;
+                newNote.X += nudgeToFit ? NudgeWidth : 0;
             }
             else
                 nudgeToFit = false;
