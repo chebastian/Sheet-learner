@@ -64,8 +64,6 @@ namespace XTestMan.Views.Music.NoteReader
 
         private List<NoteSection> CreateRandomSections(Clef clef, int count, bool waits=true)
         {
-            var b = new StringBuilder();
-            var res = new List<String>();
             var notes = Sheet.GetNotesInActiveClef(clef);
             rand = rand ?? new Random();
             var list = new List<NoteSection>();
@@ -84,7 +82,6 @@ namespace XTestMan.Views.Music.NoteReader
                 if (rand.NextDouble() < 0.3)
                 {
                     var first = rand.Next(notes.Count - 1);
-                    var second = "";
                     var third = rand.Next(notes.Count - 1);
                     var noteA = new NoteViewModel(notes[first]);
                     var noteB = new NoteViewModel(notes[third]);

@@ -89,7 +89,7 @@ namespace SheetLearner.Music.ViewModels
         {
             get => _played;
             set
-            {
+            { 
                 _played = value;
                 OnPropertyChanged();
             }
@@ -122,6 +122,7 @@ namespace SheetLearner.Music.ViewModels
     public class ClefViewModel : ViewModelBase
     {
         public List<NoteSection> Groups;
+        public List<NoteSection> Ledger;
 
         public ObservableCollection<NoteViewModel> Notes
         {
@@ -130,12 +131,15 @@ namespace SheetLearner.Music.ViewModels
         }
         public int NoteWidth { get; set; } = 16;
         public Clef ActiveClef { get; private set; }
-        public ObservableCollection<NotesLedgerViewModel> Lines { get; private set; }
+        public ObservableCollection<NotesLedgerViewModel> Lines { get;  set; }
+        public ObservableCollection<NoteViewModel> NotesInLedger { get; set; }
 
         public ClefViewModel(Clef clef)
         {
             Groups = new List<NoteSection>();
             Notes = new ObservableCollection<NoteViewModel>();
+            NotesInLedger = new ObservableCollection<NoteViewModel>();
+
             ActiveClef = clef;
 
             var notes = new List<Note>
@@ -160,10 +164,9 @@ namespace SheetLearner.Music.ViewModels
 
         public void AddNoteGroup(List<Note> notes)
         {
-            var vms = new List<NoteViewModel>();
+            var notesInSection = new List<NoteViewModel>();
 
             var xoffset = 1 + Groups.Count * NoteWidth;
-            var index = 0;
             var left = false;
             var last = -1;
             foreach(var note in notes.OrderBy(x => x.Id))
@@ -179,17 +182,24 @@ namespace SheetLearner.Music.ViewModels
                     left = !left;
                     newNote.X += left ? 4 : 0;
                 }
-                index++;
                 last = ypos;
 
                 Notes.Add(newNote);
-                vms.Add(newNote);
+                notesInSection.Add(newNote);
             } 
+            Groups.Add(new NoteSection(notesInSection));
 
-            Groups.Add(new NoteSection(vms));
+            NotesInLedger = NotesInLedger ?? new ObservableCollection<NoteViewModel>();
 
-            AddLedgerLines(new NoteSection(vms));
+            var ledger = CreateTrailingLinesForSection(new NoteSection(notesInSection));
+            foreach(var note in ledger)
+            {
+                var ypos = NoteToPisitionInClef(note.Note, ActiveClef); 
+                NotesInLedger.Add(new NoteViewModel(note.Note) { X = xoffset, Y = 6 * ypos });
+            }
 
+            Ledger = Ledger ?? new List<NoteSection>();
+            Ledger.Add(new NoteSection(ledger)); 
         }
 
         public int GetNumberOfLedgerLinesInNote(Note note)
@@ -197,23 +207,23 @@ namespace SheetLearner.Music.ViewModels
             return NotesFactory.NumberOfLedgerLines(note, ActiveClef);
         }
 
-        private void AddLedgerLines(NoteSection noteSection)
+        private List<NoteViewModel> CreateTrailingLinesForSection(NoteSection noteSection)
         {
             if (noteSection.Notes.Count <= 0)
-                return;
-
-            var notes = ActiveClef == Clef.Bass ? NotesFactory.BassNote : NotesFactory.TrebleNote;
-            var order = noteSection.Notes.Select(x => new { idx = NoteToPisitionInClef(x.Note,ActiveClef), val = x }).OrderBy(x => x.idx);
-            var minNote = order.First();
-            var maxNote = order.Last();
-
+                return new List<NoteViewModel>();
+ 
             Lines = Lines ?? new ObservableCollection<NotesLedgerViewModel>();
-            Lines.Add(new NotesLedgerViewModel()
-            {
-                X = Lines.Count * NoteWidth,
-                TopLedgerCount = NotesFactory.TopLedgerLines(minNote.val.Note, ActiveClef),
-                BottomLedgercount = NotesFactory.BottomLedgerLines(maxNote.val.Note, ActiveClef)
-            });
+
+            var order = noteSection.Notes.Select(x => new { idx = NoteToPisitionInClef(x.Note,ActiveClef), val = x }).OrderBy(x => x.idx).ToList();
+            var minNote = order.First().val.Note;
+            var maxNote = order.Last().val.Note;
+
+            var linesToFill = new List<NoteViewModel>();
+
+            linesToFill.AddRange(NotesFactory.GetLineNotesInLedger(minNote, ActiveClef).Select(x => new NoteViewModel(x)));
+            linesToFill.AddRange(NotesFactory.GetLineNotesInLedger(maxNote, ActiveClef).Select(x => new NoteViewModel(x)));
+
+            return linesToFill;
         }
 
         private int NoteToPisitionInClef(Note note, Clef clef)

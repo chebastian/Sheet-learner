@@ -76,22 +76,14 @@
                                     </TransformGroup>
                                 </Ellipse.RenderTransform>
                             </Ellipse>
-                                <Rectangle VerticalAlignment="Center" Height="1" Width="15" Fill="Black" Visibility="{Binding IsLedger, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CollapsedWhenFalse}}">
-                                <Rectangle.RenderTransform>
-                                    <TransformGroup>
-                                    <TranslateTransform 
-                                        Y="{Binding Y, UpdateSourceTrigger=PropertyChanged}"
-                                        X="{Binding X, UpdateSourceTrigger=PropertyChanged}"/>
-                                    </TransformGroup>
-                                </Rectangle.RenderTransform>
-                                </Rectangle>
                             </Grid>
                         </Canvas>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
 
-            <ItemsControl ItemsSource="{Binding Lines, UpdateSourceTrigger=PropertyChanged}"
+            <ItemsControl 
+                ItemsSource="{Binding NotesInLedger, UpdateSourceTrigger=PropertyChanged}"
                 Style="{x:Null}" 
                 Margin="0"
                 Padding="0"
@@ -109,15 +101,26 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Canvas>
-                            <Rectangle Fill="Green" Width="{Binding ElementName=root, Path=ActualWidth}">
-                                <Rectangle.RenderTransform>
+                            <Grid>
+                                <Ellipse Margin="0,0,0,0" Height="10" Width="10" Fill="Transparent" >
+                                    <Ellipse.RenderTransform>
+                                        <TransformGroup>
+                                            <TranslateTransform 
+                                        Y="{Binding Y, UpdateSourceTrigger=PropertyChanged}"
+                                        X="{Binding X, UpdateSourceTrigger=PropertyChanged}"/>
+                                        </TransformGroup>
+                                    </Ellipse.RenderTransform>
+                                </Ellipse>
+                                <Rectangle VerticalAlignment="Center" Height="1" Width="15" Fill="Black" >
+                                    <Rectangle.RenderTransform>
                                     <TransformGroup>
                                     <TranslateTransform 
-                                        Y="16"
+                                        Y="{Binding Y, UpdateSourceTrigger=PropertyChanged}"
                                         X="{Binding X, UpdateSourceTrigger=PropertyChanged}"/>
                                     </TransformGroup>
                                 </Rectangle.RenderTransform>
-                            </Rectangle>
+                                </Rectangle>
+                            </Grid>
                         </Canvas>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
