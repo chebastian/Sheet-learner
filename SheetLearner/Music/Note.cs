@@ -63,17 +63,6 @@ namespace XTestMan.Views.Music
             return range.GetRange(noteMin, (noteMax + 1) - noteMin).ToList();
         }
 
-        public static List<Note> GetLineNotesInLedger(Note note, Clef clef)
-        {
-            return GetNotesInLedger(note, clef);
-            //return GetNotesInLedger(note, clef).Where((x, i) => i % 2 == 0).ToList();
-        }
-
-        private static List<Note> WhereMudolo(List<Note> notes,int mod)
-        {
-            return notes.Where((x, i) => i % 2 == mod).ToList();
-        }
-
         private static List<Note> WhereMatch(List<Note> notes, List<Note> match)
         {
             return notes.Where(x => match.Contains(x)).ToList();

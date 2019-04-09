@@ -156,8 +156,8 @@ namespace SheetLearner.Music.ViewModels
 
             var linesToFill = new List<NoteViewModel>();
 
-            linesToFill.AddRange(NotesFactory.GetLineNotesInLedger(noteSection.HighestNote, ActiveClef).Select(x => new NoteViewModel(x)));
-            linesToFill.AddRange(NotesFactory.GetLineNotesInLedger(noteSection.LowestNote, ActiveClef).Select(x => new NoteViewModel(x)));
+            linesToFill.AddRange(NotesFactory.GetNotesInLedger(noteSection.HighestNote, ActiveClef).Select(x => new NoteViewModel(x)));
+            linesToFill.AddRange(NotesFactory.GetNotesInLedger(noteSection.LowestNote, ActiveClef).Select(x => new NoteViewModel(x)));
 
             return linesToFill;
         }
