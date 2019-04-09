@@ -8,58 +8,7 @@ using System.Threading.Tasks;
 using XTestMan.Views.Music;
 
 namespace SheetLearner.Music.ViewModels
-{
-    public class NotesLedgerViewModel : ViewModelBase
-    {
-
-        private int _x;
-        public int X
-        {
-            get => _x;
-            set
-            {
-                _x = value;
-                OnPropertyChanged();
-            }
-        }
-
-
-        private int _y;
-        public int Y
-        {
-            get => _y;
-            set
-            {
-                _y = value;
-                OnPropertyChanged();
-            }
-        }
-
-
-        private int _topLedgerCount;
-        public int TopLedgerCount
-        {
-            get => _topLedgerCount;
-            set
-            {
-                _topLedgerCount = value;
-                OnPropertyChanged();
-            }
-        }
-
-
-        private int _bottomLedgerCount;
-        public int BottomLedgercount
-        {
-            get => _bottomLedgerCount;
-            set
-            {
-                _bottomLedgerCount = value;
-                OnPropertyChanged();
-            }
-        } 
-    }
-
+{ 
     public class NoteViewModel : ViewModelBase
     {
  
@@ -122,7 +71,6 @@ namespace SheetLearner.Music.ViewModels
     public class ClefViewModel : ViewModelBase
     {
         public List<NoteSection> Groups;
-        public List<NoteSection> Ledger;
 
         public ObservableCollection<NoteViewModel> Notes
         {
@@ -131,7 +79,6 @@ namespace SheetLearner.Music.ViewModels
         }
         public int NoteWidth { get; set; } = 16;
         public Clef ActiveClef { get; private set; }
-        public ObservableCollection<NotesLedgerViewModel> Lines { get;  set; }
         public ObservableCollection<NoteViewModel> NotesInLedger { get; set; }
 
         public ClefViewModel(Clef clef)
@@ -198,8 +145,6 @@ namespace SheetLearner.Music.ViewModels
                 NotesInLedger.Add(new NoteViewModel(note.Note) { X = xoffset, Y = 6 * ypos });
             }
 
-            Ledger = Ledger ?? new List<NoteSection>();
-            Ledger.Add(new NoteSection(ledger)); 
         }
 
         public int GetNumberOfLedgerLinesInNote(Note note)
@@ -212,8 +157,6 @@ namespace SheetLearner.Music.ViewModels
             if (noteSection.Notes.Count <= 0)
                 return new List<NoteViewModel>();
  
-            Lines = Lines ?? new ObservableCollection<NotesLedgerViewModel>();
-
             var order = noteSection.Notes.Select(x => new { idx = NoteToPisitionInClef(x.Note,ActiveClef), val = x }).OrderBy(x => x.idx).ToList();
             var minNote = order.First().val.Note;
             var maxNote = order.Last().val.Note;

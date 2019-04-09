@@ -39,6 +39,7 @@
         </StackPanel>
         <Canvas Name="root">
             <ItemsControl
+                ItemsSource="{Binding Notes, UpdateSourceTrigger=PropertyChanged}"
                 Style="{x:Null}" 
                 Margin="0"
                 Padding="0"
@@ -46,7 +47,7 @@
                 Height="{Binding ElementName=root, Path=ActualHeight}"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch" 
-                ItemsSource="{Binding Notes, UpdateSourceTrigger=PropertyChanged}">
+                >
 
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
