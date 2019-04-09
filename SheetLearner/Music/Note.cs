@@ -37,14 +37,14 @@ namespace XTestMan.Views.Music
         public static Note B3 = new Note("B1");
 
         public static List<Note> BassNote => new List<Note>
-        { 
+        {
             A1,B1,C1,D1,E1,F1,G1,
             A2,B2,C2,D2,E2,F2,G2,
             A3,B3,C3,D3,E3,F3,G3,
         };
 
         public static List<Note> TrebleNote => new List<Note>
-        { 
+        {
             F1, G1, A1, B1, C1, D1, E1,
             F2, G2, A2, B2, C2, D2, E2,
             F3, G3, A3, B3, C3, D3, E3,
@@ -60,9 +60,9 @@ namespace XTestMan.Views.Music
 
             var noteMin = Math.Min(indexMin, indexMax);
             var noteMax = Math.Max(indexMin, indexMax);
-            return range.GetRange(noteMin, (noteMax+1) - noteMin).ToList();
+            return range.GetRange(noteMin, (noteMax + 1) - noteMin).ToList();
         }
- 
+
         public static List<Note> GetLineNotesInLedger(Note note, Clef clef)
         {
             return GetNotesInLedger(note, clef).Where((x, i) => i % 2 == 0).ToList();
@@ -72,7 +72,7 @@ namespace XTestMan.Views.Music
         {
             var result = new List<Note>();
 
-            if(clef == Clef.Bass)
+            if (clef == Clef.Bass)
             {
                 var topNotes = NotesInRange(BassNote, G3, C3);
                 var notesInLedger = NotesInRange(topNotes, note, C3);
@@ -82,8 +82,8 @@ namespace XTestMan.Views.Music
 
                 result = notesToNote.Any() ? notesToNote : notesInLedger;
             }
-            else if(clef == Clef.Treble)
-            { 
+            else if (clef == Clef.Treble)
+            {
                 var topNotes = NotesInRange(TrebleNote, A3, E3);
                 var notesInLedger = NotesInRange(topNotes, note, E3);
 
@@ -93,14 +93,14 @@ namespace XTestMan.Views.Music
                 result = notesToNote.Any() ? notesToNote : notesInLedger;
             }
 
-            
+
             return result;
         }
 
         public static int NumberOfLedgerLines(Note note, Clef clef)
         {
             var count = 0;
-            if(clef == Clef.Bass)
+            if (clef == Clef.Bass)
             {
                 var ledgerDict = new Dictionary<Note, int>()
                 {
@@ -117,17 +117,17 @@ namespace XTestMan.Views.Music
                     {C3,1},
                     {D3,1},
                     {E3,2},
-                    {F3,2}, 
-                    {G3,3}, 
+                    {F3,2},
+                    {G3,3},
                 };
 
-                if(ledgerDict.TryGetValue(note,out var bassCount))
+                if (ledgerDict.TryGetValue(note, out var bassCount))
                 {
                     return bassCount;
                 }
             }
 
-            if(clef == Clef.Treble)
+            if (clef == Clef.Treble)
             {
                 var ledgerDict = new Dictionary<Note, int>()
                 {
@@ -145,12 +145,12 @@ namespace XTestMan.Views.Music
                     {G3,0},
                     {A3,1},
                     {B3,1},
-                    {C3,2}, 
-                    {D3,2}, 
-                    {E3,3}, 
+                    {C3,2},
+                    {D3,2},
+                    {E3,3},
                 };
 
-                if(ledgerDict.TryGetValue(note,out var bassCount))
+                if (ledgerDict.TryGetValue(note, out var bassCount))
                 {
                     return bassCount;
                 }
@@ -182,11 +182,11 @@ namespace XTestMan.Views.Music
 
 
 
-}
+    }
 
-[DebuggerDisplay("{_note} : {Value}")]
+    [DebuggerDisplay("{_note} : {Value}")]
     public class Note : ViewModelBase
-    { 
+    {
         public Note()
         {
             //Value = 0;
@@ -208,7 +208,7 @@ namespace XTestMan.Views.Music
 
         public static List<Note> Triad(String a, string b, string c)
         {
-            return new List<Note>() { new Note(a), new Note(b), new Note(c) }; 
+            return new List<Note>() { new Note(a), new Note(b), new Note(c) };
         }
 
         public Note Sharped()
@@ -216,20 +216,20 @@ namespace XTestMan.Views.Music
             //var index = NotesFactory.AllNotes.IndexOf(this);
 
             var index = NotesFactory.AllIdentifiers.ToUpper().Split(',').ToList().IndexOf(this.Id.ToUpper());
-            index = (index+1) % NotesFactory.AllNotes.Count;
+            index = (index + 1) % NotesFactory.AllNotes.Count;
             return new Note(NotesFactory.AllNotes[index]);
         }
 
         public Note Flattened()
         {
             var index = NotesFactory.AllNotes.IndexOf(this);
-            index = (index-1) % NotesFactory.AllNotes.Count;
+            index = (index - 1) % NotesFactory.AllNotes.Count;
             return new Note(NotesFactory.AllNotes[index]);
         }
 
         public bool IsEmpty()
         {
-            return String.IsNullOrWhiteSpace(_note); 
+            return String.IsNullOrWhiteSpace(_note);
         }
 
         public Note Root
