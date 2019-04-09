@@ -54,10 +54,15 @@ namespace XTestMan.Views.Music
 
         private void OnRandomize()
         {
+            //var tn = NotesFactory.TrebleNote.Select(x => new PlayingNoteViewModel(new NoteSection(new List<NoteViewModel>() { new NoteViewModel(x) })));
+            //TrebleNotes = new ObservableCollection<NoteSection>(tn);
+            //var bn = NotesFactory.BassNote.Select(x => new PlayingNoteViewModel(new NoteSection(new List<NoteViewModel>() { new NoteViewModel(x) })));
+            //BassNotes = new ObservableCollection<NoteSection>(bn);
+
             TrebleNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateGroups(Clef.Treble, 8, 3, false).Select(x => new PlayingNoteViewModel(x)));
             BassNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateGroups(Clef.Bass, 8, 3, true).Select(x => new PlayingNoteViewModel(x)));
 
-            foreach(var section in TrebleNotes)
+            foreach (var section in TrebleNotes)
             {
                 ClefViewModel.AddNoteGroup(section.AllNotes);
             }

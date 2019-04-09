@@ -11,8 +11,8 @@
     <StackPanel>
         <TextBlock Text="Notes:"/>
         <TextBox Padding="5" Text="{Binding TextNotes, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Margin="3"/>
-        <music:ClefView DataContext="{Binding ClefViewModel, UpdateSourceTrigger=PropertyChanged}" Background="Pink"   HorizontalAlignment="Stretch"/> 
-        <music:ClefView DataContext="{Binding BassClefViewModel, UpdateSourceTrigger=PropertyChanged}" Background="Pink"   HorizontalAlignment="Stretch"/> 
+        <music:ClefView  Padding="5" DataContext="{Binding ClefViewModel, UpdateSourceTrigger=PropertyChanged}" Background="Pink"   HorizontalAlignment="Stretch"/> 
+        <music:ClefView  Padding="5" DataContext="{Binding BassClefViewModel, UpdateSourceTrigger=PropertyChanged}" Background="Pink"   HorizontalAlignment="Stretch"/> 
         <Button 
             Margin="5"
             Style="{x:Null}"

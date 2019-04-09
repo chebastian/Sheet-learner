@@ -111,7 +111,7 @@
                                         </TransformGroup>
                                     </Ellipse.RenderTransform>
                                 </Ellipse>
-                                <Rectangle VerticalAlignment="Center" Height="1" Width="15" Fill="Black" >
+                                <Rectangle HorizontalAlignment="Center" VerticalAlignment="Center" Height="1" Width="15" Fill="Black" >
                                     <Rectangle.RenderTransform>
                                     <TransformGroup>
                                     <TranslateTransform 

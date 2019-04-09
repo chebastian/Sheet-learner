@@ -65,7 +65,18 @@ namespace XTestMan.Views.Music
 
         public static List<Note> GetLineNotesInLedger(Note note, Clef clef)
         {
-            return GetNotesInLedger(note, clef).Where((x, i) => i % 2 == 0).ToList();
+            return GetNotesInLedger(note, clef);
+            //return GetNotesInLedger(note, clef).Where((x, i) => i % 2 == 0).ToList();
+        }
+
+        private static List<Note> WhereMudolo(List<Note> notes,int mod)
+        {
+            return notes.Where((x, i) => i % 2 == mod).ToList();
+        }
+
+        private static List<Note> WhereMatch(List<Note> notes, List<Note> match)
+        {
+            return notes.Where(x => match.Contains(x)).ToList();
         }
 
         public static List<Note> GetNotesInLedger(Note note, Clef clef)
@@ -74,25 +85,30 @@ namespace XTestMan.Views.Music
 
             if (clef == Clef.Bass)
             {
+                var bottom = new List<Note>() { A1, C1, E1 };
+                var top = new List<Note>() { C3, E3, G3 };
+
                 var topNotes = NotesInRange(BassNote, G3, C3);
-                var notesInLedger = NotesInRange(topNotes, note, C3);
+                var topLedger = NotesInRange(topNotes, note, C3);
 
                 var bottomNotes = NotesInRange(BassNote, A1, E1);
-                var notesToNote = NotesInRange(bottomNotes, note, E1);
+                var bottomLedger = NotesInRange(bottomNotes, note, E1);
 
-                result = notesToNote.Any() ? notesToNote : notesInLedger;
+                result = bottomLedger.Any() ? WhereMatch(bottomLedger,bottom) : WhereMatch(topLedger,top);
             }
             else if (clef == Clef.Treble)
             {
+                var bottom = new List<Note>() { F1, A1, C1 };
+                var top = new List<Note>() { A3, C3, E3 };
+
                 var topNotes = NotesInRange(TrebleNote, A3, E3);
-                var notesInLedger = NotesInRange(topNotes, note, E3);
+                var topLedger = NotesInRange(topNotes, note, A3);
 
                 var bottomNotes = NotesInRange(TrebleNote, F1, C1);
-                var notesToNote = NotesInRange(bottomNotes, note, C1);
+                var bottomLedger = NotesInRange(bottomNotes, note, C1);
 
-                result = notesToNote.Any() ? notesToNote : notesInLedger;
-            }
-
+                result = bottomLedger.Any() ? WhereMatch(bottomLedger,bottom) : WhereMatch(topLedger,top);
+            } 
 
             return result;
         }
