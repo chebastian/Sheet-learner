@@ -170,11 +170,6 @@ namespace SheetLearner.Music.ViewModels
         {
             var idx = clef == Clef.Bass ? NotesFactory.BassNote.IndexOf(note) : NotesFactory.TrebleNote.IndexOf(note);
             return NotesFactory.BassNote.Count - idx;
-        }
-
-        private List<int> NotesToPositionsInClef(List<Note> note, Clef clef)
-        {
-            return note.Select(x => NoteToPisitionInClef(x,clef)).ToList();
-        }
+        } 
     }
 }
