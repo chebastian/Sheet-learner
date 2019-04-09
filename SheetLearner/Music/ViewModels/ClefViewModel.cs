@@ -98,28 +98,20 @@ namespace SheetLearner.Music.ViewModels
         {
             var notesInSection = new List<NoteViewModel>();
 
-            var xoffset = 1 + Groups.Count * NoteWidth;
-            var left = false;
-            var lastNotePosition = -1;
+            var startPosX = 1 + Groups.Count * NoteWidth;
+            var nudgeToFit = false;
             foreach(var note in notes.OrderBy(x => x.Id))
             {
                 var currentNoteY = NoteToPisitionInClef(note, ActiveClef); 
                 var newNote = new NoteViewModel(note)
                 {
-                    X = xoffset,
+                    X = startPosX,
                     Y = 6 * currentNoteY,
                 }; 
+ 
+                if(Notes.Any())
+                    CorrectPositionWhenAboveLastNote(Notes.Last(),newNote,nudgeToFit);
 
-                var isDirectlyAboveLastNote = lastNotePosition - currentNoteY == 1;
-                if(isDirectlyAboveLastNote)
-                {
-                    left = !left;  // If more than one note is in succesion it should go left, right left
-                    newNote.X += left ? 4 : 0;
-                }
-                else
-                    left = false;
-
-                lastNotePosition = currentNoteY; 
                 Notes.Add(newNote);
                 notesInSection.Add(newNote);
             } 
@@ -132,11 +124,23 @@ namespace SheetLearner.Music.ViewModels
             ledger.ForEach( note => NotesInLedger.Add(
                     new NoteViewModel(note.Note)
                     {
-                        X = xoffset,
+                        X = startPosX,
                         Y = 6 * NoteToPisitionInClef(note.Note,ActiveClef)
                     })
                 );
         }
+
+        private void CorrectPositionWhenAboveLastNote(NoteViewModel noteViewModel, NoteViewModel newNote, bool nudgeToFit)
+        {
+            var isDirectlyAboveLastNote = NoteToPisitionInClef(noteViewModel.Note, ActiveClef) - NoteToPisitionInClef(newNote.Note, ActiveClef) == 1;
+            if (isDirectlyAboveLastNote)
+            {
+                nudgeToFit = !nudgeToFit;
+                newNote.X += nudgeToFit ? 4 : 0;
+            }
+            else
+                nudgeToFit = false;
+        } 
 
         public int GetNumberOfLedgerLinesInNote(Note note)
         {
