@@ -136,12 +136,14 @@ namespace SheetLearner.Music.ViewModels
             NotesInLedger = NotesInLedger ?? new ObservableCollection<NoteViewModel>();
 
             var ledger = CreateTrailingLinesForSection(new NoteSection(notesInSection));
-            foreach(var note in ledger)
-            {
-                var ypos = NoteToPisitionInClef(note.Note, ActiveClef); 
-                NotesInLedger.Add(new NoteViewModel(note.Note) { X = xoffset, Y = 6 * ypos });
-            }
 
+            ledger.ForEach( note => NotesInLedger.Add(
+                    new NoteViewModel(note.Note)
+                    {
+                        X = xoffset,
+                        Y = 6 * NoteToPisitionInClef(note.Note,ActiveClef)
+                    })
+                );
         }
 
         public int GetNumberOfLedgerLinesInNote(Note note)
