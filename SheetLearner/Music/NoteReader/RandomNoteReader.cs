@@ -36,7 +36,7 @@ namespace XTestMan.Views.Music.NoteReader
         public static List<NoteSection> CreateRandomSectionFromClef(Clef clef, int len)
         {
             var reader = new RandomNoteReader(clef);
-            return reader.CreateRandomSections(clef, len, false);
+            return reader.CreateRandomSections(clef, len);
         }
 
         public static List<NoteSection> CreateGroups(Clef clef, int groupLength, int numGroups, bool startEmpty)
@@ -60,7 +60,7 @@ namespace XTestMan.Views.Music.NoteReader
             return ret;
         }
 
-        private List<NoteSection> CreateRandomSections(Clef clef, int count, bool waits=true)
+        private List<NoteSection> CreateRandomSections(Clef clef, int count)
         {
             var notes = Sheet.GetNotesInActiveClef(clef);
             rand = rand ?? new Random();
@@ -81,8 +81,6 @@ namespace XTestMan.Views.Music.NoteReader
                     list.Add(new NoteSection(new List<NoteViewModel> { noteA, noteB }));
 
                 }
-                else if (rand.NextDouble() < 0.2 && waits)
-                    list.Add(new NoteSection());
                 else
                     list.Add(new NoteSection(new List<NoteViewModel>(){ new NoteViewModel(NotesFactory.GetInterval(lastNote,rand.Next(stepSize),clef))}));
             }
