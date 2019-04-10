@@ -14,9 +14,7 @@ using System.Windows.Input;
 namespace XTestMan.Views.Music
 {
     public class SheetViewModel : ViewModelBase, INoteListener, INavigationSource
-    {
-        private Sheet _model;
-
+    { 
         public ObservableCollection<NoteSection> Bars { get; set; }
 
 
@@ -47,7 +45,6 @@ namespace XTestMan.Views.Music
         {
             RandomizeCommand = new DelegateCommand(OnRandomize);
             Name = "Sheet";
-            _model = new Sheet(Clef.Treble);
             ClefViewModel = new ClefViewModel(Clef.Treble);
             BassClefViewModel = new ClefViewModel(Clef.Bass);
         }
@@ -75,21 +72,7 @@ namespace XTestMan.Views.Music
             OnPropertyChanged("TrebleNotes");
             OnPropertyChanged("BassNotes");
         }
-
-        public ObservableCollection<Note> Notes { get; set; }
-
-        private string _textNotes;
-
-        public string TextNotes
-        {
-            get { return _textNotes; }
-            set
-            {
-                _textNotes = value; OnPropertyChanged();
-            }
-        }
-
-
+ 
         public void OnNotePressed(int note)
         {
             OnNotesPressed(new List<int>() { note });
@@ -174,42 +157,11 @@ namespace XTestMan.Views.Music
             get { return _command; }
             set { _command = value; OnPropertyChanged(); }
         }
-
-        public Clef ActiveClef
-        {
-            get
-            {
-                return _model.ActiveClef;
-            }
-            set
-            {
-                OnPropertyChanged();
-            }
-
-        }
-
-        public ObservableCollection<String> AvailableDevices { get; set; }
-        public ObservableCollection<NoteSection> PlayingBars { get; set; }
         public ObservableCollection<NoteSection> TrebleNotes { get; set; }
         public ObservableCollection<NoteSection> BassNotes { get; set; }
 
-        private String _selectedDevice;
-        public String SelectedDevice
-        {
-            get { return _selectedDevice; }
-            set { _selectedDevice = value; OnPropertyChanged(); }
-        }
 
-        private bool _hasSelectedDevice;
-        private static Random rand = new Random();
         private string _name;
-
-        public bool HasSelectedDevice
-        {
-            get { return _hasSelectedDevice; }
-            set { _hasSelectedDevice = value; OnPropertyChanged(); }
-        }
-
         public string Name { get => _name; set { _name = value; OnPropertyChanged(); } }
         public ICommand OnSelected { get; set; }
     }

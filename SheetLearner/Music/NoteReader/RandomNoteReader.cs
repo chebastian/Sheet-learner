@@ -22,13 +22,7 @@ namespace XTestMan.Views.Music.NoteReader
         {
             return CreateRandomSections(_clef,40);
         }
-
-        public static List<NoteSection> CreateRandomSectionsFromClef(Clef clef)
-        {
-            var reader = new RandomNoteReader(clef);
-            return reader.GetNoteSections();
-        }
-
+ 
         public static List<NoteSection> CreateEmpty(int len)
         {
             var section = new NoteSection();
@@ -49,16 +43,16 @@ namespace XTestMan.Views.Music.NoteReader
         {
             var ret = new List<NoteSection>();
 
-            while(ret.Count < groupLength * numGroups)
+            while (ret.Count < groupLength * numGroups)
             {
-                if(startEmpty)
+                if (startEmpty)
                 {
                     ret.AddRange(CreateRandomSectionFromClef(clef, groupLength));
                     ret.AddRange(CreateEmpty(groupLength));
                 }
                 else
                 {
-                    ret.AddRange(CreateEmpty(groupLength)); 
+                    ret.AddRange(CreateEmpty(groupLength));
                     ret.AddRange(CreateRandomSectionFromClef(clef, groupLength));
                 }
             }

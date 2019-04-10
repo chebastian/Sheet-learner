@@ -61,15 +61,6 @@ namespace XTestMan.Views.Music
             {
                 return  Notes.OrderBy(x => NotesFactory.BassNote.IndexOf(x.Note)).Last().Note;
             }
-        }
-
-        public static NoteSection CreateSectionFromNotes(List<Note> bar, Clef clef, Sheet sheet)
-        {
-            var section = new NoteSection();
-            var notes = new List<Note>();
-            notes.AddRange(Enumerable.Repeat<Note>(new Note(), NotesFactory.BassNote.Count));
-            section.Section = notes;
-            return section; 
         } 
 
         private List<LedgerNote> _topLedger;
