@@ -20,7 +20,7 @@ namespace XTestMan.Views.Music.NoteReader
 
         public List<NoteSection> GetNoteSections()
         {
-            return CreateRandomSections(_clef,40);
+            return CreateRandomSections(40);
         }
  
         public static List<NoteSection> CreateEmpty(int len)
@@ -36,7 +36,7 @@ namespace XTestMan.Views.Music.NoteReader
         public static List<NoteSection> CreateRandomSectionFromClef(Clef clef, int len)
         {
             var reader = new RandomNoteReader(clef);
-            return reader.CreateRandomSections(clef, len);
+            return reader.CreateRandomSections( len);
         }
 
         public static List<NoteSection> CreateGroups(Clef clef, int groupLength, int numGroups, bool startEmpty)
@@ -62,7 +62,7 @@ namespace XTestMan.Views.Music.NoteReader
 
         private List<NoteSection> CreateRandomSections(int count)
         {
-            var notes = Sheet.GetNotesInActiveClef(clef);
+            var notes = NotesFactory.Notes;
             rand = rand ?? new Random();
             var list = new List<NoteSection>();
 
@@ -76,13 +76,13 @@ namespace XTestMan.Views.Music.NoteReader
                     var third = rand.Next(notes.Count - 1);
                     var noteA = new NoteViewModel(notes[first]);
                     if (list.Count > 0)
-                        noteA = new NoteViewModel( NotesFactory.GetInterval(lastNote, rand.Next(stepSize), clef) );
-                    var noteB = new NoteViewModel(NotesFactory.GetInterval(noteA.Note, rand.Next(stepSize),clef));
+                        noteA = new NoteViewModel( NotesFactory.GetInterval(lastNote, rand.Next(stepSize), _clef) );
+                    var noteB = new NoteViewModel(NotesFactory.GetInterval(noteA.Note, rand.Next(stepSize),_clef));
                     list.Add(new NoteSection(new List<NoteViewModel> { noteA, noteB }));
 
                 }
                 else
-                    list.Add(new NoteSection(new List<NoteViewModel>(){ new NoteViewModel(NotesFactory.GetInterval(lastNote,rand.Next(stepSize),clef))}));
+                    list.Add(new NoteSection(new List<NoteViewModel>(){ new NoteViewModel(NotesFactory.GetInterval(lastNote,rand.Next(stepSize),_clef))}));
             }
 
             return list;
