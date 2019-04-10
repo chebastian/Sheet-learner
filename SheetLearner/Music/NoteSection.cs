@@ -51,7 +51,7 @@ namespace XTestMan.Views.Music
         {
             get
             {
-                return  Notes.OrderBy(x => NotesFactory.BassNote.IndexOf(x.Note)).First().Note;
+                return  Notes.OrderBy(x => NotesFactory.BassNotes.IndexOf(x.Note)).First().Note;
             }
         }
 
@@ -59,7 +59,7 @@ namespace XTestMan.Views.Music
         {
             get
             {
-                return  Notes.OrderBy(x => NotesFactory.BassNote.IndexOf(x.Note)).Last().Note;
+                return  Notes.OrderBy(x => NotesFactory.BassNotes.IndexOf(x.Note)).Last().Note;
             }
         } 
 

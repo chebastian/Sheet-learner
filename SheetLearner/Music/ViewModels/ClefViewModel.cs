@@ -161,8 +161,8 @@ namespace SheetLearner.Music.ViewModels
 
         private int NoteToPisitionInClef(Note note, Clef clef)
         {
-            var idx = clef == Clef.Bass ? NotesFactory.BassNote.IndexOf(note) : NotesFactory.TrebleNote.IndexOf(note);
-            return NotesFactory.BassNote.Count - idx;
+            var idx = clef == Clef.Bass ? NotesFactory.BassNotes.IndexOf(note) : NotesFactory.TrebleNotes.IndexOf(note);
+            return NotesFactory.BassNotes.Count - idx;
         } 
     }
 }

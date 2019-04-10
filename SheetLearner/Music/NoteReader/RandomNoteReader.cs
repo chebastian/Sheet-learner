@@ -27,7 +27,7 @@ namespace XTestMan.Views.Music.NoteReader
         {
             var section = new NoteSection();
             var notes = new List<Note>();
-            notes.AddRange(Enumerable.Repeat<Note>(new Note(), NotesFactory.BassNote.Count));
+            notes.AddRange(Enumerable.Repeat<Note>(new Note(), NotesFactory.BassNotes.Count));
             section.Section = notes;
 
             return Enumerable.Repeat(section,len).ToList(); 
@@ -60,7 +60,7 @@ namespace XTestMan.Views.Music.NoteReader
             return ret;
         }
 
-        private List<NoteSection> CreateRandomSections(Clef clef, int count)
+        private List<NoteSection> CreateRandomSections(int count)
         {
             var notes = Sheet.GetNotesInActiveClef(clef);
             rand = rand ?? new Random();

@@ -35,15 +35,21 @@ namespace XTestMan.Views.Music
         public static Note G3 = new Note("G1");
         public static Note A3 = new Note("A1");
         public static Note B3 = new Note("B1");
-
-        public static List<Note> BassNote => new List<Note>
+        public static List<Note> Notes => new List<Note>
         {
             A1,B1,C1,D1,E1,F1,G1,
             A2,B2,C2,D2,E2,F2,G2,
             A3,B3,C3,D3,E3,F3,G3,
         };
 
-        public static List<Note> TrebleNote => new List<Note>
+        public static List<Note> BassNotes => new List<Note>
+        {
+            A1,B1,C1,D1,E1,F1,G1,
+            A2,B2,C2,D2,E2,F2,G2,
+            A3,B3,C3,D3,E3,F3,G3,
+        };
+
+        public static List<Note> TrebleNotes => new List<Note>
         {
             F1, G1, A1, B1, C1, D1, E1,
             F2, G2, A2, B2, C2, D2, E2,
@@ -52,7 +58,7 @@ namespace XTestMan.Views.Music
 
         public static Note GetInterval(Note n, int interval, Clef clef)
         {
-            var source = clef == Clef.Bass ? BassNote : TrebleNote;
+            var source = clef == Clef.Bass ? BassNotes : TrebleNotes;
 
             var idx = source.IndexOf(n);
             var maxIdx = Math.Min(idx + interval, source.Count - 1);
@@ -89,10 +95,10 @@ namespace XTestMan.Views.Music
                 var bottom = new List<Note>() { A1, C1, E1 };
                 var top = new List<Note>() { C3, E3, G3 };
 
-                var topNotes = NotesInRange(BassNote, G3, C3);
+                var topNotes = NotesInRange(BassNotes, G3, C3);
                 var topLedger = NotesInRange(topNotes, note, C3);
 
-                var bottomNotes = NotesInRange(BassNote, A1, E1);
+                var bottomNotes = NotesInRange(BassNotes, A1, E1);
                 var bottomLedger = NotesInRange(bottomNotes, note, E1);
 
                 result = bottomLedger.Any() ? WhereMatch(bottomLedger,bottom) : WhereMatch(topLedger,top);
@@ -102,10 +108,10 @@ namespace XTestMan.Views.Music
                 var bottom = new List<Note>() { F1, A1, C1 };
                 var top = new List<Note>() { A3, C3, E3 };
 
-                var topNotes = NotesInRange(TrebleNote, A3, E3);
+                var topNotes = NotesInRange(TrebleNotes, A3, E3);
                 var topLedger = NotesInRange(topNotes, note, A3);
 
-                var bottomNotes = NotesInRange(TrebleNote, F1, C1);
+                var bottomNotes = NotesInRange(TrebleNotes, F1, C1);
                 var bottomLedger = NotesInRange(bottomNotes, note, C1);
 
                 result = bottomLedger.Any() ? WhereMatch(bottomLedger,bottom) : WhereMatch(topLedger,top);
@@ -297,8 +303,8 @@ namespace XTestMan.Views.Music
 
         public bool Equals(Note note)
         {
-            var idx = NotesFactory.TrebleNote.IndexOf(note) % 8;
-            var myidx = NotesFactory.TrebleNote.IndexOf(this) % 8;
+            var idx = NotesFactory.TrebleNotes.IndexOf(note) % 8;
+            var myidx = NotesFactory.TrebleNotes.IndexOf(this) % 8;
             return idx == myidx;
         }
 
