@@ -11,16 +11,18 @@ namespace XTestMan.Views.Music.NoteReader
     public class RandomNoteReader : INoteReader
     {
         private static Random rand;
+        private int _length;
         private Clef _clef;
 
-        public RandomNoteReader(Clef clef)
+        public RandomNoteReader(Clef clef, int length)
         {
+            _length = length;
             _clef = clef;
         } 
 
         public List<NoteSection> GetNoteSections()
         {
-            return CreateRandomSections(40);
+            return CreateRandomSections(_length);
         }
  
         public static List<NoteSection> CreateEmpty(int len)
@@ -32,28 +34,23 @@ namespace XTestMan.Views.Music.NoteReader
 
             return Enumerable.Repeat(section,len).ToList(); 
         }
-
-        public static List<NoteSection> CreateRandomSectionFromClef(Clef clef, int len)
-        {
-            var reader = new RandomNoteReader(clef);
-            return reader.CreateRandomSections( len);
-        }
-
+ 
         public static List<NoteSection> CreateGroups(Clef clef, int groupLength, int numGroups, bool startEmpty)
         {
             var ret = new List<NoteSection>();
+            var reader = new RandomNoteReader(clef,groupLength);
 
             while (ret.Count < groupLength * numGroups)
             {
                 if (startEmpty)
                 {
-                    ret.AddRange(CreateRandomSectionFromClef(clef, groupLength));
+                    ret.AddRange(reader.GetNoteSections());
                     ret.AddRange(CreateEmpty(groupLength));
                 }
                 else
                 {
                     ret.AddRange(CreateEmpty(groupLength));
-                    ret.AddRange(CreateRandomSectionFromClef(clef, groupLength));
+                    ret.AddRange(reader.GetNoteSections());
                 }
             }
 
