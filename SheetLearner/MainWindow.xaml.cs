@@ -27,7 +27,7 @@ namespace XTestMan
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, INotifyPropertyChanged, IMidiDeviceListener
+    public partial class MainWindow : Window, INotifyPropertyChanged, IMidiDeviceListener, INotePublisher
     {
         private SheetViewModel _sheetVm;
 
@@ -63,6 +63,7 @@ namespace XTestMan
             }
         }
         private bool _insertDevice;
+        private INoteListener _listener;
 
         public bool HasMidiDevice
         {
@@ -92,12 +93,24 @@ namespace XTestMan
 
         private async void WaitForMidiDevice()
         {
+            int counter = 0;
             while (!FoundMidiDevice())
             {
                 await Task.Delay(200);
+                counter++;
+                if (counter > 50)
+                    break;
             }
 
-            HasMidiDevice = FoundMidiDevice();
+            if(counter >= 50)
+            {
+                var chordifyer = MidiPublisherChordifyer.CreateChordsFromMidiNotes(this);
+                chordifyer.PublishNotesToListener(SheetVm);
+            }
+            else
+            {
+                HasMidiDevice = FoundMidiDevice(); 
+            }
         }
 
         public bool FoundMidiDevice()
@@ -123,7 +136,7 @@ namespace XTestMan
             var key = KeyboardNoteReader.MapToKey(e.Key);
             if (key >= 0)
             {
-                //KeyReader.OnNotePressed(key);
+                _listener.OnNotePressed(key);
             }
         }
 
@@ -132,7 +145,7 @@ namespace XTestMan
             var key = KeyboardNoteReader.MapToKey(e.Key);
             if (key >= 0)
             {
-                //KeyReader.OnNoteReleased(key);
+                _listener.OnNoteReleased(key);
             }
         }
 
@@ -140,6 +153,17 @@ namespace XTestMan
         {
             var chordifyer = MidiPublisherChordifyer.CreateChordsFromMidiNotes(selectedPublisher);
             chordifyer.PublishNotesToListener(SheetVm);
-        } 
+        }
+
+        public void Register(INoteListener listener)
+        {
+            _listener = listener;
+        }
+
+
+        public void Unregister(INoteListener listener)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
