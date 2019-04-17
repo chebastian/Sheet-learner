@@ -78,6 +78,8 @@ namespace XTestMan.Views.Music.NoteReader
                     list.Add(new NoteSection(new List<NoteViewModel> { noteA, noteB }));
 
                 }
+                else if(rand.NextDouble() < 0.4)
+                    list.Add(new NoteSection(new List<NoteViewModel>(){ new NoteViewModel(NotesFactory.GetInterval(lastNote,rand.Next(stepSize),_clef).Sharped())}));
                 else
                     list.Add(new NoteSection(new List<NoteViewModel>(){ new NoteViewModel(NotesFactory.GetInterval(lastNote,rand.Next(stepSize),_clef))}));
             }

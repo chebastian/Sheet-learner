@@ -59,6 +59,7 @@ namespace XTestMan.Views.Music
         public static Note GetInterval(Note n, int interval, Clef clef)
         {
             var source = clef == Clef.Bass ? BassNotes : TrebleNotes;
+            source = source.Select(x => x).ToList(); // TODO make a deep copy
 
             var idx = source.IndexOf(n);
             var maxIdx = Math.Min(idx + interval, source.Count - 1);
@@ -236,11 +237,10 @@ namespace XTestMan.Views.Music
 
         public Note Sharped()
         {
-            //var index = NotesFactory.AllNotes.IndexOf(this);
-
-            var index = NotesFactory.AllIdentifiers.ToUpper().Split(',').ToList().IndexOf(this.Id.ToUpper());
-            index = (index + 1) % NotesFactory.AllNotes.Count;
-            return new Note(NotesFactory.AllNotes[index]);
+            //var index = NotesFactory.AllIdentifiers.ToUpper().Split(',').ToList().IndexOf(this.Id.ToUpper());
+            //index = (index + 1) % NotesFactory.AllNotes.Count;
+            //return new Note(NotesFactory.AllNotes[index]);
+            return new Note(_note) { IsSharp = true };
         }
 
         public Note Flattened()

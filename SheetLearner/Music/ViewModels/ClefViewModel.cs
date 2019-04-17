@@ -12,6 +12,8 @@ namespace SheetLearner.Music.ViewModels
     public class NoteViewModel : ViewModelBase
     {
  
+        public NoteViewModel() { }
+
         public NoteViewModel(Note note)
         {
             Note = note;
@@ -54,6 +56,13 @@ namespace SheetLearner.Music.ViewModels
                 OnPropertyChanged();
             }
         } 
+    }
+
+    public class SharpNote : NoteViewModel
+    {
+        public SharpNote(Note note) : base(note)
+        {
+        }
     }
 
     public class ClefViewModel : ViewModelBase
@@ -108,9 +117,13 @@ namespace SheetLearner.Music.ViewModels
                 {
                     X = startPosX,
                     Y = 6 * currentNoteY,
-                }; 
- 
-                if(Notes.Any())
+                };
+
+                if (note.IsSharp)
+                    newNote = new SharpNote(note) { X = newNote.X, Y = newNote.Y };
+
+
+                if (Notes.Any())
                     CorrectPositionWhenAboveLastNote(Notes.Last(),newNote,nudgeToFit);
 
                 Notes.Add(newNote);
