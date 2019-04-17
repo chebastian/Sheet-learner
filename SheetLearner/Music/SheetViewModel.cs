@@ -106,13 +106,11 @@ namespace XTestMan.Views.Music
 
         public void OnNotesPressed(List<int> playedNotes)
         {
-            var scale = "C,C#,D,D#,E,F,F#,G,G#,A,A#,B";
-            var scaleArr = scale.Split(',');
 
             var firstUnplayed = CurrentNoteSection();
 
+            var scaleArr = "C,C#,D,D#,E,F,F#,G,G#,A,A#,B".Split(',');
             var playedNoteNames = playedNotes.Select(x => scaleArr[x]).ToList();
-            var pnotes = playedNotes.Select(x => new Note(scaleArr[x])).ToList();
 
 
             var allPlayed = firstUnplayed.Notes.Select(x => x.Note.Id.ToUpper().Substring(0,1)).ToList();

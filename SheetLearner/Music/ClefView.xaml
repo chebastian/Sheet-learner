@@ -77,27 +77,25 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Canvas>
-                            <Grid>
-                                <Ellipse Margin="0,0,0,0" Height="10" Width="10" Fill="Green" Visibility="{Binding Played, UpdateSourceTrigger=PropertyChanged,Converter={StaticResource CollapsedWhenFalse}}">
-                                    <Ellipse.RenderTransform>
-                                        <TransformGroup>
-                                            <TranslateTransform 
+                            <Ellipse Margin="0,0,0,0" Height="10" Width="10" Fill="Green" Visibility="{Binding Played, UpdateSourceTrigger=PropertyChanged,Converter={StaticResource CollapsedWhenFalse}}">
+                                <Ellipse.RenderTransform>
+                                    <TransformGroup>
+                                        <TranslateTransform 
                                             Y="{Binding Y, UpdateSourceTrigger=PropertyChanged}"
                                             X="{Binding X, UpdateSourceTrigger=PropertyChanged}"/>
-                                        </TransformGroup>
-                                    </Ellipse.RenderTransform>
-                                </Ellipse>
-                                <Ellipse Margin="0,0,0,0" Height="10" Width="10" Fill="Black" Visibility="{Binding Played, UpdateSourceTrigger=PropertyChanged,Converter={StaticResource CollapsedWhenTrue}}">
-                                    <Ellipse.RenderTransform>
-                                        <TransformGroup>
-                                            <TranslateTransform 
+                                    </TransformGroup>
+                                </Ellipse.RenderTransform>
+                            </Ellipse>
+                            <Ellipse Margin="0,0,0,0" Height="10" Width="10" Fill="Black" Visibility="{Binding Played, UpdateSourceTrigger=PropertyChanged,Converter={StaticResource CollapsedWhenTrue}}">
+                                <Ellipse.RenderTransform>
+                                    <TransformGroup>
+                                        <TranslateTransform 
                                             Y="{Binding Y, UpdateSourceTrigger=PropertyChanged}"
                                             X="{Binding X, UpdateSourceTrigger=PropertyChanged}"/>
-                                        </TransformGroup>
-                                    </Ellipse.RenderTransform>
-                                </Ellipse>
-                                <ContentControl Content="{Binding}" />
-                            </Grid>
+                                    </TransformGroup>
+                                </Ellipse.RenderTransform>
+                            </Ellipse>
+                            <ContentControl Content="{Binding}" />
                         </Canvas>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
@@ -122,26 +120,24 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Canvas>
-                            <Grid>
-                                <Ellipse Margin="0,0,0,0" Height="10" Width="10" Fill="Transparent" >
-                                    <Ellipse.RenderTransform>
-                                        <TransformGroup>
-                                            <TranslateTransform 
+                            <Ellipse Margin="0,0,0,0" Height="10" Width="10" Fill="Transparent" >
+                                <Ellipse.RenderTransform>
+                                    <TransformGroup>
+                                        <TranslateTransform 
                                         Y="{Binding Y, UpdateSourceTrigger=PropertyChanged}"
                                         X="{Binding X, UpdateSourceTrigger=PropertyChanged}"/>
-                                        </TransformGroup>
-                                    </Ellipse.RenderTransform>
-                                </Ellipse>
-                                <Rectangle HorizontalAlignment="Center" VerticalAlignment="Center" Height="1" Width="15" Fill="Black" >
-                                    <Rectangle.RenderTransform>
-                                        <TransformGroup>
-                                            <TranslateTransform 
+                                    </TransformGroup>
+                                </Ellipse.RenderTransform>
+                            </Ellipse>
+                            <Rectangle HorizontalAlignment="Center" VerticalAlignment="Center" Height="1" Width="15" Fill="Black" >
+                                <Rectangle.RenderTransform>
+                                    <TransformGroup>
+                                        <TranslateTransform 
                                         Y="{Binding Y, UpdateSourceTrigger=PropertyChanged}"
                                         X="{Binding X, UpdateSourceTrigger=PropertyChanged}"/>
-                                        </TransformGroup>
-                                    </Rectangle.RenderTransform>
-                                </Rectangle>
-                            </Grid>
+                                    </TransformGroup>
+                                </Rectangle.RenderTransform>
+                            </Rectangle>
                         </Canvas>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

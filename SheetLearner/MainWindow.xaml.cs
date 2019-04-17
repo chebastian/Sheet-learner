@@ -94,15 +94,16 @@ namespace XTestMan
         private async void WaitForMidiDevice()
         {
             int counter = 0;
+            int max = 10;
             while (!FoundMidiDevice())
             {
                 await Task.Delay(200);
                 counter++;
-                if (counter > 50)
+                if (counter > max)
                     break;
             }
 
-            if(counter >= 50)
+            if(counter >= max)
             {
                 var chordifyer = MidiPublisherChordifyer.CreateChordsFromMidiNotes(this);
                 chordifyer.PublishNotesToListener(SheetVm);
