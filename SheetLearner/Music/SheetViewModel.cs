@@ -59,14 +59,13 @@ namespace XTestMan.Views.Music
             TrebleNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateGroups(Clef.Treble, 8, 3, false).Select(x => new PlayingNoteViewModel(x)));
             BassNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateGroups(Clef.Bass, 8, 3, true).Select(x => new PlayingNoteViewModel(x)));
 
-            foreach (var section in TrebleNotes)
-            {
-                TrebleClefViewModel.AddSection(section);
-            }
+            var left = 0;
+            for (var i = 0; i < TrebleNotes.Count; i++)
+            { 
+                TrebleClefViewModel.AddSection(TrebleNotes[i],left); 
+                BassClefViewModel.AddSection(BassNotes[i],TrebleClefViewModel.Right());
 
-            foreach(var section in BassNotes)
-            {
-                BassClefViewModel.AddSection(section);
+                left = BassClefViewModel.Right();
             }
 
             OnPropertyChanged("TrebleNotes");

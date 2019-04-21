@@ -105,11 +105,11 @@ namespace SheetLearner.Music.ViewModels
         }
 
 
-        public void AddSection(NoteSection section)
+        public void AddSection(NoteSection section,int left)
         {
             var notesInSection = new List<NoteViewModel>();
 
-            var left = 1 + Sections.Sum(x => CalculateWidth(x));
+            //var left = 1 + Sections.Sum(x => CalculateWidth(x));
 
             var nudgeToFit = false;
             foreach (var note in section.AllNotes.OrderBy(x => x.Id))
@@ -149,6 +149,13 @@ namespace SheetLearner.Music.ViewModels
             return new NoteViewModel(note) { X = x, Y = y };
         }
 
+        public int Right()
+        {
+            if (Sections.Any())
+                return Sections.Sum(section => CalculateWidth(section) );
+
+            return 0;
+        }
         private int CalculateWidth(NoteSection x)
         {
             if (x.Notes == null)
