@@ -113,12 +113,8 @@ namespace SheetLearner.Music.ViewModels
             var nudgeToFit = false;
             foreach(var note in notes.OrderBy(x => x.Id))
             {
-                var currentNoteY = NoteToPisitionInClef(note, ActiveClef); 
-
-                var newNote = new NoteViewModel(note) { X = startPosX, Y = 6 * currentNoteY, }; 
-                if (note.IsSharp)
-                    newNote = new SharpNote(note) { X = newNote.X, Y = newNote.Y };
-
+                var currentNoteY = NoteToPisitionInClef(note, ActiveClef);
+                var newNote = CreateNoteAtPosition(note, startPosX, 6 * currentNoteY);
 
                 if (Notes.Any())
                     CorrectPositionWhenAboveLastNote(Notes.Last(),newNote,nudgeToFit);
@@ -137,6 +133,14 @@ namespace SheetLearner.Music.ViewModels
                         Y = 6 * NoteToPisitionInClef(note.Note,ActiveClef)
                     })
                 );
+        }
+
+        private NoteViewModel CreateNoteAtPosition(Note note, int x, int y)
+        {
+            if (note.IsSharp)
+                return new SharpNote(note) { X = x, Y = y };
+
+            return new NoteViewModel(note) { X = x, Y = y };
         }
  
         private int GetGroupWidth(NoteSection x)
