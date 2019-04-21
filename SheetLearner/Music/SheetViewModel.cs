@@ -30,7 +30,7 @@ namespace XTestMan.Views.Music
         }
 
         private ClefViewModel _clefView;
-        public ClefViewModel ClefViewModel
+        public ClefViewModel TrebleClefViewModel
         {
             get => _clefView;
             set
@@ -45,7 +45,7 @@ namespace XTestMan.Views.Music
         {
             RandomizeCommand = new DelegateCommand(OnRandomize);
             Name = "Sheet";
-            ClefViewModel = new ClefViewModel(Clef.Treble);
+            TrebleClefViewModel = new ClefViewModel(Clef.Treble);
             BassClefViewModel = new ClefViewModel(Clef.Bass);
         }
 
@@ -61,7 +61,7 @@ namespace XTestMan.Views.Music
 
             foreach (var section in TrebleNotes)
             {
-                ClefViewModel.AddSection(section);
+                TrebleClefViewModel.AddSection(section);
             }
 
             foreach(var section in BassNotes)
@@ -87,7 +87,7 @@ namespace XTestMan.Views.Music
 
         public NoteSection CurrentNoteSection()
         {
-            var ts = FirstUnplayedInSequence(ClefViewModel.Sections, out var treb);
+            var ts = FirstUnplayedInSequence(TrebleClefViewModel.Sections, out var treb);
             var bs = FirstUnplayedInSequence(BassClefViewModel.Sections, out var bass);
 
             if (treb == bass)
@@ -128,7 +128,7 @@ namespace XTestMan.Views.Music
 
         private void MarkLastAsPlayed()
         {
-            var ts = FirstUnplayedInSequence(ClefViewModel.Sections,out var ti);
+            var ts = FirstUnplayedInSequence(TrebleClefViewModel.Sections,out var ti);
             var bs = FirstUnplayedInSequence(BassClefViewModel.Sections,out var bi);
 
             if (ti == bi)
