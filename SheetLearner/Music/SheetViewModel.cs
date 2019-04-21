@@ -51,9 +51,9 @@ namespace XTestMan.Views.Music
 
         private void OnRandomize()
         {
-            //var tn = NotesFactory.TrebleNote.Select(x => new PlayingNoteViewModel(new NoteSection(new List<NoteViewModel>() { new NoteViewModel(x) })));
+            //var tn = NotesFactory.TrebleNotes.Select(x => new PlayingNoteViewModel(new NoteSection(new List<NoteViewModel>() { new NoteViewModel(x) })));
             //TrebleNotes = new ObservableCollection<NoteSection>(tn);
-            //var bn = NotesFactory.BassNote.Select(x => new PlayingNoteViewModel(new NoteSection(new List<NoteViewModel>() { new NoteViewModel(x) })));
+            //var bn = NotesFactory.BassNotes.Select(x => new PlayingNoteViewModel(new NoteSection(new List<NoteViewModel>() { new NoteViewModel(x) })));
             //BassNotes = new ObservableCollection<NoteSection>(bn);
 
             TrebleNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateGroups(Clef.Treble, 8, 3, false).Select(x => new PlayingNoteViewModel(x)));
@@ -111,7 +111,6 @@ namespace XTestMan.Views.Music
 
             var scaleArr = "C,C#,D,D#,E,F,F#,G,G#,A,A#,B".Split(',');
             var playedNoteNames = playedNotes.Select(x => scaleArr[x]).ToList();
-
 
             var allPlayed = firstUnplayed.Notes.Select(x => x.Note.Id.ToUpper().Substring(0,1)).ToList();
             var isAllPlayed = allPlayed.All(x => playedNoteNames.Contains(x));

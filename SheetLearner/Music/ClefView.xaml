@@ -28,6 +28,7 @@
                 <Grid>
                 </Grid>
             </DataTemplate>
+
             <DataTemplate DataType="{x:Type vm:SharpNote}">
                 <Canvas>
                     <TextBlock Text="#"  FontSize="20" Foreground="White" FontWeight="Bold" >
@@ -42,6 +43,7 @@
                     </TextBlock>
                 </Canvas>
             </DataTemplate>
+
         </Grid.Resources>
         <StackPanel Orientation="Vertical">
             <Rectangle Fill="Transparent" Width="{Binding ElementName=root, Path=ActualWidth}"/>
@@ -120,6 +122,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Canvas>
+                            <Grid>
                             <Ellipse Margin="0,0,0,0" Height="10" Width="10" Fill="Transparent" >
                                 <Ellipse.RenderTransform>
                                     <TransformGroup>
@@ -138,6 +141,7 @@
                                     </TransformGroup>
                                 </Rectangle.RenderTransform>
                             </Rectangle>
+                            </Grid>
                         </Canvas>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
