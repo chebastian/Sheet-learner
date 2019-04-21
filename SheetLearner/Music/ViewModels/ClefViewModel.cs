@@ -67,7 +67,7 @@ namespace SheetLearner.Music.ViewModels
 
     public class ClefViewModel : ViewModelBase
     {
-        public List<NoteSection> Groups;
+        public List<NoteSection> Sections;
 
         public ObservableCollection<NoteViewModel> Notes
         {
@@ -81,7 +81,7 @@ namespace SheetLearner.Music.ViewModels
 
         public ClefViewModel(Clef clef)
         {
-            Groups = new List<NoteSection>();
+            Sections = new List<NoteSection>();
             Notes = new ObservableCollection<NoteViewModel>();
             NotesInLedger = new ObservableCollection<NoteViewModel>();
 
@@ -109,7 +109,7 @@ namespace SheetLearner.Music.ViewModels
         {
             var notesInSection = new List<NoteViewModel>();
 
-            var left = 1 + Groups.Sum(x => GetGroupWidth(x));
+            var left = 1 + Sections.Sum(x => GetGroupWidth(x));
 
             var nudgeToFit = false;
             foreach(var note in section.AllNotes.OrderBy(x => x.Id))
@@ -124,7 +124,7 @@ namespace SheetLearner.Music.ViewModels
                 notesInSection.Add(newNote);
             } 
 
-            Groups.Add(new NoteSection(notesInSection));
+            Sections.Add(new NoteSection(notesInSection));
 
             AddLedgerLines(new NoteSection(notesInSection),left); 
         }

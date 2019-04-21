@@ -87,8 +87,8 @@ namespace XTestMan.Views.Music
 
         public NoteSection CurrentNoteSection()
         {
-            var ts = FirstUnplayedInSequence(ClefViewModel.Groups, out var treb);
-            var bs = FirstUnplayedInSequence(BassClefViewModel.Groups, out var bass);
+            var ts = FirstUnplayedInSequence(ClefViewModel.Sections, out var treb);
+            var bs = FirstUnplayedInSequence(BassClefViewModel.Sections, out var bass);
 
             if (treb == bass)
             {
@@ -128,8 +128,8 @@ namespace XTestMan.Views.Music
 
         private void MarkLastAsPlayed()
         {
-            var ts = FirstUnplayedInSequence(ClefViewModel.Groups,out var ti);
-            var bs = FirstUnplayedInSequence(BassClefViewModel.Groups,out var bi);
+            var ts = FirstUnplayedInSequence(ClefViewModel.Sections,out var ti);
+            var bs = FirstUnplayedInSequence(BassClefViewModel.Sections,out var bi);
 
             if (ti == bi)
             {
