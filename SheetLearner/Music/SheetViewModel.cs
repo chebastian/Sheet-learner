@@ -61,12 +61,12 @@ namespace XTestMan.Views.Music
 
             foreach (var section in TrebleNotes)
             {
-                ClefViewModel.AddNoteGroup(section.AllNotes);
+                ClefViewModel.AddSection(section);
             }
 
             foreach(var section in BassNotes)
             {
-                BassClefViewModel.AddNoteGroup(section.AllNotes);
+                BassClefViewModel.AddSection(section);
             }
 
             OnPropertyChanged("TrebleNotes");
