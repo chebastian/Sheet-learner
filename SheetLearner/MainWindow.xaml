@@ -25,7 +25,7 @@
                     >
                     <music:SheetView
                         Padding="20"
-                        VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" Background="#0DEAD0"
+                        VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" Background="Cornsilk"
                         />
                 </Grid>
                 <Grid 

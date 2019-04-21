@@ -31,13 +31,13 @@
 
             <DataTemplate DataType="{x:Type vm:SharpNote}">
                 <Canvas>
-                    <TextBlock Text="#"  FontSize="20" Foreground="White" FontWeight="Bold" >
+                    <TextBlock Text="#"  FontSize="20" Foreground="Black" FontWeight="Bold" >
                         <TextBlock.RenderTransform>
                             <TransformGroup>
                                 <TranslateTransform 
                                                 Y="{Binding Y, UpdateSourceTrigger=PropertyChanged}"
                                                 X="{Binding X, UpdateSourceTrigger=PropertyChanged}"/>
-                                <!--<TranslateTransform X="15" Y="-10"/>-->
+                                <TranslateTransform X="-15" Y="-10"/>
                             </TransformGroup>
                         </TextBlock.RenderTransform>
                     </TextBlock>
@@ -78,7 +78,7 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Canvas>
+                        <Grid>
                             <Ellipse Margin="0,0,0,0" Height="10" Width="10" Fill="Green" Visibility="{Binding Played, UpdateSourceTrigger=PropertyChanged,Converter={StaticResource CollapsedWhenFalse}}">
                                 <Ellipse.RenderTransform>
                                     <TransformGroup>
@@ -98,7 +98,7 @@
                                 </Ellipse.RenderTransform>
                             </Ellipse>
                             <ContentControl Content="{Binding}" />
-                        </Canvas>
+                        </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
@@ -112,8 +112,7 @@
                 Height="{Binding ElementName=root, Path=ActualHeight}"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch" 
-                >
-
+                > 
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <Canvas/>
@@ -121,7 +120,6 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Canvas>
                             <Grid>
                             <Ellipse Margin="0,0,0,0" Height="10" Width="10" Fill="Transparent" >
                                 <Ellipse.RenderTransform>
@@ -142,7 +140,6 @@
                                 </Rectangle.RenderTransform>
                             </Rectangle>
                             </Grid>
-                        </Canvas>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
