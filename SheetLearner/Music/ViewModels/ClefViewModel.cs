@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 using XTestMan.Views.Music;
 
 namespace SheetLearner.Music.ViewModels
-{ 
+{
     public class NoteViewModel : ViewModelBase
     {
- 
+
         public NoteViewModel() { }
 
         public NoteViewModel(Note note)
@@ -28,7 +28,7 @@ namespace SheetLearner.Music.ViewModels
         {
             get => _played;
             set
-            { 
+            {
                 _played = value;
                 OnPropertyChanged();
             }
@@ -55,7 +55,7 @@ namespace SheetLearner.Music.ViewModels
                 _y = value;
                 OnPropertyChanged();
             }
-        } 
+        }
     }
 
     public class SharpNote : NoteViewModel
@@ -101,7 +101,7 @@ namespace SheetLearner.Music.ViewModels
             {
                 NotesFactory.F1,
                 NotesFactory.E2
-            }; 
+            };
         }
 
 
@@ -112,35 +112,35 @@ namespace SheetLearner.Music.ViewModels
             var left = 1 + Sections.Sum(x => GetGroupWidth(x));
 
             var nudgeToFit = false;
-            foreach(var note in section.AllNotes.OrderBy(x => x.Id))
+            foreach (var note in section.AllNotes.OrderBy(x => x.Id))
             {
                 var currentNoteY = NoteToPisitionInClef(note, ActiveClef);
                 var newNote = CreateNoteAtPosition(note, left, 6 * currentNoteY);
 
                 if (Notes.Any())
-                    CorrectPositionWhenAboveLastNote(Notes.Last(),newNote,nudgeToFit);
+                    CorrectPositionWhenAboveLastNote(Notes.Last(), newNote, nudgeToFit);
 
                 Notes.Add(newNote);
                 notesInSection.Add(newNote);
-            } 
+            }
 
             Sections.Add(new NoteSection(notesInSection));
 
-            AddLedgerLines(new NoteSection(notesInSection),left); 
+            AddLedgerLines(new NoteSection(notesInSection), left);
         }
 
         private void AddLedgerLines(NoteSection section, int xoffset)
         {
             CreateTrailingLinesForSection(section)
-            .ForEach( note => NotesInLedger.Add(
-                    new NoteViewModel(note.Note)
-                    {
-                        X = xoffset,
-                        Y = 6 * NoteToPisitionInClef(note.Note,ActiveClef)
-                    })
-                ); 
+            .ForEach(note => NotesInLedger.Add(
+                   new NoteViewModel(note.Note)
+                   {
+                       X = xoffset,
+                       Y = 6 * NoteToPisitionInClef(note.Note, ActiveClef)
+                   })
+                );
         }
- 
+
         private NoteViewModel CreateNoteAtPosition(Note note, int x, int y)
         {
             if (note.IsSharp)
@@ -148,10 +148,10 @@ namespace SheetLearner.Music.ViewModels
 
             return new NoteViewModel(note) { X = x, Y = y };
         }
- 
+
         private int GetGroupWidth(NoteSection x)
         {
-            if(x.Notes == null)
+            if (x.Notes == null)
                 return NoteWidth;
 
             return x.Notes.Any(note => note.Note.IsSharp || note.Note.IsFlat) ? NoteWidth * 2 : NoteWidth;
@@ -167,7 +167,7 @@ namespace SheetLearner.Music.ViewModels
             }
             else
                 nudgeToFit = false;
-        } 
+        }
 
         public int GetNumberOfLedgerLinesInNote(Note note)
         {
@@ -191,6 +191,6 @@ namespace SheetLearner.Music.ViewModels
         {
             var idx = clef == Clef.Bass ? NotesFactory.BassNotes.IndexOf(note) : NotesFactory.TrebleNotes.IndexOf(note);
             return NotesFactory.BassNotes.Count - idx;
-        } 
+        }
     }
 }
