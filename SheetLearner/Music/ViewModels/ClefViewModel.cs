@@ -114,12 +114,8 @@ namespace SheetLearner.Music.ViewModels
             foreach(var note in notes.OrderBy(x => x.Id))
             {
                 var currentNoteY = NoteToPisitionInClef(note, ActiveClef); 
-                var newNote = new NoteViewModel(note)
-                {
-                    X = startPosX,
-                    Y = 6 * currentNoteY,
-                };
 
+                var newNote = new NoteViewModel(note) { X = startPosX, Y = 6 * currentNoteY, }; 
                 if (note.IsSharp)
                     newNote = new SharpNote(note) { X = newNote.X, Y = newNote.Y };
 
