@@ -109,8 +109,6 @@ namespace SheetLearner.Music.ViewModels
         {
             var notesInSection = new List<NoteViewModel>();
 
-            //var left = 1 + Sections.Sum(x => CalculateWidth(x));
-
             var nudgeToFit = false;
             foreach (var note in section.AllNotes.OrderBy(x => x.Id))
             {
