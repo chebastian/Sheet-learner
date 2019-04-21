@@ -56,8 +56,10 @@ namespace XTestMan.Views.Music
             //var bn = NotesFactory.BassNotes.Select(x => new PlayingNoteViewModel(new NoteSection(new List<NoteViewModel>() { new NoteViewModel(x) })));
             //BassNotes = new ObservableCollection<NoteSection>(bn);
 
-            TrebleNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateGroups(Clef.Treble, 8, 3, false).Select(x => new PlayingNoteViewModel(x)));
-            BassNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateGroups(Clef.Bass, 8, 3, true).Select(x => new PlayingNoteViewModel(x)));
+            var numberOfSections = 5;
+            var notesInSection = 10;
+            TrebleNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateGroups(Clef.Treble, notesInSection, numberOfSections, false).Select(x => new PlayingNoteViewModel(x)));
+            BassNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateGroups(Clef.Bass, notesInSection, numberOfSections, true).Select(x => new PlayingNoteViewModel(x)));
 
             var left = 0;
             for (var i = 0; i < TrebleNotes.Count; i++)

@@ -117,7 +117,7 @@ namespace SheetLearner.Music.ViewModels
                 var currentNoteY = NoteToPisitionInClef(note, ActiveClef);
                 var newNote = CreateNoteAtPosition(note, left, 6 * currentNoteY);
 
-                if (Notes.Any())
+                if (Notes.Any() && notesInSection.Any())
                     CorrectPositionWhenAboveLastNote(Notes.Last(), newNote, nudgeToFit);
 
                 Notes.Add(newNote);
