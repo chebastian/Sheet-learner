@@ -13,13 +13,11 @@ namespace XTestMan.Views.Music
         Equal
     }
 
-    public static class NotesFactory
+    public static class Notes
     {
         public static List<Note> C_Octave => Note.NotesFromString("cdefgAB");
 
-        public static string AllIdentifiers => "c,c#,d,d#,e,f,f#,g,g#,a,a#,b";
-        public static List<Note> AllNotes => AllIdentifiers.Split(',').Select(x => new Note(x)).ToList();
-
+        public static string AllIdentifiers => "c,c#,d,d#,e,f,f#,g,g#,a,a#,b"; 
 
         public static Note C1 = new Note("c");
         public static Note D1 = new Note("d");
@@ -42,7 +40,7 @@ namespace XTestMan.Views.Music
         public static Note G3 = new Note("G1");
         public static Note A3 = new Note("A1");
         public static Note B3 = new Note("B1");
-        public static List<Note> Notes => new List<Note>
+        public static List<Note> AllNotes => new List<Note>
         {
             A1,B1,C1,D1,E1,F1,G1,
             A2,B2,C2,D2,E2,F2,G2,
@@ -260,22 +258,22 @@ namespace XTestMan.Views.Music
 
         public Note OctaveUp()
         {
-            return NotesFactory.Notes.Skip(NotesFactory.Notes.IndexOf(this) + 8).First();
+            return Notes.AllNotes.Skip(Notes.AllNotes.IndexOf(this) + 8).First();
         }
 
         public Note OctaveDown()
         {
-            return NotesFactory.Notes.Skip(NotesFactory.Notes.IndexOf(this) - 8).First(); 
+            return Notes.AllNotes.Skip(Notes.AllNotes.IndexOf(this) - 8).First(); 
         } 
 
         public Relation RelationToMidpoint(Clef clef)
         {
-            return RelationTo(NotesFactory.Midpoint(clef), clef);
+            return RelationTo(Notes.Midpoint(clef), clef);
         } 
 
         public Relation RelationTo(Note note, Clef clef)
         {
-            var notes = NotesFactory.NotesInClef(clef);
+            var notes = Notes.NotesInClef(clef);
             var thisIndex = notes.IndexOf(this);
             var other = notes.IndexOf(note);
 
@@ -290,9 +288,9 @@ namespace XTestMan.Views.Music
 
         public Note Flattened()
         {
-            var index = NotesFactory.AllNotes.IndexOf(this);
-            index = (index - 1) % NotesFactory.AllNotes.Count;
-            return new Note(NotesFactory.AllNotes[index]);
+            var index = Notes.AllNotes.IndexOf(this);
+            index = (index - 1) % Notes.AllNotes.Count;
+            return new Note(Notes.AllNotes[index]);
         }
 
         public bool IsEmpty()
@@ -348,8 +346,8 @@ namespace XTestMan.Views.Music
 
         public bool Equals(Note note)
         {
-            var idx = NotesFactory.TrebleNotes.IndexOf(note) % 8;
-            var myidx = NotesFactory.TrebleNotes.IndexOf(this) % 8;
+            var idx = Notes.TrebleNotes.IndexOf(note) % 8;
+            var myidx = Notes.TrebleNotes.IndexOf(this) % 8;
             return idx == myidx;
         }
 

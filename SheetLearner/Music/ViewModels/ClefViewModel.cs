@@ -89,18 +89,18 @@ namespace SheetLearner.Music.ViewModels
 
             var notes = new List<Note>
             {
-                NotesFactory.C1,
-                NotesFactory.D1,
-                NotesFactory.E1,
-                NotesFactory.E2,
-                NotesFactory.C2,
-                NotesFactory.C3,
+                XTestMan.Views.Music.Notes.C1,
+                XTestMan.Views.Music.Notes.D1,
+                XTestMan.Views.Music.Notes.E1,
+                XTestMan.Views.Music.Notes.E2,
+                XTestMan.Views.Music.Notes.C2,
+                XTestMan.Views.Music.Notes.C3,
             };
 
             var two = new List<Note>
             {
-                NotesFactory.F1,
-                NotesFactory.E2
+                XTestMan.Views.Music.Notes.F1,
+                XTestMan.Views.Music.Notes.E2
             };
         }
 
@@ -176,7 +176,7 @@ namespace SheetLearner.Music.ViewModels
 
         public int GetNumberOfLedgerLinesInNote(Note note)
         {
-            return NotesFactory.NumberOfLedgerLines(note, ActiveClef);
+            return XTestMan.Views.Music.Notes.NumberOfLedgerLines(note, ActiveClef);
         }
 
         private List<NoteViewModel> CreateTrailingLinesForSection(NoteSection noteSection)
@@ -186,16 +186,16 @@ namespace SheetLearner.Music.ViewModels
 
             var linesToFill = new List<NoteViewModel>();
 
-            linesToFill.AddRange(NotesFactory.GetNotesInLedger(noteSection.HighestNote, ActiveClef).Select(x => new NoteViewModel(x)));
-            linesToFill.AddRange(NotesFactory.GetNotesInLedger(noteSection.LowestNote, ActiveClef).Select(x => new NoteViewModel(x)));
+            linesToFill.AddRange(Notes.GetNotesInLedger(noteSection.HighestNote, ActiveClef).Select(x => new NoteViewModel(x)));
+            linesToFill.AddRange(Notes.GetNotesInLedger(noteSection.LowestNote, ActiveClef).Select(x => new NoteViewModel(x)));
 
             return linesToFill;
         }
 
         private int NoteToPisitionInClef(Note note, Clef clef)
         {
-            var idx = clef == Clef.Bass ? NotesFactory.BassNotes.IndexOf(note) : NotesFactory.TrebleNotes.IndexOf(note);
-            return NotesFactory.BassNotes.Count - idx;
+            var idx = clef == Clef.Bass ? XTestMan.Views.Music.Notes.BassNotes.IndexOf(note) : XTestMan.Views.Music.Notes.TrebleNotes.IndexOf(note);
+            return XTestMan.Views.Music.Notes.BassNotes.Count - idx;
         }
     }
 }

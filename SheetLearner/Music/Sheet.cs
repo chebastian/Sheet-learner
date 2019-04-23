@@ -30,9 +30,9 @@ namespace XTestMan.Views.Music
         public static List<Note> GetNotesInActiveClef(Clef clef)
         {
             if (clef == Clef.Bass)
-                return NotesFactory.BassNotes;
+                return Music.Notes.BassNotes;
 
-            return NotesFactory.TrebleNotes;
+            return Music.Notes.TrebleNotes;
         }
 
         public void SwitchClef(Clef clef)
