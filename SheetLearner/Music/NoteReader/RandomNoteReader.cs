@@ -1,4 +1,5 @@
-﻿using SheetLearner.Music.ViewModels;
+﻿using SheetLearner.Music;
+using SheetLearner.Music.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

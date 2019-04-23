@@ -1,8 +1,8 @@
 using NUnit.Framework;
+using SheetLearner.Music;
 using SheetLearner.Music.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
-using XTestMan.Views.Music;
 
 namespace Tests
 {

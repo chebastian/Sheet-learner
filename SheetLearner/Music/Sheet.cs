@@ -1,22 +1,20 @@
-﻿using System;
+﻿using SheetLearner.Music;
 using System.Collections.Generic;
 using System.Linq;
-using XTestMan.Views.Music.NoteReader;
 
-namespace XTestMan.Views.Music
+namespace SheetLearner.Music
 {
     public enum Clef
     {
         Bass,
         Treble
-    } 
+    }
 
 
     public class Sheet
     {
         public static Clef Bass = Clef.Bass;
         public static Clef Treble = Clef.Treble;
-        public List<List<Note>> Notes { get; set; }
         public Clef ActiveClef { get; set; }
 
         public Dictionary<Note, int> map;
@@ -30,9 +28,9 @@ namespace XTestMan.Views.Music
         public static List<Note> GetNotesInActiveClef(Clef clef)
         {
             if (clef == Clef.Bass)
-                return Music.Notes.BassNotes;
+                return Notes.BassNotes;
 
-            return Music.Notes.TrebleNotes;
+            return Notes.TrebleNotes;
         }
 
         public void SwitchClef(Clef clef)
@@ -40,39 +38,38 @@ namespace XTestMan.Views.Music
             ActiveClef = clef;
             //RemapClef();
         }
- 
+
         public Sheet(Clef clef)
         {
             ActiveClef = clef;
-            Notes = new List<List<Note>>();
             SwitchClef(ActiveClef);
         }
 
-        public static Dictionary<Note,int> NoteMapForClef(Clef clef)
-        { 
+        public static Dictionary<Note, int> NoteMapForClef(Clef clef)
+        {
             var map = new Dictionary<Note, int>();
 
             var notes = GetNonLedgerNotesInClef(clef);
             var count = 0;
-            foreach(var note in notes)
+            foreach (var note in notes)
             {
-                map.Add(note,count);
+                map.Add(note, count);
                 count++;
             }
             return map;
         }
- 
+
         public int GetNoteValueInClef(Clef myClef, Note note)
         {
             var comparer = new Note(note);
-            if(note.IsSharp)
+            if (note.IsSharp)
             {
-                comparer = new Note(note.Root); 
+                comparer = new Note(note.Root);
             }
 
             var map = NoteMapForClef(myClef);
-            map.TryGetValue(comparer,out int value);
+            map.TryGetValue(comparer, out int value);
             return value;
-        } 
+        }
     }
 }

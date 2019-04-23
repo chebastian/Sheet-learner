@@ -2,6 +2,7 @@
 using NoteModel;
 using Prism.Commands;
 using SharedLibraries.Interfaces;
+using SheetLearner.Music;
 using SheetLearner.Music.ViewModels;
 using System;
 using System.Collections.Generic;

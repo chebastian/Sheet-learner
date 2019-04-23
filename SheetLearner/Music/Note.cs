@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace XTestMan.Views.Music
+namespace SheetLearner.Music
 {
     public enum Relation
     {
@@ -17,7 +17,7 @@ namespace XTestMan.Views.Music
     {
         public static List<Note> C_Octave => Note.NotesFromString("cdefgAB");
 
-        public static string AllIdentifiers => "c,c#,d,d#,e,f,f#,g,g#,a,a#,b"; 
+        public static string AllIdentifiers => "c,c#,d,d#,e,f,f#,g,g#,a,a#,b";
 
         public static Note C1 = new Note("c");
         public static Note D1 = new Note("d");
@@ -95,7 +95,7 @@ namespace XTestMan.Views.Music
 
             var noteMin = Math.Min(indexMin, indexMax);
             var noteMax = Math.Max(indexMin, indexMax);
-            return range.GetRange(noteMin, (noteMax + 1) - noteMin).ToList();
+            return range.GetRange(noteMin, noteMax + 1 - noteMin).ToList();
         }
 
         private static List<Note> WhereMatch(List<Note> notes, List<Note> match)
@@ -118,7 +118,7 @@ namespace XTestMan.Views.Music
                 var bottomNotes = NotesInRange(BassNotes, A1, E1);
                 var bottomLedger = NotesInRange(bottomNotes, note, E1);
 
-                result = bottomLedger.Any() ? WhereMatch(bottomLedger,bottom) : WhereMatch(topLedger,top);
+                result = bottomLedger.Any() ? WhereMatch(bottomLedger, bottom) : WhereMatch(topLedger, top);
             }
             else if (clef == Clef.Treble)
             {
@@ -131,8 +131,8 @@ namespace XTestMan.Views.Music
                 var bottomNotes = NotesInRange(TrebleNotes, F1, C1);
                 var bottomLedger = NotesInRange(bottomNotes, note, C1);
 
-                result = bottomLedger.Any() ? WhereMatch(bottomLedger,bottom) : WhereMatch(topLedger,top);
-            } 
+                result = bottomLedger.Any() ? WhereMatch(bottomLedger, bottom) : WhereMatch(topLedger, top);
+            }
 
             return result;
         }
@@ -230,10 +230,10 @@ namespace XTestMan.Views.Music
         public Note()
         {
             //Value = 0;
-            _note = String.Empty;
+            _note = string.Empty;
         }
 
-        public Note(String note)
+        public Note(string note)
         {
             _note = note;
             IsSharp = note.Contains("#");
@@ -246,7 +246,7 @@ namespace XTestMan.Views.Music
             //Value = note.Value;
         }
 
-        public static List<Note> Triad(String a, string b, string c)
+        public static List<Note> Triad(string a, string b, string c)
         {
             return new List<Note>() { new Note(a), new Note(b), new Note(c) };
         }
@@ -263,13 +263,13 @@ namespace XTestMan.Views.Music
 
         public Note OctaveDown()
         {
-            return Notes.AllNotes.Skip(Notes.AllNotes.IndexOf(this) - 8).First(); 
-        } 
+            return Notes.AllNotes.Skip(Notes.AllNotes.IndexOf(this) - 8).First();
+        }
 
         public Relation RelationToMidpoint(Clef clef)
         {
             return RelationTo(Notes.Midpoint(clef), clef);
-        } 
+        }
 
         public Relation RelationTo(Note note, Clef clef)
         {
@@ -295,7 +295,7 @@ namespace XTestMan.Views.Music
 
         public bool IsEmpty()
         {
-            return String.IsNullOrWhiteSpace(_note);
+            return string.IsNullOrWhiteSpace(_note);
         }
 
         public Note Root
@@ -308,12 +308,12 @@ namespace XTestMan.Views.Music
 
 
         protected int _val;
-        protected String _note;
+        protected string _note;
         private bool _isSharp;
         private bool _isFlat;
 
         public bool Show { get => _note.Length > 0; }
-        public String Id { get => _note; }
+        public string Id { get => _note; }
 
         //public int Value
         //{
@@ -333,7 +333,7 @@ namespace XTestMan.Views.Music
             set { _isFlat = value; OnPropertyChanged(); }
         }
 
-        public static List<Note> NotesFromString(String notes)
+        public static List<Note> NotesFromString(string notes)
         {
             return notes.ToCharArray().Select(x => new Note(x.ToString())).ToList();
         }

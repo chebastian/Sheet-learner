@@ -60,7 +60,7 @@
         </StackPanel>
         <Canvas Name="root">
             <ItemsControl
-                ItemsSource="{Binding Notes, UpdateSourceTrigger=PropertyChanged}"
+                ItemsSource="{Binding NotesInClef, UpdateSourceTrigger=PropertyChanged}"
                 Style="{x:Null}" 
                 Margin="0"
                 Padding="0"

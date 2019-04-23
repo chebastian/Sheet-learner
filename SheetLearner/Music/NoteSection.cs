@@ -1,19 +1,23 @@
 ﻿using MVVMHelpers;
+using SheetLearner.Music;
 using SheetLearner.Music.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using XTestMan.Views.Music;
 
-namespace XTestMan.Views.Music
+namespace SheetLearner.Music
 {
     public class NoteSection : ViewModelBase
     {
         private List<Note> _section;
-        public virtual List<Note> Section { get => _section; 
+        public virtual List<Note> Section
+        {
+            get => _section;
             set
             {
                 _section = value;
-                OnPropertyChanged(); 
+                OnPropertyChanged();
             }
         }
 
@@ -22,10 +26,10 @@ namespace XTestMan.Views.Music
         public NoteSection()
         {
             Notes = new List<NoteViewModel>();
-            BottomLedger = Enumerable.Repeat<LedgerNote>(new LedgerNote(new Note(), false), 2).ToList();
-            TopLedger = Enumerable.Repeat<LedgerNote>(new LedgerNote(new Note(), false), 2).ToList();
+            BottomLedger = Enumerable.Repeat(new LedgerNote(new Note(), false), 2).ToList();
+            TopLedger = Enumerable.Repeat(new LedgerNote(new Note(), false), 2).ToList();
             AllNotes = new List<Note>();
-        } 
+        }
 
         public NoteSection(List<NoteViewModel> notes)
         {
@@ -51,7 +55,7 @@ namespace XTestMan.Views.Music
         {
             get
             {
-                return  Notes.OrderBy(x => Music.Notes.BassNotes.IndexOf(x.Note)).First().Note;
+                return Notes.OrderBy(x => Music.Notes.BassNotes.IndexOf(x.Note)).First().Note;
             }
         }
 
@@ -59,13 +63,16 @@ namespace XTestMan.Views.Music
         {
             get
             {
-                return  Notes.OrderBy(x => Music.Notes.BassNotes.IndexOf(x.Note)).Last().Note;
+                return Notes.OrderBy(x => Music.Notes.BassNotes.IndexOf(x.Note)).Last().Note;
             }
-        } 
+        }
 
         private List<LedgerNote> _topLedger;
-        public List<LedgerNote> TopLedger { get => _topLedger; 
-            set {
+        public List<LedgerNote> TopLedger
+        {
+            get => _topLedger;
+            set
+            {
                 _topLedger = value;
                 OnPropertyChanged();
             }

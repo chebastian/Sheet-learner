@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using SheetLearner.Music;
+using System.Collections.Generic;
 
 namespace XTestMan.Views.Music
 {
