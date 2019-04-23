@@ -105,5 +105,27 @@ namespace Tests
             Assert.AreEqual(3, NotesFactory.GetNotesInLedger(NotesFactory.F1, Clef.Treble).Where((x,i) => i%2 == 0).ToList().Count); 
         }
 
+        [Test]
+        public void NotesRelation()
+        {
+            var midC = NotesFactory.C2;
+            var noteAbove = NotesFactory.C3;
+
+            Assert.AreEqual(Relation.Lower, midC.RelationTo(noteAbove, Clef.Treble));
+            Assert.AreEqual(Relation.Lower ,NotesFactory.D2.RelationTo(NotesFactory.E2, Clef.Bass));
+            Assert.AreEqual(Relation.Higher, NotesFactory.C2.RelationTo(NotesFactory.C1, Clef.Treble));
+
+            Assert.AreEqual(Relation.Equal, NotesFactory.D1.RelationTo(NotesFactory.D1, Clef.Treble));
+        }
+
+        [Test]
+        public void NotesRelationToMid()
+        {
+            Assert.AreEqual(NotesFactory.E1.RelationToMidpoint(Clef.Bass), Relation.Lower); 
+            Assert.AreEqual(NotesFactory.C3.RelationToMidpoint(Clef.Bass), Relation.Higher); 
+
+            Assert.AreEqual(NotesFactory.C1.RelationToMidpoint(Clef.Treble), Relation.Lower);
+            Assert.AreEqual(NotesFactory.C2.RelationToMidpoint(Clef.Treble), Relation.Higher);
+        }
     } 
 }

@@ -6,6 +6,13 @@ using System.Linq;
 
 namespace XTestMan.Views.Music
 {
+    public enum Relation
+    {
+        Higher,
+        Lower,
+        Equal
+    }
+
     public static class NotesFactory
     {
         public static List<Note> C_Octave => Note.NotesFromString("cdefgAB");
@@ -55,6 +62,17 @@ namespace XTestMan.Views.Music
             F2, G2, A2, B2, C2, D2, E2,
             F3, G3, A3, B3, C3, D3, E3,
         };
+
+
+        public static List<Note> NotesInClef(Clef clef)
+        {
+            return clef == Clef.Bass ? BassNotes : TrebleNotes;
+        }
+
+        public static Note Midpoint(Clef clef)
+        {
+            return clef == Clef.Bass ? D2 : B2;
+        }
 
         public static Note GetInterval(Note n, int interval, Clef clef)
         {
@@ -238,6 +256,36 @@ namespace XTestMan.Views.Music
         public Note Sharped()
         {
             return new Note(_note) { IsSharp = true };
+        }
+
+        public Note OctaveUp()
+        {
+            return NotesFactory.Notes.Skip(NotesFactory.Notes.IndexOf(this) + 8).First();
+        }
+
+        public Note OctaveDown()
+        {
+            return NotesFactory.Notes.Skip(NotesFactory.Notes.IndexOf(this) - 8).First(); 
+        } 
+
+        public Relation RelationToMidpoint(Clef clef)
+        {
+            return RelationTo(NotesFactory.Midpoint(clef), clef);
+        } 
+
+        public Relation RelationTo(Note note, Clef clef)
+        {
+            var notes = NotesFactory.NotesInClef(clef);
+            var thisIndex = notes.IndexOf(this);
+            var other = notes.IndexOf(note);
+
+            if (thisIndex - other > 0)
+                return Relation.Higher;
+
+            if (thisIndex == other)
+                return Relation.Equal;
+
+            return Relation.Lower;
         }
 
         public Note Flattened()
