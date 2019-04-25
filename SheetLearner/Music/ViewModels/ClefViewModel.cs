@@ -155,10 +155,10 @@ namespace SheetLearner.Music.ViewModels
                 nudgeToFit = false;
         }
 
-        public int GetNumberOfLedgerLinesInNote(Note note)
-        {
-            return Notes.NumberOfLedgerLines(note, ActiveClef);
-        }
+        //public int GetNumberOfLedgerLinesInNote(Note note)
+        //{
+        //    return Notes.NumberOfLedgerLines(note, ActiveClef);
+        //}
 
         private List<NoteViewModel> CreateTrailingLinesForSection(NoteSection noteSection)
         {
