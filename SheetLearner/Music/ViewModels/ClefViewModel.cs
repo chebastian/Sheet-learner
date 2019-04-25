@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using SheetLearner.Music;
+using System;
 
 namespace SheetLearner.Music.ViewModels
 {
@@ -93,7 +94,7 @@ namespace SheetLearner.Music.ViewModels
             var nudgeToFit = false;
             foreach (var note in section.AllNotes.OrderBy(x => x.Id))
             {
-                var currentNoteY = NoteToPisitionInClef(note, ActiveClef);
+                var currentNoteY = NoteToPisitionInClef(note);
                 var newNote = CreateNoteAtPosition(note, left, 6 * currentNoteY);
 
                 if (NotesInClef.Any() && notesInSection.Any())
@@ -106,6 +107,15 @@ namespace SheetLearner.Music.ViewModels
             Sections.Add(new NoteSection(notesInSection));
 
             AddLedgerLines(new NoteSection(notesInSection), left);
+            AddNoteStems(notesInSection, left);
+        }
+
+        private void AddNoteStems(List<NoteViewModel> notesInSection, int left)
+        {
+            foreach(var note in notesInSection)
+            {
+                NoteToPisitionInClef(note.Note);
+            }
         }
 
         private void AddLedgerLines(NoteSection section, int xoffset)
@@ -115,7 +125,7 @@ namespace SheetLearner.Music.ViewModels
                    new NoteViewModel(note.Note)
                    {
                        X = xoffset,
-                       Y = 6 * NoteToPisitionInClef(note.Note, ActiveClef)
+                       Y = 6 * NoteToPisitionInClef(note.Note)
                    })
                 );
         }
@@ -145,7 +155,7 @@ namespace SheetLearner.Music.ViewModels
 
         private void CorrectPositionWhenAboveLastNote(NoteViewModel noteViewModel, NoteViewModel newNote, bool nudgeToFit)
         {
-            var isDirectlyAboveLastNote = NoteToPisitionInClef(noteViewModel.Note, ActiveClef) - NoteToPisitionInClef(newNote.Note, ActiveClef) == 1;
+            var isDirectlyAboveLastNote = NoteToPisitionInClef(noteViewModel.Note) - NoteToPisitionInClef(newNote.Note) == 1;
             if (isDirectlyAboveLastNote)
             {
                 nudgeToFit = !nudgeToFit;
@@ -173,9 +183,9 @@ namespace SheetLearner.Music.ViewModels
             return linesToFill;
         }
 
-        private int NoteToPisitionInClef(Note note, Clef clef)
+        private int NoteToPisitionInClef(Note note)
         {
-            var idx = clef == Clef.Bass ? Notes.BassNotes.IndexOf(note) : Notes.TrebleNotes.IndexOf(note);
+            var idx = ActiveClef == Clef.Bass ? Notes.BassNotes.IndexOf(note) : Notes.TrebleNotes.IndexOf(note);
             return Notes.BassNotes.Count - idx;
         }
     }
