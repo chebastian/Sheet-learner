@@ -10,16 +10,6 @@ namespace SheetLearner.Music
 {
     public class NoteSection : ViewModelBase
     {
-        private List<Note> _section;
-        public virtual List<Note> Section
-        {
-            get => _section;
-            set
-            {
-                _section = value;
-                OnPropertyChanged();
-            }
-        }
 
         public List<Note> AllNotes { get; set; }
 

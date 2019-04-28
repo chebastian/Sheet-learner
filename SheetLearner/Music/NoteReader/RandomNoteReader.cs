@@ -31,7 +31,6 @@ namespace XTestMan.Views.Music.NoteReader
             var section = new NoteSection();
             var notes = new List<Note>();
             notes.AddRange(Enumerable.Repeat<Note>(new Note(), Notes.BassNotes.Count));
-            section.Section = notes;
 
             return Enumerable.Repeat(section,len).ToList(); 
         }

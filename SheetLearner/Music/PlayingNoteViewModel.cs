@@ -23,7 +23,5 @@ namespace XTestMan.Views.Music
         }
 
 
-        public override List<Note> Section { get => x.Section; set => x.Section = value; }
-
     }
 }
