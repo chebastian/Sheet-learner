@@ -198,8 +198,7 @@ namespace SheetLearner.Music
 
             return 0;
         }
-
-        public static List<Note> BassLowerLedger => new List<Note>()
+		public static List<Note> BassLowerLedger => new List<Note>()
         {
             E1,
             F1
@@ -256,14 +255,16 @@ namespace SheetLearner.Music
             return new Note(_note) { IsSharp = true };
         }
 
-        public Note OctaveUp()
+        public Note OctaveUp(Clef clef)
         {
-            return Notes.AllNotes.Skip(Notes.AllNotes.IndexOf(this) + 8).First();
+			var notes = Notes.NotesInClef(clef);
+            return notes.Skip(notes.IndexOf(this) + 8).FirstOrDefault();
         }
 
-        public Note OctaveDown()
+        public Note OctaveDown(Clef clef)
         {
-            return Notes.AllNotes.Skip(Notes.AllNotes.IndexOf(this) - 8).First();
+			var notes = Notes.NotesInClef(clef);
+            return notes.Skip(notes.IndexOf(this) - 8).FirstOrDefault();
         }
 
         public Relation RelationToMidpoint(Clef clef)

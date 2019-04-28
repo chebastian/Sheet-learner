@@ -78,7 +78,7 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Grid>
+                        <Canvas>
                             <Ellipse Margin="0,0,0,0" Height="10" Width="10" Fill="Green" Visibility="{Binding Played, UpdateSourceTrigger=PropertyChanged,Converter={StaticResource CollapsedWhenFalse}}">
                                 <Ellipse.RenderTransform>
                                     <TransformGroup>
@@ -98,7 +98,16 @@
                                 </Ellipse.RenderTransform>
                             </Ellipse>
                             <ContentControl Content="{Binding}" />
-                        </Grid>
+                            <Line 
+                                Fill="Black"
+                                Margin="0"
+                                Stroke="Black"
+                                StrokeThickness="2"
+                                X1="{Binding StemX}"
+                                X2="{Binding StemX}" 
+                                Y1="{Binding StemY}" 
+                                Y2="{Binding StemEnd}"/>
+                        </Canvas>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

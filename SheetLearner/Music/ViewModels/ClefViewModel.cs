@@ -10,6 +10,8 @@ namespace SheetLearner.Music.ViewModels
     public class NoteViewModel : ViewModelBase
     {
 
+        public int StemEnd { get; set; }
+
         public NoteViewModel() { }
 
         public NoteViewModel(Note note)
@@ -54,6 +56,9 @@ namespace SheetLearner.Music.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        public int StemX { get; internal set; }
+        public int StemY { get; internal set; }
     }
 
     public class SharpNote : NoteViewModel
@@ -112,9 +117,27 @@ namespace SheetLearner.Music.ViewModels
 
         private void AddNoteStems(List<NoteViewModel> notesInSection, int left)
         {
+            int StemHeight = (int)( NoteWidth * 2.25);
             foreach(var note in notesInSection)
             {
-                NoteToPisitionInClef(note.Note);
+                int stemDir = note.Note.RelationToMidpoint(ActiveClef) == Relation.Lower ? -1 : 1;
+
+                var octave = note.Note;
+                if (note.Note.RelationToMidpoint(ActiveClef) == Relation.Higher)
+				{
+                    octave = note.Note.OctaveDown(ActiveClef); 
+					note.StemY = note.Y;
+				}
+                else
+				{
+                    octave = note.Note.OctaveUp(ActiveClef);
+					note.StemY = note.Y;// + 16;
+				}
+
+                var ocUp =  NoteToPisitionInClef(octave)  * 6;
+
+                note.StemX = note.X + NoteWidth/2;
+                note.StemEnd = ocUp;
             }
         }
 
@@ -147,10 +170,11 @@ namespace SheetLearner.Music.ViewModels
         }
         private int CalculateWidth(NoteSection x)
         {
+			int noteDist = (int)(NoteWidth * 1.5);
             if (x.Notes == null)
-                return NoteWidth;
+                return noteDist;
 
-            return x.Notes.Any(note => note.Note.IsSharp || note.Note.IsFlat) ? NoteWidth * 2 : NoteWidth;
+            return x.Notes.Any(note => note.Note.IsSharp || note.Note.IsFlat) ? noteDist * 2 : noteDist;
         }
 
         private void CorrectPositionWhenAboveLastNote(NoteViewModel noteViewModel, NoteViewModel newNote, bool nudgeToFit)
