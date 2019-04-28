@@ -130,13 +130,14 @@ namespace SheetLearner.Music.ViewModels
 				int stemDir = note.Note.RelationToMidpoint(ActiveClef) == Relation.Lower ? -1 : 1;
 
 				var octave = note.Note;
-				if (note.Note.RelationToMidpoint(ActiveClef) == Relation.Higher)
+				var relation = note.Note.RelationToMidpoint(ActiveClef);
+				if (relation == Relation.Higher || relation == Relation.Equal)
 				{
 					octave = note.Note.OctaveDown(ActiveClef);
-					note.StemY = note.Y;
+					note.StemY = note.Y + 3;
 					int heightCompensation = 0;
 					var ocUp = (NoteToPisitionInClef(octave) - heightCompensation) * 6;
-					note.StemX = note.X + NoteWidth / 2;
+					note.StemX = note.X + 3;
 					note.StemEnd = ocUp;
 				}
 				else
@@ -144,12 +145,12 @@ namespace SheetLearner.Music.ViewModels
 					octave = note.Note.OctaveUp(ActiveClef);
 					note.StemY = note.Y + 6;
 
+					note.StemX = note.X + 13;
 					int heightCompensation = -2;
 					var ocUp = (NoteToPisitionInClef(octave) - heightCompensation) * 6;
 					note.StemEnd = ocUp;
 				}
 
-				note.StemX = note.X + 13;
 
 			}
 		}
