@@ -115,7 +115,14 @@ namespace SheetLearner.Music.ViewModels
             AddNoteStems(notesInSection, left);
         }
 
-        private void AddNoteStems(List<NoteViewModel> notesInSection, int left)
+		internal void ClearNotes()
+		{
+			Sections.Clear();
+			NotesInClef.Clear();
+			NotesInLedger.Clear();
+		}
+
+		private void AddNoteStems(List<NoteViewModel> notesInSection, int left)
         {
             int StemHeight = (int)( NoteWidth * 2.25);
             foreach(var note in notesInSection)
