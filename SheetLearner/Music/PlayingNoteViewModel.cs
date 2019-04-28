@@ -20,16 +20,8 @@ namespace XTestMan.Views.Music
             TopLedger = x.TopLedger;
             BottomLedger = x.BottomLedger;
             AllNotes = x.Notes.Select(theNote => theNote.Note).ToList();
-            IsPlayed = false;
         }
 
-        private bool _hit;
-
-        public bool IsPlayed
-        {
-            get { return _hit; }
-            set { _hit = value; OnPropertyChanged(); }
-        }
 
         public override List<Note> Section { get => x.Section; set => x.Section = value; }
 

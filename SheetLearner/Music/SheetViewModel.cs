@@ -124,12 +124,6 @@ namespace XTestMan.Views.Music
             {
                 MarkLastAsPlayed();
             }
-
-            var anyUnplayed = CurrentNotes().Select(x => (PlayingNoteViewModel)x).Any(x => !x.IsPlayed);
-            if (!anyUnplayed)
-            {
-                OnRandomize();
-            }
         }
 
         private void MarkLastAsPlayed()
