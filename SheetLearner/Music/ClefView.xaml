@@ -12,7 +12,7 @@
 		<Grid.Resources>
 			<system:Double x:Key="height">2</system:Double>
 			<system:Double x:Key="notesz">10</system:Double>
-			<system:Double x:Key="noteh">7</system:Double>
+			<system:Double x:Key="noteh">4</system:Double>
 			<SolidColorBrush Color="Black" x:Key="LineColor"/>
 			<Style TargetType="Ellipse">
 				<Setter Property="Stroke" Value="Black"/>
@@ -81,21 +81,25 @@
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>
 						<Canvas>
-							<Ellipse Margin="0,0,0,0" Height="10" Width="10" Fill="Green" Visibility="{Binding Played, UpdateSourceTrigger=PropertyChanged,Converter={StaticResource CollapsedWhenFalse}}">
+							<Ellipse Margin="0,0,0,0" Height="10" Width="14" Fill="Green" Visibility="{Binding Played, UpdateSourceTrigger=PropertyChanged,Converter={StaticResource CollapsedWhenFalse}}">
 								<Ellipse.RenderTransform>
 									<TransformGroup>
+										<RotateTransform Angle="-20"/>
 										<TranslateTransform 
                                             Y="{Binding Y, UpdateSourceTrigger=PropertyChanged}"
                                             X="{Binding X, UpdateSourceTrigger=PropertyChanged}"/>
+										<TranslateTransform Y="3"/>
 									</TransformGroup>
 								</Ellipse.RenderTransform>
 							</Ellipse>
-							<Ellipse Margin="0,0,0,0" Height="10" Width="10" Fill="Black" Visibility="{Binding Played, UpdateSourceTrigger=PropertyChanged,Converter={StaticResource CollapsedWhenTrue}}">
+							<Ellipse Margin="0,0,0,0" Height="10" Width="14" Fill="Black" Visibility="{Binding Played, UpdateSourceTrigger=PropertyChanged,Converter={StaticResource CollapsedWhenTrue}}">
 								<Ellipse.RenderTransform>
 									<TransformGroup>
+										<RotateTransform Angle="-20"/>
 										<TranslateTransform 
                                             Y="{Binding Y, UpdateSourceTrigger=PropertyChanged}"
                                             X="{Binding X, UpdateSourceTrigger=PropertyChanged}"/>
+										<TranslateTransform Y="3"/>
 									</TransformGroup>
 								</Ellipse.RenderTransform>
 							</Ellipse>

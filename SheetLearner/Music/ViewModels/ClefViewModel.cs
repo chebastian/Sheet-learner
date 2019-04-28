@@ -146,9 +146,10 @@ namespace SheetLearner.Music.ViewModels
 
 					int heightCompensation = -2;
 					var ocUp = (NoteToPisitionInClef(octave) - heightCompensation) * 6;
-					note.StemX = note.X + NoteWidth / 2;
 					note.StemEnd = ocUp;
 				}
+
+				note.StemX = note.X + 13;
 
 			}
 		}
