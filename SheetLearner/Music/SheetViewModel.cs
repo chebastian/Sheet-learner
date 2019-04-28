@@ -48,6 +48,7 @@ namespace XTestMan.Views.Music
             Name = "Sheet";
             TrebleClefViewModel = new ClefViewModel(Clef.Treble);
             BassClefViewModel = new ClefViewModel(Clef.Bass);
+			OnRandomize();
         }
 
         private void OnRandomize()

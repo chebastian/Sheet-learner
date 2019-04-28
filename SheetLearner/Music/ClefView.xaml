@@ -8,58 +8,60 @@
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid >
-        <Grid.Resources>
-            <system:Double x:Key="height">2</system:Double>
-            <system:Double x:Key="notesz">10</system:Double>
-            <system:Double x:Key="noteh">7</system:Double>
-            <SolidColorBrush Color="Black" x:Key="LineColor"/>
-            <Style TargetType="Rectangle">
-                <Setter Property="Margin" Value="0,10,0,0"/>
-                <Setter Property="Height" Value="{StaticResource height}"/>
-                <Setter Property="Fill" Value="Black"/>
-            </Style>
-            <Style TargetType="Ellipse">
-                <Setter Property="Stroke" Value="Black"/>
-                <Setter Property="Width" Value="{StaticResource notesz}"/>
-                <Setter Property="Height" Value="{StaticResource noteh}"/>
-            </Style>
-            <DataTemplate DataType="{x:Type vm:NoteViewModel}" >
-                <Grid>
-                </Grid>
-            </DataTemplate>
+	<Grid >
+		<Grid.Resources>
+			<system:Double x:Key="height">2</system:Double>
+			<system:Double x:Key="notesz">10</system:Double>
+			<system:Double x:Key="noteh">7</system:Double>
+			<SolidColorBrush Color="Black" x:Key="LineColor"/>
+			<Style TargetType="Ellipse">
+				<Setter Property="Stroke" Value="Black"/>
+				<Setter Property="Width" Value="{StaticResource notesz}"/>
+				<Setter Property="Height" Value="{StaticResource noteh}"/>
+			</Style>
+			<DataTemplate DataType="{x:Type vm:NoteViewModel}" >
+				<Grid>
+				</Grid>
+			</DataTemplate>
 
-            <DataTemplate DataType="{x:Type vm:SharpNote}">
-                <Canvas>
-                    <TextBlock Text="#"  FontSize="20" Foreground="Black" FontWeight="Bold" >
-                        <TextBlock.RenderTransform>
-                            <TransformGroup>
-                                <TranslateTransform 
+			<DataTemplate DataType="{x:Type vm:SharpNote}">
+				<Canvas>
+					<TextBlock Text="#"  FontSize="20" Foreground="Black" FontWeight="Bold" >
+						<TextBlock.RenderTransform>
+							<TransformGroup>
+								<TranslateTransform 
                                                 Y="{Binding Y, UpdateSourceTrigger=PropertyChanged}"
                                                 X="{Binding X, UpdateSourceTrigger=PropertyChanged}"/>
-                                <TranslateTransform X="-15" Y="-10"/>
-                            </TransformGroup>
-                        </TextBlock.RenderTransform>
-                    </TextBlock>
-                </Canvas>
-            </DataTemplate>
+								<TranslateTransform X="-15" Y="-10"/>
+							</TransformGroup>
+						</TextBlock.RenderTransform>
+					</TextBlock>
+				</Canvas>
+			</DataTemplate>
 
-        </Grid.Resources>
-        <StackPanel Orientation="Vertical">
-            <Rectangle Fill="Transparent" Width="{Binding ElementName=root, Path=ActualWidth}"/>
-            <Rectangle Fill="Transparent" Width="{Binding ElementName=root, Path=ActualWidth}"/>
-            <Rectangle Fill="Transparent" Width="{Binding ElementName=root, Path=ActualWidth}"/>
-            <Rectangle Width="{Binding ElementName=root, Path=ActualWidth}"/>
-            <Rectangle Width="{Binding ElementName=root, Path=ActualWidth}"/>
-            <Rectangle Width="{Binding ElementName=root, Path=ActualWidth}"/>
-            <Rectangle Width="{Binding ElementName=root, Path=ActualWidth}"/>
-            <Rectangle Width="{Binding ElementName=root, Path=ActualWidth}"/>
-            <Rectangle Fill="Transparent" Width="{Binding ElementName=root, Path=ActualWidth}"/>
-            <Rectangle Fill="Transparent" Width="{Binding ElementName=root, Path=ActualWidth}"/>
-            <Rectangle Fill="Transparent" Width="{Binding ElementName=root, Path=ActualWidth}"/>
-        </StackPanel>
-        <Canvas Name="root">
-            <ItemsControl
+		</Grid.Resources>
+		<StackPanel Orientation="Vertical">
+			<StackPanel.Resources>
+				<Style TargetType="Rectangle">
+					<Setter Property="Margin" Value="0,10,0,0"/>
+					<Setter Property="Height" Value="{StaticResource height}"/>
+					<Setter Property="Fill" Value="Black"/>
+				</Style>
+			</StackPanel.Resources>
+			<Rectangle Fill="Transparent" Width="{Binding ElementName=root, Path=ActualWidth}"/>
+			<Rectangle Fill="Transparent" Width="{Binding ElementName=root, Path=ActualWidth}"/>
+			<Rectangle Fill="Transparent" Width="{Binding ElementName=root, Path=ActualWidth}"/>
+			<Rectangle Width="{Binding ElementName=root, Path=ActualWidth}"/>
+			<Rectangle Width="{Binding ElementName=root, Path=ActualWidth}"/>
+			<Rectangle Width="{Binding ElementName=root, Path=ActualWidth}"/>
+			<Rectangle Width="{Binding ElementName=root, Path=ActualWidth}"/>
+			<Rectangle Width="{Binding ElementName=root, Path=ActualWidth}"/>
+			<Rectangle Fill="Transparent" Width="{Binding ElementName=root, Path=ActualWidth}"/>
+			<Rectangle Fill="Transparent" Width="{Binding ElementName=root, Path=ActualWidth}"/>
+			<Rectangle Fill="Transparent" Width="{Binding ElementName=root, Path=ActualWidth}"/>
+		</StackPanel>
+		<Canvas Name="root">
+			<ItemsControl
                 ItemsSource="{Binding NotesInClef, UpdateSourceTrigger=PropertyChanged}"
                 Style="{x:Null}" 
                 Margin="0"
@@ -70,35 +72,35 @@
                 VerticalAlignment="Stretch" 
                 >
 
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <Canvas/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<Canvas/>
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
 
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Canvas>
-                            <Ellipse Margin="0,0,0,0" Height="10" Width="10" Fill="Green" Visibility="{Binding Played, UpdateSourceTrigger=PropertyChanged,Converter={StaticResource CollapsedWhenFalse}}">
-                                <Ellipse.RenderTransform>
-                                    <TransformGroup>
-                                        <TranslateTransform 
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<Canvas>
+							<Ellipse Margin="0,0,0,0" Height="10" Width="10" Fill="Green" Visibility="{Binding Played, UpdateSourceTrigger=PropertyChanged,Converter={StaticResource CollapsedWhenFalse}}">
+								<Ellipse.RenderTransform>
+									<TransformGroup>
+										<TranslateTransform 
                                             Y="{Binding Y, UpdateSourceTrigger=PropertyChanged}"
                                             X="{Binding X, UpdateSourceTrigger=PropertyChanged}"/>
-                                    </TransformGroup>
-                                </Ellipse.RenderTransform>
-                            </Ellipse>
-                            <Ellipse Margin="0,0,0,0" Height="10" Width="10" Fill="Black" Visibility="{Binding Played, UpdateSourceTrigger=PropertyChanged,Converter={StaticResource CollapsedWhenTrue}}">
-                                <Ellipse.RenderTransform>
-                                    <TransformGroup>
-                                        <TranslateTransform 
+									</TransformGroup>
+								</Ellipse.RenderTransform>
+							</Ellipse>
+							<Ellipse Margin="0,0,0,0" Height="10" Width="10" Fill="Black" Visibility="{Binding Played, UpdateSourceTrigger=PropertyChanged,Converter={StaticResource CollapsedWhenTrue}}">
+								<Ellipse.RenderTransform>
+									<TransformGroup>
+										<TranslateTransform 
                                             Y="{Binding Y, UpdateSourceTrigger=PropertyChanged}"
                                             X="{Binding X, UpdateSourceTrigger=PropertyChanged}"/>
-                                    </TransformGroup>
-                                </Ellipse.RenderTransform>
-                            </Ellipse>
-                            <ContentControl Content="{Binding}" />
-                            <Line 
+									</TransformGroup>
+								</Ellipse.RenderTransform>
+							</Ellipse>
+							<ContentControl Content="{Binding}" />
+							<Line 
                                 Fill="Black"
                                 Margin="0"
                                 Stroke="Black"
@@ -107,12 +109,12 @@
                                 X2="{Binding StemX}" 
                                 Y1="{Binding StemY}" 
                                 Y2="{Binding StemEnd}"/>
-                        </Canvas>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+						</Canvas>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
 
-            <ItemsControl 
+			<ItemsControl 
                 ItemsSource="{Binding NotesInLedger, UpdateSourceTrigger=PropertyChanged}"
                 Style="{x:Null}" 
                 Margin="0"
@@ -121,37 +123,37 @@
                 Height="{Binding ElementName=root, Path=ActualHeight}"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch" 
-                > 
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <Canvas/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                            <Grid>
-                            <Ellipse Margin="0,0,0,0" Height="10" Width="10" Fill="Transparent" >
-                                <Ellipse.RenderTransform>
-                                    <TransformGroup>
-                                        <TranslateTransform 
+                >
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<Canvas/>
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<Grid>
+							<Ellipse Margin="0,0,0,0" Height="10" Width="10" Fill="Transparent" >
+								<Ellipse.RenderTransform>
+									<TransformGroup>
+										<TranslateTransform 
                                         Y="{Binding Y, UpdateSourceTrigger=PropertyChanged}"
                                         X="{Binding X, UpdateSourceTrigger=PropertyChanged}"/>
-                                    </TransformGroup>
-                                </Ellipse.RenderTransform>
-                            </Ellipse>
-                            <Rectangle HorizontalAlignment="Center" VerticalAlignment="Center" Height="1" Width="15" Fill="Black" >
-                                <Rectangle.RenderTransform>
-                                    <TransformGroup>
-                                        <TranslateTransform 
+									</TransformGroup>
+								</Ellipse.RenderTransform>
+							</Ellipse>
+							<Rectangle HorizontalAlignment="Center" VerticalAlignment="Center" Height="1" Width="15" Fill="Black" >
+								<Rectangle.RenderTransform>
+									<TransformGroup>
+										<TranslateTransform 
                                         Y="{Binding Y, UpdateSourceTrigger=PropertyChanged}"
                                         X="{Binding X, UpdateSourceTrigger=PropertyChanged}"/>
-                                    </TransformGroup>
-                                </Rectangle.RenderTransform>
-                            </Rectangle>
-                            </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </Canvas>
-    </Grid>
+									</TransformGroup>
+								</Rectangle.RenderTransform>
+							</Rectangle>
+						</Grid>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</Canvas>
+	</Grid>
 </UserControl>

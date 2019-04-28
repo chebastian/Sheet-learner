@@ -127,5 +127,11 @@ namespace Tests
             Assert.AreEqual(Notes.C1.RelationToMidpoint(Clef.Treble), Relation.Lower);
             Assert.AreEqual(Notes.C2.RelationToMidpoint(Clef.Treble), Relation.Higher);
         }
+
+		[Test]
+		public void NotesOctave()
+		{
+				Notes.E1.OctaveUp(Clef.Bass);
+		}
     } 
 }
