@@ -80,40 +80,7 @@
 
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>
-						<Canvas>
-							<Ellipse Margin="0,0,0,0" Height="10" Width="14" Fill="Green" Visibility="{Binding Played, UpdateSourceTrigger=PropertyChanged,Converter={StaticResource CollapsedWhenFalse}}">
-								<Ellipse.RenderTransform>
-									<TransformGroup>
-										<RotateTransform Angle="-20"/>
-										<TranslateTransform 
-                                            Y="{Binding Y, UpdateSourceTrigger=PropertyChanged}"
-                                            X="{Binding X, UpdateSourceTrigger=PropertyChanged}"/>
-										<TranslateTransform Y="3"/>
-									</TransformGroup>
-								</Ellipse.RenderTransform>
-							</Ellipse>
-							<Ellipse Margin="0,0,0,0" Height="10" Width="14" Fill="Black" Visibility="{Binding Played, UpdateSourceTrigger=PropertyChanged,Converter={StaticResource CollapsedWhenTrue}}">
-								<Ellipse.RenderTransform>
-									<TransformGroup>
-										<RotateTransform Angle="-20"/>
-										<TranslateTransform 
-                                            Y="{Binding Y, UpdateSourceTrigger=PropertyChanged}"
-                                            X="{Binding X, UpdateSourceTrigger=PropertyChanged}"/>
-										<TranslateTransform Y="3"/>
-									</TransformGroup>
-								</Ellipse.RenderTransform>
-							</Ellipse>
-							<ContentControl Content="{Binding}" />
-							<Line 
-                                Fill="Black"
-                                Margin="0"
-                                Stroke="Black"
-                                StrokeThickness="2"
-                                X1="{Binding StemX}"
-                                X2="{Binding StemX}" 
-                                Y1="{Binding StemY}" 
-                                Y2="{Binding StemEnd}"/>
-						</Canvas>
+						<local:NoteView />
 					</DataTemplate>
 				</ItemsControl.ItemTemplate>
 			</ItemsControl>
@@ -136,7 +103,7 @@
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>
 						<Grid>
-							<Ellipse Margin="0,0,0,0" Height="10" Width="10" Fill="Transparent" >
+							<Ellipse Margin="0,0,0,0" Height="10" Width="14" Fill="Transparent" >
 								<Ellipse.RenderTransform>
 									<TransformGroup>
 										<TranslateTransform 

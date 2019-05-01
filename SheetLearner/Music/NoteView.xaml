@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="SheetLearner.Music.NoteView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SheetLearner.Music"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+	<Canvas>
+
+		<Ellipse Margin="0,0,0,0" Height="10" Width="14" Fill="Black" Stroke="Black" Visibility="{Binding Played, UpdateSourceTrigger=PropertyChanged,Converter={StaticResource CollapsedWhenTrue}}">
+			<Ellipse.RenderTransform>
+				<TransformGroup>
+					<RotateTransform Angle="-20"/>
+					<TranslateTransform 
+						Y="{Binding Y, UpdateSourceTrigger=PropertyChanged}"
+						X="{Binding X, UpdateSourceTrigger=PropertyChanged}"/>
+					<TranslateTransform Y="3"/>
+				</TransformGroup>
+			</Ellipse.RenderTransform>
+		</Ellipse>
+		<Ellipse Margin="0,0,0,0" Height="10" Width="14" Fill="Green" Stroke="Green" Visibility="{Binding Played, UpdateSourceTrigger=PropertyChanged,Converter={StaticResource CollapsedWhenFalse}}">
+			<Ellipse.RenderTransform>
+				<TransformGroup>
+					<RotateTransform Angle="-20"/>
+					<TranslateTransform 
+						Y="{Binding Y, UpdateSourceTrigger=PropertyChanged}"
+						X="{Binding X, UpdateSourceTrigger=PropertyChanged}"/>
+					<TranslateTransform Y="3"/>
+				</TransformGroup>
+			</Ellipse.RenderTransform>
+		</Ellipse>
+		<ContentControl Content="{Binding}" />
+		<Line 
+			Visibility="{Binding Played, UpdateSourceTrigger=PropertyChanged,Converter={StaticResource CollapsedWhenFalse}}"
+			Fill="Green"
+			Margin="0"
+			Stroke="Green"
+			StrokeThickness="2"
+			X1="{Binding StemX}"
+			X2="{Binding StemX}" 
+			Y1="{Binding StemY}" 
+			Y2="{Binding StemEnd}"/>
+		<Line 
+			Visibility="{Binding Played, UpdateSourceTrigger=PropertyChanged,Converter={StaticResource CollapsedWhenTrue}}"
+			Fill="Black"
+			Margin="0"
+			Stroke="Black"
+			StrokeThickness="2"
+			X1="{Binding StemX}"
+			X2="{Binding StemX}" 
+			Y1="{Binding StemY}" 
+			Y2="{Binding StemEnd}"/>
+	</Canvas>
+</UserControl>

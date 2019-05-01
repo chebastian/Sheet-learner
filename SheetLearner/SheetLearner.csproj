@@ -72,6 +72,9 @@
     <Compile Include="Music\ClefView.xaml.cs">
       <DependentUpon>ClefView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Music\NoteView.xaml.cs">
+      <DependentUpon>NoteView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Music\RootNoteComparer.cs" />
     <Compile Include="Music\ViewModels\ClefViewModel.cs" />
     <Compile Include="Utils\AddAdorner.cs" />
@@ -102,6 +105,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Music\ClefView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Music\NoteView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
