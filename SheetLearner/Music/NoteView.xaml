@@ -6,16 +6,24 @@
              xmlns:local="clr-namespace:SheetLearner.Music"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+	<UserControl.Resources>
+		<SolidColorBrush Color="Black" x:Key="EFill" x:Name="Fill"/>
+	</UserControl.Resources>
 	<Canvas>
-
-		<Ellipse Margin="0,0,0,0" Height="10" Width="14" Fill="Black" Stroke="Black" Visibility="{Binding Played, UpdateSourceTrigger=PropertyChanged,Converter={StaticResource CollapsedWhenTrue}}">
+		<Canvas.RenderTransform>
+			<TranslateTransform x:Name="pos"/>
+		</Canvas.RenderTransform>
+		<Ellipse Name="elp" Margin="0,0,0,0" Height="10" Width="14"  Stroke="Black" 
+				 Visibility="{Binding Played, UpdateSourceTrigger=PropertyChanged,Converter={StaticResource CollapsedWhenTrue}}"
+				 Fill="Black"
+				 >
 			<Ellipse.RenderTransform>
 				<TransformGroup>
 					<RotateTransform Angle="-20"/>
 					<TranslateTransform 
 						Y="{Binding Y, UpdateSourceTrigger=PropertyChanged}"
 						X="{Binding X, UpdateSourceTrigger=PropertyChanged}"/>
-					<TranslateTransform Y="3"/>
+					<TranslateTransform Y="3" />
 				</TransformGroup>
 			</Ellipse.RenderTransform>
 		</Ellipse>
