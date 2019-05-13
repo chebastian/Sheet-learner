@@ -47,7 +47,7 @@ namespace SheetLearner.Music
 			{
 				Dispatcher.Invoke(() =>
 				{
-					AnimateRenderY(20, TimeSpan.FromMilliseconds(200));
+					AnimateRenderY(-20, TimeSpan.FromMilliseconds(200));
 				});
 			}
 		}
