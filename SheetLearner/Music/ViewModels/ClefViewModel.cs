@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using SheetLearner.Music;
 using System;
+using System.Threading.Tasks;
 
 namespace SheetLearner.Music.ViewModels
 {
@@ -90,9 +91,8 @@ namespace SheetLearner.Music.ViewModels
 
 			ActiveClef = clef;
 		}
-
-
-		public void AddSection(NoteSection section, int left)
+ 
+		public async Task AddSection(NoteSection section, int left)
 		{
 			var notesInSection = new List<NoteViewModel>();
 
@@ -112,7 +112,7 @@ namespace SheetLearner.Music.ViewModels
 			Sections.Add(new NoteSection(notesInSection));
 
 			AddLedgerLines(new NoteSection(notesInSection), left);
-			AddNoteStems(notesInSection, left);
+			AddNoteStems(notesInSection);
 		}
 
 		internal void ClearNotes()
@@ -122,7 +122,7 @@ namespace SheetLearner.Music.ViewModels
 			NotesInLedger.Clear();
 		}
 
-		private void AddNoteStems(List<NoteViewModel> notesInSection, int left)
+		private void AddNoteStems(List<NoteViewModel> notesInSection)
 		{
 			int StemHeight = (int)(NoteWidth * 2.25);
 			foreach (var note in notesInSection)
