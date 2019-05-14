@@ -91,7 +91,7 @@ namespace SheetLearner.Music.ViewModels
 
 			ActiveClef = clef;
 		}
- 
+
 		public async Task AddSection(NoteSection section, int left)
 		{
 			var notesInSection = new List<NoteViewModel>();
@@ -109,10 +109,13 @@ namespace SheetLearner.Music.ViewModels
 				notesInSection.Add(newNote);
 			}
 
-			Sections.Add(new NoteSection(notesInSection));
+			if (notesInSection.Count > 1)
+				Sections.Add(new ChordSection(notesInSection));
+			else
+				Sections.Add(new NoteSection(notesInSection));
 
-			AddLedgerLines(new NoteSection(notesInSection), left);
-			AddNoteStems(notesInSection);
+			AddLedgerLines(Sections.Last(), left);
+			AddNoteStems(Sections.Last());
 		}
 
 		internal void ClearNotes()
@@ -122,13 +125,16 @@ namespace SheetLearner.Music.ViewModels
 			NotesInLedger.Clear();
 		}
 
-		private void AddNoteStems(List<NoteViewModel> notesInSection)
+		private void AddNoteStems(NoteSection section)
 		{
-			int StemHeight = (int)(NoteWidth * 2.25);
-			foreach (var note in notesInSection)
+			if (section is ChordSection)
 			{
-				int stemDir = note.Note.RelationToMidpoint(ActiveClef) == Relation.Lower ? -1 : 1;
+				AddNoteStems(section as ChordSection);
+				return;
+			}
 
+			foreach (var note in section.Notes)
+			{
 				var octave = note.Note;
 				var relation = note.Note.RelationToMidpoint(ActiveClef);
 				if (relation == Relation.Higher || relation == Relation.Equal)
@@ -149,10 +155,13 @@ namespace SheetLearner.Music.ViewModels
 					int heightCompensation = -2;
 					var ocUp = (NoteToPisitionInClef(octave) - heightCompensation) * 6;
 					note.StemEnd = ocUp;
-				}
-
-
+				} 
 			}
+		}
+
+		private void AddNoteStems(ChordSection chord)
+		{
+			//AddNoteStems(chord as NoteSection);
 		}
 
 		private void AddLedgerLines(NoteSection section, int xoffset)

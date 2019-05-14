@@ -79,4 +79,45 @@ namespace SheetLearner.Music
         public List<NoteViewModel> Notes { get; set; }
     }
 
+	public class ChordSection : NoteSection
+	{
+		public enum NoteExtreme
+		{
+			Top,
+			Bottom
+		}
+
+		public enum RelationToMid
+		{
+			Above,Below
+		}
+
+		public ChordSection()
+		{
+		}
+
+		public ChordSection(List<NoteViewModel> notes) : base(notes)
+		{
+		} 
+
+		public bool EqualFromMid(Clef clef)
+		{
+			return HighestNote.DistanceToMidPointAbs(clef) == LowestNote.DistanceToMidPointAbs(clef);
+		}
+
+		public NoteExtreme FartherFromMid(Clef clef)
+		{
+			return HighestNote.DistanceToMidPointAbs(clef) > LowestNote.DistanceToMidPointAbs(clef) ? NoteExtreme.Top : NoteExtreme.Bottom;
+		}
+
+		public Relation MajorityRelation(Clef clef)
+		{
+			var relations = Notes.Select(x => x.Note.RelationToMidpoint(clef));
+			if (relations.Where(x => x == Relation.Higher).ToList().Count > relations.Where(x => x == Relation.Lower).ToList().Count)
+				return Relation.Higher;
+
+			return Relation.Lower;
+		}
+	}
+
 }

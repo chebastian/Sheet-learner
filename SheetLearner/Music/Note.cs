@@ -272,6 +272,25 @@ namespace SheetLearner.Music
             return RelationTo(Notes.Midpoint(clef), clef);
         }
 
+		public int DistanceToMidPointAbs(Clef clef)
+		{
+			return DistanceToAbs(Notes.Midpoint(clef), clef);
+		}
+
+		public int DistanceTo(Note note, Clef clef)
+		{ 
+            var notes = Notes.NotesInClef(clef);
+            var thisIndex = notes.IndexOf(this);
+            var other = notes.IndexOf(note);
+
+			return thisIndex - other;
+		}
+
+		public int DistanceToAbs(Note note, Clef clef)
+		{
+			return Math.Abs(DistanceTo(note, clef));
+		}
+
         public Relation RelationTo(Note note, Clef clef)
         {
             var notes = Notes.NotesInClef(clef);
