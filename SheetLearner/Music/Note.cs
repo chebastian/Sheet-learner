@@ -103,6 +103,14 @@ namespace SheetLearner.Music
             return notes.Where(x => match.Contains(x)).ToList();
         }
 
+		public static bool IsOuterLedger(Note note, Clef clef)
+		{
+			var theNotes = clef == Clef.Bass ? new {low = Notes.E1, high = Notes.C3} : new {low = Notes.C1, high = Notes.A3} ;
+
+			var isLedger = note.RelationTo(theNotes.high,clef) == Relation.Higher || note.RelationTo(theNotes.low,clef) == Relation.Lower;
+			return isLedger; 
+		}
+
         public static List<Note> GetNotesInLedger(Note note, Clef clef)
         {
             var result = new List<Note>();

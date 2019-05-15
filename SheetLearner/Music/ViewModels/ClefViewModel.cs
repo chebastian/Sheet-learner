@@ -136,29 +136,28 @@ namespace SheetLearner.Music.ViewModels
 			foreach (var note in section.Notes)
 			{
 				var octave = note.Note;
-				var relation = note.Note.RelationToMidpoint(ActiveClef);
-				if (relation == Relation.Higher || relation == Relation.Equal)
-				{
-					octave = note.Note.OctaveDown(ActiveClef);
-					note.StemY = note.Y + 3;
-					int heightCompensation = 0;
-					var ocUp = (NoteToPisitionInClef(octave) - heightCompensation) * 6;
-					note.StemX = note.X + 3;
-					note.StemEnd = ocUp;
-				}
-				else
-				{
-					octave = note.Note.OctaveUp(ActiveClef);
-					note.StemY = note.Y + 6;
+				var relation = note.Note.RelationToMidpoint(ActiveClef); 
+				octave = relation != Relation.Lower ? note.Note.OctaveDown(ActiveClef) :
+													note.Note.OctaveUp(ActiveClef);
 
-					note.StemX = note.X + 13;
-					int heightCompensation = -2;
-					var ocUp = (NoteToPisitionInClef(octave) - heightCompensation) * 6;
-					note.StemEnd = ocUp;
-				} 
+				if (Notes.IsOuterLedger(note.Note, ActiveClef))
+					octave = Notes.Midpoint(ActiveClef);
+
+				var offsets = relation != Relation.Lower ?
+					new { x = 3, y = 3, noteIndexCorrection = 0 } :
+					new { x = 14, y = 6, noteIndexCorrection = -2 };
+
+				//Adds correction when mid
+				if (octave == Notes.Midpoint(ActiveClef))
+					offsets = new { x = offsets.x, y = offsets.y, noteIndexCorrection = -1 };
+
+				var ocUp = (NoteToPisitionInClef(octave) - offsets.noteIndexCorrection) * 6;
+				note.StemEnd = ocUp;
+				note.StemY = note.Y + offsets.y;
+				note.StemX = note.X + offsets.x;
 			}
 		}
-
+ 
 		private void AddNoteStems(ChordSection chord)
 		{
 			//AddNoteStems(chord as NoteSection);
