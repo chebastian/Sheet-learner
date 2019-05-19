@@ -72,6 +72,11 @@ namespace SheetLearner.Music
             return clef == Clef.Bass ? D2 : B2;
         }
 
+		public static int GetInterval(Note a, Note b, Clef clef)
+		{
+			var notes = NotesInClef(clef);
+			return Math.Abs( notes.IndexOf(a) - notes.IndexOf(b) );
+		}
         public static Note GetInterval(Note n, int interval, Clef clef)
         {
             var source = clef == Clef.Bass ? BassNotes : TrebleNotes;
@@ -85,7 +90,7 @@ namespace SheetLearner.Music
 
 
 
-        private static List<Note> NotesInRange(List<Note> range, Note min, Note max)
+        public static List<Note> NotesInRange(List<Note> range, Note min, Note max)
         {
             var indexMin = range.IndexOf(min);
             var indexMax = range.IndexOf(max);

@@ -48,7 +48,6 @@ namespace XTestMan.Views.Music
 			Name = "Sheet";
 			TrebleClefViewModel = new ClefViewModel(Clef.Treble);
 			BassClefViewModel = new ClefViewModel(Clef.Bass);
-			OnRandomize();
 		}
 
 		private void OnRandomize()
@@ -60,12 +59,22 @@ namespace XTestMan.Views.Music
 
 			var numberOfSections = 5;
 			var notesInSection = 10;
-			TrebleNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateGroups(Clef.Treble, notesInSection, numberOfSections, false).Select(x => new PlayingNoteViewModel(x)));
-			BassNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateGroups(Clef.Bass, notesInSection, numberOfSections, true).Select(x => new PlayingNoteViewModel(x)));
+			//TrebleNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateGroups(Clef.Treble, notesInSection, numberOfSections, false).Select(x => new PlayingNoteViewModel(x)));
+			//BassNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateGroups(Clef.Bass, notesInSection, numberOfSections, true).Select(x => new PlayingNoteViewModel(x)));
+
+			TrebleNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateChordGroups(Clef.Treble, notesInSection, 1, false).Select(x => new PlayingNoteViewModel(x)));
+			BassNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateChordGroups(Clef.Bass, notesInSection, 1, true).Select(x => new PlayingNoteViewModel(x)));
 
 			TrebleClefViewModel.ClearNotes();
 			BassClefViewModel.ClearNotes();
-			OnLoadSectionsAsync();
+			try
+			{
+				OnLoadSectionsAsync(); 
+			}
+			catch(Exception e)
+			{
+				throw;
+			}
 
 			OnPropertyChanged("TrebleNotes");
 			OnPropertyChanged("BassNotes");
