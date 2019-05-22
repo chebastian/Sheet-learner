@@ -29,11 +29,72 @@ namespace XTestMan.Views.Music.NoteReader
 			if (FavorChords)
 				return CreateLinearChordSection();
 
-            return CreateRandomSections(_length);
-        }
+			//return CreateRandomSections(_length);
+
+			return new List<NoteSection>() {
+				new ChordSection(new List<NoteViewModel>() {
+				new NoteViewModel(Notes.C2),
+				new NoteViewModel(Notes.E2),
+				new NoteViewModel(Notes.G2), }),
+
+				new ChordSection(new List<NoteViewModel>() {
+				new NoteViewModel(Notes.C3),
+				new NoteViewModel(Notes.E2),
+				new NoteViewModel(Notes.G2), }),
+
+				new ChordSection(new List<NoteViewModel>() {
+				new NoteViewModel(Notes.A2),
+				new NoteViewModel(Notes.B1), }),
+
+				new ChordSection(new List<NoteViewModel>() {
+				new NoteViewModel(Notes.A1),
+				new NoteViewModel(Notes.B1), }),
+
+				new ChordSection(new List<NoteViewModel>() {
+				new NoteViewModel(Notes.A3),
+				new NoteViewModel(Notes.B3), }),
+
+				new ChordSection(new List<NoteViewModel>() {
+				new NoteViewModel(Notes.C2),
+				new NoteViewModel(Notes.B1), }),
+
+				new ChordSection(new List<NoteViewModel>() {
+				new NoteViewModel(Notes.C1),
+				new NoteViewModel(Notes.A1), }),
+
+				new ChordSection(new List<NoteViewModel>() {
+				new NoteViewModel(Notes.F2),
+				new NoteViewModel(Notes.B2), }),
+
+				new ChordSection(new List<NoteViewModel>() {
+				new NoteViewModel(Notes.G1),
+				new NoteViewModel(Notes.F2),
+				new NoteViewModel(Notes.B2), }),
+
+				new ChordSection(new List<NoteViewModel>() {
+				new NoteViewModel(Notes.A2),
+				new NoteViewModel(Notes.F2),
+				new NoteViewModel(Notes.B3), }),
+
+				new ChordSection(new List<NoteViewModel>() {
+				new NoteViewModel(Notes.G1),
+				new NoteViewModel(Notes.F2),
+				new NoteViewModel(Notes.B2), }),
+
+				new ChordSection(new List<NoteViewModel>() {
+				new NoteViewModel(Notes.A2),
+				new NoteViewModel(Notes.F2),
+				new NoteViewModel(Notes.B2), }),
+
+				//new ChordSection(new List<NoteViewModel>() {
+				//new NoteViewModel(Notes.C2),
+				//new NoteViewModel(Notes.E2),
+				//new NoteViewModel(Notes.G2), }, )
+			};
+		}
 
 		private List<NoteSection> CreateLinearChordSection()
-		{
+		{ 
 			var result = new List<NoteSection>();
 			var start = Notes.C1;
 			var baseVm = new NoteViewModel(start);
@@ -109,10 +170,16 @@ namespace XTestMan.Views.Music.NoteReader
                     var first = _rand.Next(notes.Count - 1);
                     var third = _rand.Next(notes.Count - 1);
                     var noteA = new NoteViewModel(notes[first]);
+					var randIndex = _rand.Next(stepSize);
+					var inter = Notes.NotesInRange(Notes.NotesInClef(_clef), lastNote, Notes.GetInterval(lastNote, 7, _clef));
+					inter = inter.OrderBy(x => _rand.Next()).ToList();
+					var st = new Stack<Note>(inter);
+
                     if (list.Count > 0)
-                        noteA = new NoteViewModel( Notes.GetInterval(lastNote, _rand.Next(stepSize), _clef) );
-                    var noteB = new NoteViewModel(Notes.GetInterval(noteA.Note, _rand.Next(stepSize-3),_clef));
-                    var noteC = new NoteViewModel(Notes.GetInterval(noteB.Note, _rand.Next(stepSize-3),_clef));
+                        noteA = new NoteViewModel(st.Pop());
+
+                    var noteB = new NoteViewModel(st.Pop());
+                    var noteC = new NoteViewModel(st.Pop());
                     list.Add(new NoteSection(new List<NoteViewModel> { noteA, noteB,noteC }));
 
                 }

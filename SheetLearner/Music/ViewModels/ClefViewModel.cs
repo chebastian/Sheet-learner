@@ -236,8 +236,6 @@ namespace SheetLearner.Music.ViewModels
 		{
 			var stem = new Stem();
 			var stems = new List<Stem>();
-			var highStem = chord.Highest();
-			var low = chord.Lowest();
 
 			var isDown = false;
 			var offsetX = 0;
@@ -248,7 +246,7 @@ namespace SheetLearner.Music.ViewModels
 			}
 			else
 			{
-				stem.StemDirection = chord.FartherFromMid(ActiveClef) == ChordSection.NoteExtreme.Top ? Stem.Direction.Up : Stem.Direction.Down;
+				stem.StemDirection = chord.MajorityRelation(ActiveClef) == Relation.Lower ? Stem.Direction.Up : Stem.Direction.Down;
 			}
 
 			if (chord.HasInterval(ChordSection.Interval.Second, ActiveClef))
@@ -260,27 +258,35 @@ namespace SheetLearner.Music.ViewModels
 				stem.HorizontalOrientaion = stem.StemDirection == Stem.Direction.Down ? Stem.Horizontal.Left : Stem.Horizontal.Right;
 			}
 
-			if (chord.HasInterval(ChordSection.Interval.Second, ActiveClef))
+			////TODO remove hack for chords with second intervals
+			//if (chord.HasInterval(ChordSection.Interval.Second, ActiveClef))
+			//{
+			//	var note = chord.FirstNoteInSecond(ActiveClef);
+			//	var target = stem.StemDirection == Stem.Direction.Down ? note.Note.OctaveDown(ActiveClef) : note.Note.OctaveUp(ActiveClef);
+			//	var pos = NoteToPisitionInClef(target);
+			//	var len = 6 * 6;
+			//	note.StemX = note.X + stem.PosX();
+			//	note.StemY = note.Y + stem.Start();
+			//	note.StemEnd = note.StemY + (stem.StemDirection == Stem.Direction.Up ? -len : len);
+			//	return;
+			//}
+
+			//TODO remove this in favor for calculating high and low based on direction of stem
+			var outerNote = stem.StemDirection == Stem.Direction.Down ? chord.Lowest(ActiveClef) : chord.Highest(ActiveClef);
 			{
-				var note = chord.FirstNoteInSecond(ActiveClef);
-				var target = stem.StemDirection == Stem.Direction.Down ? note.Note.OctaveDown(ActiveClef) : note.Note.OctaveUp(ActiveClef);
-				var pos = NoteToPisitionInClef(target);
-				var len = 6 * 6;
-				note.StemX = note.X + stem.PosX();
-				note.StemY = note.Y + stem.Start();
-				note.StemEnd = note.StemY + (stem.StemDirection == Stem.Direction.Up ? -len : len);
+				var endWith = stem.StemDirection == Stem.Direction.Down ? outerNote.Note.OctaveDown(ActiveClef) : outerNote.Note.OctaveUp(ActiveClef);
+				var lst = GetYPos(endWith,stem);
+				var innerNote = stem.StemDirection == Stem.Direction.Down ? chord.Highest(ActiveClef) : chord.Lowest(ActiveClef);
+
+				outerNote.StemX = outerNote.X + stem.PosX();
+				outerNote.StemY = outerNote.Y + stem.Start();
+				outerNote.StemEnd = lst;
+
+				innerNote.StemX = outerNote.X + stem.PosX();
+				innerNote.StemY = innerNote.Y + stem.Start();
+				//innerNote.StemY = innerNote.Y;// + stem.Start();
+				innerNote.StemEnd = outerNote.StemY;
 				return;
-			}
-
-			foreach (var cc in chord.Notes)
-			{
-				var target = stem.StemDirection == Stem.Direction.Down ? cc.Note.OctaveDown(ActiveClef) : cc.Note.OctaveUp(ActiveClef);
-				var pos = NoteToPisitionInClef(target);
-				var len = 6 * 6;
-				cc.StemX = cc.X + stem.PosX();
-				cc.StemY = cc.Y + stem.Start();
-				cc.StemEnd = cc.StemY + (stem.StemDirection == Stem.Direction.Up ? -len : len);
-
 			}
 		}
 
@@ -311,6 +317,7 @@ namespace SheetLearner.Music.ViewModels
 
 			return 0;
 		}
+
 		private int CalculateWidth(NoteSection x)
 		{
 			int noteDist = (int)(NoteWidth * 1.5);
@@ -331,12 +338,7 @@ namespace SheetLearner.Music.ViewModels
 			else
 				nudgeToFit = false;
 		}
-
-		//public int GetNumberOfLedgerLinesInNote(Note note)
-		//{
-		//    return Notes.NumberOfLedgerLines(note, ActiveClef);
-		//}
-
+ 
 		private List<NoteViewModel> CreateTrailingLinesForSection(NoteSection noteSection)
 		{
 			if (noteSection.Notes.Count <= 0)
@@ -348,6 +350,13 @@ namespace SheetLearner.Music.ViewModels
 			linesToFill.AddRange(Notes.GetNotesInLedger(noteSection.LowestNote, ActiveClef).Select(x => new NoteViewModel(x)));
 
 			return linesToFill;
+		}
+
+		private int GetYPos(Note note, Stem stem)
+		{
+			var n = NoteToPisitionInClef(note);
+			var offset = stem.StemDirection == Stem.Direction.Down ? -2 : 2;
+			return 6 * (n + offset);
 		}
 
 		private int NoteToPisitionInClef(Note note)

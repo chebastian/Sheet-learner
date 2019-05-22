@@ -125,11 +125,11 @@ namespace SheetLearner.Music
 
 		public Relation MajorityRelation(Clef clef)
 		{
-			var relations = Notes.Select(x => x.Note.RelationToMidpoint(clef));
-			if (relations.Where(x => x == Relation.Higher).ToList().Count > relations.Where(x => x == Relation.Lower).ToList().Count)
-				return Relation.Higher;
+			var relations = Notes.Select(x => x.Note.RelationToMidpoint(clef)).ToList();
+			var higher = relations.Where(x => x == Relation.Higher).ToList().Count;
+			var lower = relations.Where(x => x == Relation.Lower).ToList().Count; 
 
-			return Relation.Lower;
+			return higher > lower ? Relation.Higher : (lower == higher ? Relation.Equal : Relation.Lower);
 		}
 
 		public bool HasInterval(Interval interval, Clef clef)
@@ -188,14 +188,16 @@ namespace SheetLearner.Music
 			return intervals.Where(x => x > 0).Min();
 		}
 
-		public NoteViewModel Highest()
+		public NoteViewModel Highest(Clef clef)
 		{
-			return Notes.OrderBy(x => Music.Notes.BassNotes.IndexOf(x.Note)).First();
+			var group = Music.Notes.NotesInClef(clef);
+			return Notes.OrderBy(x => group.IndexOf(x.Note)).Last();
 		}
 
-		public NoteViewModel Lowest()
+		public NoteViewModel Lowest(Clef clef)
 		{
-			return Notes.OrderBy(x => Music.Notes.BassNotes.IndexOf(x.Note)).Last();
+			var group = Music.Notes.NotesInClef(clef);
+			return Notes.OrderBy(x => group.IndexOf(x.Note)).First();
 		}
 	}
 
