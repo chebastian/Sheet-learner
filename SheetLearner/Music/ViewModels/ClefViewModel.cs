@@ -284,7 +284,6 @@ namespace SheetLearner.Music.ViewModels
 
 				innerNote.StemX = outerNote.X + stem.PosX();
 				innerNote.StemY = innerNote.Y + stem.Start();
-				//innerNote.StemY = innerNote.Y;// + stem.Start();
 				innerNote.StemEnd = outerNote.StemY;
 				return;
 			}
