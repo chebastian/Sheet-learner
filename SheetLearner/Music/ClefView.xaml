@@ -25,7 +25,7 @@
 			</DataTemplate>
 
 			<DataTemplate DataType="{x:Type vm:SharpNote}">
-				<Canvas>
+				<Canvas >
 					<TextBlock Text="#"  FontSize="20" Foreground="Black" FontWeight="Bold" >
 						<TextBlock.RenderTransform>
 							<TransformGroup>
@@ -48,19 +48,19 @@
 					<Setter Property="Fill" Value="Black"/>
 				</Style>
 			</StackPanel.Resources>
-			<Rectangle Fill="Transparent" Width="{Binding ElementName=root, Path=ActualWidth}"/>
+			<Rectangle Fill="HotPink" Width="{Binding ElementName=root, Path=ActualWidth}"/>
 			<Rectangle Fill="Transparent" Width="{Binding ElementName=root, Path=ActualWidth}"/>
 			<Rectangle Fill="Transparent" Width="{Binding ElementName=root, Path=ActualWidth}"/>
 			<Rectangle Width="{Binding ElementName=root, Path=ActualWidth}"/>
 			<Rectangle Width="{Binding ElementName=root, Path=ActualWidth}"/>
-			<Rectangle Width="{Binding ElementName=root, Path=ActualWidth}"/>
+			<Rectangle Width="{Binding ElementName=root, Path=ActualWidth}" Fill="Red"/>
 			<Rectangle Width="{Binding ElementName=root, Path=ActualWidth}"/>
 			<Rectangle Width="{Binding ElementName=root, Path=ActualWidth}"/>
 			<Rectangle Fill="Transparent" Width="{Binding ElementName=root, Path=ActualWidth}"/>
 			<Rectangle Fill="Transparent" Width="{Binding ElementName=root, Path=ActualWidth}"/>
-			<Rectangle Fill="Transparent" Width="{Binding ElementName=root, Path=ActualWidth}"/>
+			<Rectangle Fill="HotPink" Width="{Binding ElementName=root, Path=ActualWidth}"/>
 		</StackPanel>
-		<Canvas Name="root">
+		<Canvas Name="root" >
 			<ItemsControl
                 ItemsSource="{Binding NotesInClef, UpdateSourceTrigger=PropertyChanged}"
                 Style="{x:Null}" 
@@ -74,7 +74,7 @@
 
 				<ItemsControl.ItemsPanel>
 					<ItemsPanelTemplate>
-						<Canvas/>
+						<Canvas />
 					</ItemsPanelTemplate>
 				</ItemsControl.ItemsPanel>
 
