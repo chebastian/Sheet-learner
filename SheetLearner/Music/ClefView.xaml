@@ -48,17 +48,17 @@
 					<Setter Property="Fill" Value="Black"/>
 				</Style>
 			</StackPanel.Resources>
-			<Rectangle Fill="HotPink" Width="{Binding ElementName=root, Path=ActualWidth}"/>
+			<Rectangle Fill="Transparent" Width="{Binding ElementName=root, Path=ActualWidth}"/>
 			<Rectangle Fill="Transparent" Width="{Binding ElementName=root, Path=ActualWidth}"/>
 			<Rectangle Fill="Transparent" Width="{Binding ElementName=root, Path=ActualWidth}"/>
 			<Rectangle Width="{Binding ElementName=root, Path=ActualWidth}"/>
 			<Rectangle Width="{Binding ElementName=root, Path=ActualWidth}"/>
-			<Rectangle Width="{Binding ElementName=root, Path=ActualWidth}" Fill="Red"/>
+			<Rectangle Width="{Binding ElementName=root, Path=ActualWidth}"/>
 			<Rectangle Width="{Binding ElementName=root, Path=ActualWidth}"/>
 			<Rectangle Width="{Binding ElementName=root, Path=ActualWidth}"/>
 			<Rectangle Fill="Transparent" Width="{Binding ElementName=root, Path=ActualWidth}"/>
 			<Rectangle Fill="Transparent" Width="{Binding ElementName=root, Path=ActualWidth}"/>
-			<Rectangle Fill="HotPink" Width="{Binding ElementName=root, Path=ActualWidth}"/>
+			<Rectangle Fill="Transparent" Width="{Binding ElementName=root, Path=ActualWidth}"/>
 		</StackPanel>
 		<Canvas Name="root" >
 			<ItemsControl
@@ -80,7 +80,17 @@
 
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>
-						<local:NoteView />
+						<local:NoteView >
+							<local:NoteView.RenderTransform>
+								<TransformGroup>
+									<TranslateTransform 
+													/>
+									<TranslateTransform 
+													Y="{Binding ElementName=root, Path=ActualHeight, Converter={StaticResource Half}}"
+													/> 
+								</TransformGroup>
+							</local:NoteView.RenderTransform>
+						</local:NoteView>
 					</DataTemplate>
 				</ItemsControl.ItemTemplate>
 			</ItemsControl>
@@ -97,12 +107,21 @@
                 >
 				<ItemsControl.ItemsPanel>
 					<ItemsPanelTemplate>
-						<Canvas/>
+						<Canvas x:Name="parentCanvas" />
 					</ItemsPanelTemplate>
 				</ItemsControl.ItemsPanel>
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>
 						<Grid>
+							<Grid.RenderTransform> 
+								<TransformGroup>
+									<TranslateTransform 
+													/>
+									<TranslateTransform 
+													Y="{Binding ElementName=root, Path=ActualHeight, Converter={StaticResource Half}}"
+													/> 
+								</TransformGroup>
+							</Grid.RenderTransform>
 							<Ellipse Margin="0,0,0,0" Height="10" Width="14" Fill="Transparent" >
 								<Ellipse.RenderTransform>
 									<TransformGroup>

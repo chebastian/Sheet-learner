@@ -52,18 +52,18 @@ namespace XTestMan.Views.Music
 
 		private void OnRandomize()
 		{
-			var tn = Notes.TrebleNotes.Select(x => new PlayingNoteViewModel(new NoteSection(new List<NoteViewModel>() { new NoteViewModel(x) })));
-			TrebleNotes = new ObservableCollection<NoteSection>(tn);
-			var bn = Notes.BassNotes.Select(x => new PlayingNoteViewModel(new NoteSection(new List<NoteViewModel>() { new NoteViewModel(x) })));
-			BassNotes = new ObservableCollection<NoteSection>(bn);
+			//var tn = Notes.NotesInClef(Clef.Treble).Select(x => new PlayingNoteViewModel(new NoteSection(new List<NoteViewModel>() { new NoteViewModel(x) })));
+			//TrebleNotes = new ObservableCollection<NoteSection>(tn);
+			//var bn = Notes.NotesInClef(Clef.Bass).Select(x => new PlayingNoteViewModel(new NoteSection(new List<NoteViewModel>() { new NoteViewModel(x) })));
+			//BassNotes = new ObservableCollection<NoteSection>(bn);
 
 			var numberOfSections = 5;
 			var notesInSection = 10;
 			//TrebleNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateGroups(Clef.Treble, notesInSection, numberOfSections, false).Select(x => new PlayingNoteViewModel(x)));
 			//BassNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateGroups(Clef.Bass, notesInSection, numberOfSections, true).Select(x => new PlayingNoteViewModel(x)));
 
-			//TrebleNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateChordGroups(Clef.Treble, notesInSection, 1, false).Select(x => new PlayingNoteViewModel(x)));
-			//BassNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateChordGroups(Clef.Bass, notesInSection, 1, true).Select(x => new PlayingNoteViewModel(x)));
+			TrebleNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateChordGroups(Clef.Treble, notesInSection, 1, false).Select(x => new PlayingNoteViewModel(x)));
+			BassNotes = new ObservableCollection<NoteSection>(NoteReader.RandomNoteReader.CreateChordGroups(Clef.Bass, notesInSection, 1, true).Select(x => new PlayingNoteViewModel(x)));
 
 			TrebleClefViewModel.ClearNotes();
 			BassClefViewModel.ClearNotes();

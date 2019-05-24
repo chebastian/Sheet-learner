@@ -10,5 +10,6 @@
         <converter:CollapsedWhenFalse x:Key="CollapsedWhenFalse"/>
         <converter:HiddenWhenFalse x:Key="BoolToVisibileHidden"/>
         <converter:HiddenWhenTrue x:Key="HiddenWhenTrue"/> 
+        <converter:HalfValue x:Key="Half"/> 
     </Application.Resources>
 </Application>

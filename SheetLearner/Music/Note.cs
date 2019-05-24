@@ -19,6 +19,13 @@ namespace SheetLearner.Music
 
         public static string AllIdentifiers => "c,c#,d,d#,e,f,f#,g,g#,a,a#,b";
 
+        public static Note C0 = new Note("0");
+        public static Note D0 = new Note("1");
+        public static Note E0 = new Note("2");
+        public static Note F0 = new Note("3");
+        public static Note G0 = new Note("4");
+        public static Note A0 = new Note("5");
+        public static Note B0 = new Note("6");
         public static Note C1 = new Note("c");
         public static Note D1 = new Note("d");
         public static Note E1 = new Note("e");
@@ -40,8 +47,18 @@ namespace SheetLearner.Music
         public static Note G3 = new Note("G1");
         public static Note A3 = new Note("A1");
         public static Note B3 = new Note("B1");
+
+        public static Note C4 = new Note("C2");
+        public static Note D4 = new Note("D2");
+        public static Note E4 = new Note("E2");
+        public static Note F4 = new Note("F2");
+        public static Note G4 = new Note("G2");
+        public static Note A4 = new Note("A2");
+        public static Note B4 = new Note("B2");
+
         public static List<Note> AllNotes => new List<Note>
         {
+            A0,B0,C0,D0,E0,F0,G0,
             A1,B1,C1,D1,E1,F1,G1,
             A2,B2,C2,D2,E2,F2,G2,
             A3,B3,C3,D3,E3,F3,G3,
@@ -49,22 +66,26 @@ namespace SheetLearner.Music
 
         public static List<Note> BassNotes => new List<Note>
         {
-            A1,B1,C1,D1,E1,F1,G1,
+			A0,B0,C0,D0,E0,F0,G0,
+			A1,B1,C1,D1,E1,F1,G1,
             A2,B2,C2,D2,E2,F2,G2,
             A3,B3,C3,D3,E3,F3,G3,
-        };
+			A4,B4,C3,D4,E4,F4,G4,
+		};
 
         public static List<Note> TrebleNotes => new List<Note>
         {
-            F1, G1, A1, B1, C1, D1, E1,
+			F0, G0, A0, B0, C0, D0, E0,
+			F1, G1, A1, B1, C1, D1, E1,
             F2, G2, A2, B2, C2, D2, E2,
             F3, G3, A3, B3, C3, D3, E3,
-        };
+			F4, G4, A4, B4, C4, D4, E4,
+		};
 
 
         public static List<Note> NotesInClef(Clef clef)
         {
-            return clef == Clef.Bass ? BassNotes : TrebleNotes;
+			return clef == Clef.Bass ? BassNotes : TrebleNotes;
         }
 
         public static Note Midpoint(Clef clef)
@@ -77,6 +98,14 @@ namespace SheetLearner.Music
 			var notes = NotesInClef(clef);
 			return Math.Abs( notes.IndexOf(a) - notes.IndexOf(b) );
 		}
+
+		public static int DistanceFromMid(Note a, Clef clef)
+		{
+			var notes = NotesInClef(clef);
+			var mid = Midpoint(clef);
+			return notes.IndexOf(mid) - notes.IndexOf(a);
+		}
+
         public static Note GetInterval(Note n, int interval, Clef clef)
         {
             var source = clef == Clef.Bass ? BassNotes : TrebleNotes;

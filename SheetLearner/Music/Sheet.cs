@@ -21,17 +21,9 @@ namespace SheetLearner.Music
 
         public static List<Note> GetNonLedgerNotesInClef(Clef clef)
         {
-            var notes = GetNotesInActiveClef(clef);
+			var notes = Notes.NotesInClef(clef);
             return notes.Skip(2).Take(notes.Count - 4).ToList();
-        }
-
-        public static List<Note> GetNotesInActiveClef(Clef clef)
-        {
-            if (clef == Clef.Bass)
-                return Notes.BassNotes;
-
-            return Notes.TrebleNotes;
-        }
+        } 
 
         public void SwitchClef(Clef clef)
         {

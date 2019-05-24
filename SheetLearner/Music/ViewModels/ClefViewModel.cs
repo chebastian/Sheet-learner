@@ -99,8 +99,8 @@ namespace SheetLearner.Music.ViewModels
 			var nudgeToFit = false;
 			foreach (var note in section.AllNotes.OrderBy(x => x.Id))
 			{
-				var currentNoteY = NoteToPisitionInClef(note);
-				var newNote = CreateNoteAtPosition(note, left, 6 * currentNoteY);
+				var currentNoteY = NotesIndexInClef(note);
+				var newNote = CreateNoteAtIndex(note, left, currentNoteY);
 
 				if (NotesInClef.Any() && notesInSection.Any())
 					CorrectPositionWhenAboveLastNote(NotesInClef.Last(), newNote, nudgeToFit);
@@ -151,7 +151,7 @@ namespace SheetLearner.Music.ViewModels
 				if (octave == Notes.Midpoint(ActiveClef))
 					offsets = new { x = offsets.x, y = offsets.y, noteIndexCorrection = -1 };
 
-				var ocUp = (NoteToPisitionInClef(octave) - offsets.noteIndexCorrection) * 6;
+				var ocUp = (NotesIndexInClef(octave) - offsets.noteIndexCorrection) * 6;
 				note.StemEnd = ocUp;
 				note.StemY = note.Y + offsets.y;
 				note.StemX = note.X + offsets.x;
@@ -219,7 +219,7 @@ namespace SheetLearner.Music.ViewModels
 			if (octave == Notes.Midpoint(ActiveClef))
 				offsets = new { x = offsets.x, y = offsets.y, noteIndexCorrection = -1 };
 
-			var ocUp = (NoteToPisitionInClef(octave) - offsets.noteIndexCorrection) * 6;
+			var ocUp = (NotesIndexInClef(octave) - offsets.noteIndexCorrection) * 6;
 
 			var stem = new Stem();
 			stem.Bottom = ocUp;
@@ -296,17 +296,21 @@ namespace SheetLearner.Music.ViewModels
 				   new NoteViewModel(note.Note)
 				   {
 					   X = xoffset,
-					   Y = 6 * NoteToPisitionInClef(note.Note)
+					   Y = 6 * NotesIndexInClef(note.Note)
 				   })
 				);
 		}
 
-		private NoteViewModel CreateNoteAtPosition(Note note, int x, int y)
+		private NoteViewModel CreateNoteAtIndex(Note note, int x, int y)
 		{
+			var midNote = Notes.Midpoint(ActiveClef);
+			var midIndex = NotesIndexInClef(midNote);
+			var dd = Notes.DistanceFromMid(note, ActiveClef);
+
 			if (note.IsSharp)
 				return new SharpNote(note) { X = x, Y = y };
 
-			return new NoteViewModel(note) { X = x, Y = y };
+			return new NoteViewModel(note) { X = x, Y = dd * 6};
 		}
 
 		public int Right()
@@ -328,7 +332,7 @@ namespace SheetLearner.Music.ViewModels
 
 		private void CorrectPositionWhenAboveLastNote(NoteViewModel noteViewModel, NoteViewModel newNote, bool nudgeToFit)
 		{
-			var isDirectlyAboveLastNote = NoteToPisitionInClef(noteViewModel.Note) - NoteToPisitionInClef(newNote.Note) == 1;
+			var isDirectlyAboveLastNote = NotesIndexInClef(noteViewModel.Note) - NotesIndexInClef(newNote.Note) == 1;
 			if (isDirectlyAboveLastNote)
 			{
 				nudgeToFit = !nudgeToFit;
@@ -353,15 +357,16 @@ namespace SheetLearner.Music.ViewModels
 
 		private int GetYPos(Note note, Stem stem)
 		{
-			var n = NoteToPisitionInClef(note);
+			var n = NotesIndexInClef(note);
 			var offset = stem.StemDirection == Stem.Direction.Down ? -2 : 2;
 			return 6 * (n + offset);
 		}
 
-		private int NoteToPisitionInClef(Note note)
+		private int NotesIndexInClef(Note note)
 		{
-			var idx = ActiveClef == Clef.Bass ? Notes.BassNotes.IndexOf(note) : Notes.TrebleNotes.IndexOf(note);
-			return Notes.BassNotes.Count - idx;
+			var midNote = Notes.Midpoint(ActiveClef);
+			var dd = Notes.DistanceFromMid(note, ActiveClef);
+			return dd;
 		}
 	}
 }

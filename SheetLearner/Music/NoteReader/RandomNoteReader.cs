@@ -72,7 +72,7 @@ namespace XTestMan.Views.Music.NoteReader
 				//new NoteViewModel(Notes.B2), }),
 
 				new ChordSection(new List<NoteViewModel>() {
-				new NoteViewModel(Notes.A2),
+				new NoteViewModel(Notes.A1),
 				new NoteViewModel(Notes.F2),
 				new NoteViewModel(Notes.B3), }),
 
