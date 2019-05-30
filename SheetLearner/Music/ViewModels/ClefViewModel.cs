@@ -5,15 +5,21 @@ using System.Linq;
 using SheetLearner.Music;
 using System;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace SheetLearner.Music.ViewModels
 {
 	public class NoteViewModel : ViewModelBase
 	{
 
-		public int StemEnd { get; set; }
+		public NoteViewModel()
+		{
+			StemEnd = 0;
+			StemX = 0;
+			StemY = 0;
+		}
 
-		public NoteViewModel() { }
+		public int StemEnd { get; set; }
 
 		public NoteViewModel(Note note)
 		{
@@ -78,10 +84,11 @@ namespace SheetLearner.Music.ViewModels
 			get;
 			set;
 		}
-		public int NoteWidth { get; set; } = 16;
+		public int NoteWidth { get; } = 16;
 		public Clef ActiveClef { get; private set; }
 		public ObservableCollection<NoteViewModel> NotesInLedger { get; set; }
-		public int NudgeWidth { get; private set; } = 8;
+		public int NudgeWidth { get; } = 8;
+		public static int NoteHeight { get; } = 6;
 
 		public ClefViewModel(Clef clef)
 		{
@@ -145,13 +152,13 @@ namespace SheetLearner.Music.ViewModels
 
 				var offsets = relation != Relation.Lower ?
 					new { x = 3, y = 3, noteIndexCorrection = 0 } :
-					new { x = 14, y = 6, noteIndexCorrection = -2 };
+					new { x = 14, y = NoteHeight, noteIndexCorrection = -2 };
 
 				//Adds correction when mid
 				if (octave == Notes.Midpoint(ActiveClef))
 					offsets = new { x = offsets.x, y = offsets.y, noteIndexCorrection = -1 };
 
-				var ocUp = (NotesIndexInClef(octave) - offsets.noteIndexCorrection) * 6;
+				var ocUp = (NotesIndexInClef(octave) - offsets.noteIndexCorrection) * NoteHeight;
 				note.StemEnd = ocUp;
 				note.StemY = note.Y + offsets.y;
 				note.StemX = note.X + offsets.x;
@@ -187,7 +194,7 @@ namespace SheetLearner.Music.ViewModels
 			{
 				var offsets = StemDirection == Direction.Up ?
 					new { x = 3, y = 3, noteIndexCorrection = 0 } :
-					new { x = 14, y = 6, noteIndexCorrection = -2 };
+					new { x = 14, y = NoteHeight, noteIndexCorrection = -2 };
 
 				return offsets.y;
 			}
@@ -213,13 +220,13 @@ namespace SheetLearner.Music.ViewModels
 
 			var offsets = relation != Relation.Lower ?
 				new { x = 3, y = 3, noteIndexCorrection = 0 } :
-				new { x = 14, y = 6, noteIndexCorrection = -2 };
+				new { x = 14, y = NoteHeight, noteIndexCorrection = -2 };
 
 			//Adds correction when mid
 			if (octave == Notes.Midpoint(ActiveClef))
 				offsets = new { x = offsets.x, y = offsets.y, noteIndexCorrection = -1 };
 
-			var ocUp = (NotesIndexInClef(octave) - offsets.noteIndexCorrection) * 6;
+			var ocUp = (NotesIndexInClef(octave) - offsets.noteIndexCorrection) * NoteHeight;
 
 			var stem = new Stem();
 			stem.Bottom = ocUp;
@@ -256,35 +263,22 @@ namespace SheetLearner.Music.ViewModels
 			else
 			{
 				stem.HorizontalOrientaion = stem.StemDirection == Stem.Direction.Down ? Stem.Horizontal.Left : Stem.Horizontal.Right;
-			}
+			} 
 
-			////TODO remove hack for chords with second intervals
-			//if (chord.HasInterval(ChordSection.Interval.Second, ActiveClef))
-			//{
-			//	var note = chord.FirstNoteInSecond(ActiveClef);
-			//	var target = stem.StemDirection == Stem.Direction.Down ? note.Note.OctaveDown(ActiveClef) : note.Note.OctaveUp(ActiveClef);
-			//	var pos = NoteToPisitionInClef(target);
-			//	var len = 6 * 6;
-			//	note.StemX = note.X + stem.PosX();
-			//	note.StemY = note.Y + stem.Start();
-			//	note.StemEnd = note.StemY + (stem.StemDirection == Stem.Direction.Up ? -len : len);
-			//	return;
-			//}
-
-			//TODO remove this in favor for calculating high and low based on direction of stem
 			var outerNote = stem.StemDirection == Stem.Direction.Down ? chord.Lowest(ActiveClef) : chord.Highest(ActiveClef);
 			{
-				var endWith = stem.StemDirection == Stem.Direction.Down ? outerNote.Note.OctaveDown(ActiveClef) : outerNote.Note.OctaveUp(ActiveClef);
-				var lst = GetYPos(endWith,stem);
-				var innerNote = stem.StemDirection == Stem.Direction.Down ? chord.Highest(ActiveClef) : chord.Lowest(ActiveClef);
+				var connectingNote = stem.StemDirection == Stem.Direction.Down ? chord.Highest(ActiveClef) : chord.Lowest(ActiveClef);
 
-				outerNote.StemX = outerNote.X + stem.PosX();
-				outerNote.StemY = outerNote.Y + stem.Start();
-				outerNote.StemEnd = lst;
+				connectingNote.StemX = connectingNote.X + stem.PosX();
+				connectingNote.StemY = connectingNote.Y + stem.Start();
+				connectingNote.StemEnd = outerNote.Y;
 
-				innerNote.StemX = outerNote.X + stem.PosX();
-				innerNote.StemY = innerNote.Y + stem.Start();
-				innerNote.StemEnd = outerNote.StemY;
+				outerNote.StemX = connectingNote.StemX;
+				outerNote.StemY = outerNote.Y;
+
+				var length = Math.Abs( NotesIndexInClef(outerNote.Note) ) > 7 ? 20 : 40;
+				outerNote.StemEnd = outerNote.StemY + ((stem.StemDirection == Stem.Direction.Down) ? length : -length);
+
 				return;
 			}
 		}
@@ -296,7 +290,7 @@ namespace SheetLearner.Music.ViewModels
 				   new NoteViewModel(note.Note)
 				   {
 					   X = xoffset,
-					   Y = 6 * NotesIndexInClef(note.Note)
+					   Y = NoteHeight * NotesIndexInClef(note.Note)
 				   })
 				);
 		}
@@ -310,7 +304,7 @@ namespace SheetLearner.Music.ViewModels
 			if (note.IsSharp)
 				return new SharpNote(note) { X = x, Y = y };
 
-			return new NoteViewModel(note) { X = x, Y = dd * 6};
+			return new NoteViewModel(note) { X = x, Y = dd * NoteHeight };
 		}
 
 		public int Right()
@@ -341,7 +335,7 @@ namespace SheetLearner.Music.ViewModels
 			else
 				nudgeToFit = false;
 		}
- 
+
 		private List<NoteViewModel> CreateTrailingLinesForSection(NoteSection noteSection)
 		{
 			if (noteSection.Notes.Count <= 0)
@@ -354,14 +348,7 @@ namespace SheetLearner.Music.ViewModels
 
 			return linesToFill;
 		}
-
-		private int GetYPos(Note note, Stem stem)
-		{
-			var n = NotesIndexInClef(note);
-			var offset = stem.StemDirection == Stem.Direction.Down ? -2 : 2;
-			return 6 * (n + offset);
-		}
-
+ 
 		private int NotesIndexInClef(Note note)
 		{
 			var midNote = Notes.Midpoint(ActiveClef);
