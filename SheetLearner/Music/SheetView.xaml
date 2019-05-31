@@ -14,7 +14,8 @@
         <music:ClefView  Padding="5" DataContext="{Binding TrebleClefViewModel, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch"/> 
         <music:ClefView  Padding="5" DataContext="{Binding BassClefViewModel, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch"/> 
         <Button 
-            Margin="15"
+			Margin="0,50,0,0"
+			VerticalAlignment="Bottom"
             Style="{x:Null}"
             Padding="5"
             Command="{Binding RandomizeCommand}" Content="Randomize"/>

@@ -86,10 +86,10 @@ namespace XTestMan.Views.Music.NoteReader
 				new NoteViewModel(Notes.F2),
 				new NoteViewModel(Notes.B2), }),
 
-				//new ChordSection(new List<NoteViewModel>() {
-				//new NoteViewModel(Notes.C2),
-				//new NoteViewModel(Notes.E2),
-				//new NoteViewModel(Notes.G2), }, )
+				new ChordSection(new List<NoteViewModel>() {
+				new NoteViewModel(Notes.C2),
+				new NoteViewModel(Notes.E2),
+				new NoteViewModel(Notes.G2), })
 			};
 		}
 

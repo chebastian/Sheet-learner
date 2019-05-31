@@ -263,11 +263,18 @@ namespace SheetLearner.Music.ViewModels
 			else
 			{
 				stem.HorizontalOrientaion = stem.StemDirection == Stem.Direction.Down ? Stem.Horizontal.Left : Stem.Horizontal.Right;
-			} 
+			}
 
 			var outerNote = stem.StemDirection == Stem.Direction.Down ? chord.Lowest(ActiveClef) : chord.Highest(ActiveClef);
 			{
 				var connectingNote = stem.StemDirection == Stem.Direction.Down ? chord.Highest(ActiveClef) : chord.Lowest(ActiveClef);
+
+				//TODO fix, this fixes offset when stem is going upp ,which causes it to reach to far since it starts at top of note
+				int GetHeightCorrectedWithOffset(Stem xstem)
+				{
+					var idx = xstem.StemDirection == Stem.Direction.Down ? 8 : 6;
+					return idx * NoteHeight;
+				}
 
 				connectingNote.StemX = connectingNote.X + stem.PosX();
 				connectingNote.StemY = connectingNote.Y + stem.Start();
@@ -276,7 +283,14 @@ namespace SheetLearner.Music.ViewModels
 				outerNote.StemX = connectingNote.StemX;
 				outerNote.StemY = outerNote.Y;
 
-				var length = Math.Abs( NotesIndexInClef(outerNote.Note) ) > 7 ? 20 : 40;
+				//var length = Math.Abs(NotesIndexInClef(outerNote.Note)) > 5 ? 3*NoteHeight : 8*NoteHeight;
+				var length = Math.Abs(NotesIndexInClef(outerNote.Note)) > 5 ? 3 * NoteHeight : GetHeightCorrectedWithOffset(stem);
+				if(ChordIsOutsideStaff(ActiveClef,chord))
+				{
+					var idx = Math.Abs( NotesIndexInClef(outerNote.Note) -1 );
+					length = idx * NoteHeight;
+				}
+
 				outerNote.StemEnd = outerNote.StemY + ((stem.StemDirection == Stem.Direction.Down) ? length : -length);
 
 				return;
@@ -348,7 +362,23 @@ namespace SheetLearner.Music.ViewModels
 
 			return linesToFill;
 		}
- 
+
+		private bool ChordIsOutsideStaff(Clef clef, ChordSection chord)
+		{
+			var high = chord.Highest(clef);
+			var low = chord.Lowest(clef);
+
+			var indexes = new List<int>() { NotesIndexInClef(high.Note), NotesIndexInClef(low.Note) };
+			//TODO yes this does make notes say C1 and C3 would return true, but hey that will never happen, we can assume that a chord will never have notes on opposite sides of the stem
+			var isInsideStaff = indexes.Any(x => !IsOutsideLedger(x));
+			return !isInsideStaff;
+		}
+
+		private bool IsOutsideLedger(int index)
+		{
+			return Math.Abs(index) > 5;
+		}
+
 		private int NotesIndexInClef(Note note)
 		{
 			var midNote = Notes.Midpoint(ActiveClef);
