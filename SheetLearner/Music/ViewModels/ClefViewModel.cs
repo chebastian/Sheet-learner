@@ -125,7 +125,7 @@ namespace SheetLearner.Music.ViewModels
 		public int NoteWidth { get; } = 16;
 		public Clef ActiveClef { get; private set; }
 		public ObservableCollection<NoteViewModel> NotesInLedger { get; set; }
-		public int NudgeWidth { get; } = 8;
+		public int NudgeWidth { get; } = 12;
 		public static int NoteHeight { get; } = 6;
 
 		public ClefViewModel(Clef clef)
@@ -146,21 +146,43 @@ namespace SheetLearner.Music.ViewModels
 			{
 				var currentNoteY = NotesIndexInClef(note);
 				var newNote = CreateNoteAtIndex(note, left, currentNoteY);
-
-				if (NotesInClef.Any() && notesInSection.Any())
-					CorrectPositionWhenAboveLastNote(NotesInClef.Last(), newNote, nudgeToFit);
-
 				NotesInClef.Add(newNote);
 				notesInSection.Add(newNote);
 			}
 
 			if (notesInSection.Count > 1)
-				Sections.Add(new ChordSection(notesInSection));
+			{
+				var chord = new ChordSection(notesInSection);
+				Sections.Add(chord);
+				CorrectPositionsOfChordNotes(chord);
+			}
 			else
 				Sections.Add(new NoteSection(notesInSection));
 
 			AddLedgerLines(Sections.Last(), left);
 			AddNoteStems(Sections.Last());
+		}
+
+		private void CorrectPositionsOfChordNotes(ChordSection chord)
+		{
+			if (chord.HasInterval(ChordSection.Interval.Second, ActiveClef))
+			{
+				var first = chord.FirstNoteInSecond(ActiveClef);
+				var notesFromBottom = chord.Notes.OrderBy(x => Notes.NotesInClef(ActiveClef).IndexOf(x.Note)).ToList();
+				var idx = notesFromBottom.IndexOf(first);
+
+				var snd = notesFromBottom[idx + 1]; 
+				snd.X += NudgeWidth;
+				notesFromBottom.Remove(snd);
+				notesFromBottom.Remove(first);
+
+				var amountToDisplace = idx > 0 ? NudgeWidth : 0;
+
+				foreach (var note in notesFromBottom)
+				{
+					note.X += amountToDisplace;
+				}
+			}
 		}
 
 		internal void ClearNotes()
@@ -228,6 +250,7 @@ namespace SheetLearner.Music.ViewModels
 			return stem;
 
 		}
+
 		private void AddNoteStems(ChordSection chord)
 		{
 			var stem = CreateStemForChord(chord);
@@ -241,7 +264,11 @@ namespace SheetLearner.Music.ViewModels
 				return idx * NoteHeight;
 			}
 
-			connectingNote.StemX = connectingNote.X + stem.PosX();
+			if (chord.HasInterval(ChordSection.Interval.Second, ActiveClef))
+				connectingNote.StemX = chord.FirstNoteInSecond(ActiveClef).X + stem.PosX();
+			else
+				connectingNote.StemX = connectingNote.X + stem.PosX();
+
 			connectingNote.StemY = connectingNote.Y + stem.Start();
 			connectingNote.StemEnd = outerNote.Y;
 
@@ -296,21 +323,10 @@ namespace SheetLearner.Music.ViewModels
 			if (x.Notes == null)
 				return noteDist;
 
-			return x.Notes.Any(note => note.Note.IsSharp || note.Note.IsFlat) ? noteDist * 2 : noteDist;
+			return (x.Notes.Any(note => note.Note.IsSharp || note.Note.IsFlat) ||
+				(x as ChordSection) != null && (x as ChordSection).HasInterval(ChordSection.Interval.Second, ActiveClef)) ? noteDist * 2 : noteDist;
 		}
-
-		private void CorrectPositionWhenAboveLastNote(NoteViewModel noteViewModel, NoteViewModel newNote, bool nudgeToFit)
-		{
-			var isDirectlyAboveLastNote = NotesIndexInClef(noteViewModel.Note) - NotesIndexInClef(newNote.Note) == 1;
-			if (isDirectlyAboveLastNote)
-			{
-				nudgeToFit = !nudgeToFit;
-				newNote.X += nudgeToFit ? NudgeWidth : 0;
-			}
-			else
-				nudgeToFit = false;
-		}
-
+ 
 		private List<NoteViewModel> CreateTrailingLinesForSection(NoteSection noteSection)
 		{
 			if (noteSection.Notes.Count <= 0)
