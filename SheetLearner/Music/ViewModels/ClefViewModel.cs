@@ -242,10 +242,6 @@ namespace SheetLearner.Music.ViewModels
 		private void AddNoteStems(ChordSection chord)
 		{
 			var stem = new Stem();
-			var stems = new List<Stem>();
-
-			var isDown = false;
-			var offsetX = 0;
 
 			if (chord.EqualFromMid(ActiveClef))
 			{
@@ -266,35 +262,30 @@ namespace SheetLearner.Music.ViewModels
 			}
 
 			var outerNote = stem.StemDirection == Stem.Direction.Down ? chord.Lowest(ActiveClef) : chord.Highest(ActiveClef);
+			var connectingNote = stem.StemDirection == Stem.Direction.Down ? chord.Highest(ActiveClef) : chord.Lowest(ActiveClef);
+
+			//TODO fix, this fixes offset when stem is going upp ,which causes it to reach to far since it starts at top of note
+			int GetHeightCorrectedWithOffset(Stem xstem)
 			{
-				var connectingNote = stem.StemDirection == Stem.Direction.Down ? chord.Highest(ActiveClef) : chord.Lowest(ActiveClef);
-
-				//TODO fix, this fixes offset when stem is going upp ,which causes it to reach to far since it starts at top of note
-				int GetHeightCorrectedWithOffset(Stem xstem)
-				{
-					var idx = xstem.StemDirection == Stem.Direction.Down ? 8 : 6;
-					return idx * NoteHeight;
-				}
-
-				connectingNote.StemX = connectingNote.X + stem.PosX();
-				connectingNote.StemY = connectingNote.Y + stem.Start();
-				connectingNote.StemEnd = outerNote.Y;
-
-				outerNote.StemX = connectingNote.StemX;
-				outerNote.StemY = outerNote.Y;
-
-				//var length = Math.Abs(NotesIndexInClef(outerNote.Note)) > 5 ? 3*NoteHeight : 8*NoteHeight;
-				var length = Math.Abs(NotesIndexInClef(outerNote.Note)) > 5 ? 3 * NoteHeight : GetHeightCorrectedWithOffset(stem);
-				if(ChordIsOutsideStaff(ActiveClef,chord))
-				{
-					var idx = Math.Abs( NotesIndexInClef(outerNote.Note) -1 );
-					length = idx * NoteHeight;
-				}
-
-				outerNote.StemEnd = outerNote.StemY + ((stem.StemDirection == Stem.Direction.Down) ? length : -length);
-
-				return;
+				var idx = xstem.StemDirection == Stem.Direction.Down ? 8 : 6;
+				return idx * NoteHeight;
 			}
+
+			connectingNote.StemX = connectingNote.X + stem.PosX();
+			connectingNote.StemY = connectingNote.Y + stem.Start();
+			connectingNote.StemEnd = outerNote.Y;
+
+			outerNote.StemX = connectingNote.StemX;
+			outerNote.StemY = outerNote.Y;
+
+			var length = Math.Abs(NotesIndexInClef(outerNote.Note)) > 5 ? 3 * NoteHeight : GetHeightCorrectedWithOffset(stem);
+			if (ChordIsOutsideStaff(ActiveClef, chord))
+			{
+				var idx = Math.Abs(NotesIndexInClef(outerNote.Note) - 1);
+				length = idx * NoteHeight;
+			}
+
+			outerNote.StemEnd = outerNote.StemY + ((stem.StemDirection == Stem.Direction.Down) ? length : -length);
 		}
 
 		private void AddLedgerLines(NoteSection section, int xoffset)
