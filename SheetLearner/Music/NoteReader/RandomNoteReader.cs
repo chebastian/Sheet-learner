@@ -32,66 +32,66 @@ namespace XTestMan.Views.Music.NoteReader
 			//return CreateRandomSections(_length);
 
 			return new List<NoteSection>() {
-				//new ChordSection(new List<NoteViewModel>() {
-				//new NoteViewModel(Notes.C2),
-				//new NoteViewModel(Notes.E2),
-				//new NoteViewModel(Notes.G2), }),
+				new ChordSection(new List<NoteViewModel>() {
+				new NoteViewModel(Notes.C2),
+				new NoteViewModel(Notes.E2),
+				new NoteViewModel(Notes.G2), }),
 
-				//new ChordSection(new List<NoteViewModel>() {
-				//new NoteViewModel(Notes.C3),
-				//new NoteViewModel(Notes.E2),
-				//new NoteViewModel(Notes.G2), }),
+				new ChordSection(new List<NoteViewModel>() {
+				new NoteViewModel(Notes.C3),
+				new NoteViewModel(Notes.E2),
+				new NoteViewModel(Notes.G2), }),
 
-				//new ChordSection(new List<NoteViewModel>() {
-				//new NoteViewModel(Notes.A2),
-				//new NoteViewModel(Notes.B2), }),
+				new ChordSection(new List<NoteViewModel>() {
+				new NoteViewModel(Notes.A2),
+				new NoteViewModel(Notes.B2), }),
 
-				//new ChordSection(new List<NoteViewModel>() {
-				//new NoteViewModel(Notes.A1),
-				//new NoteViewModel(Notes.B1), }),
+				new ChordSection(new List<NoteViewModel>() {
+				new NoteViewModel(Notes.A1),
+				new NoteViewModel(Notes.B1), }),
 
-				//new ChordSection(new List<NoteViewModel>() {
-				//new NoteViewModel(Notes.A3),
-				//new NoteViewModel(Notes.B3), }),
+				new ChordSection(new List<NoteViewModel>() {
+				new NoteViewModel(Notes.A3),
+				new NoteViewModel(Notes.B3), }),
 
-				//new ChordSection(new List<NoteViewModel>() {
-				//new NoteViewModel(Notes.F3),
-				//new NoteViewModel(Notes.C2),
-				//new NoteViewModel(Notes.E3), }),
+				new ChordSection(new List<NoteViewModel>() {
+				new NoteViewModel(Notes.F3),
+				new NoteViewModel(Notes.C2),
+				new NoteViewModel(Notes.E3), }),
 
-				//new ChordSection(new List<NoteViewModel>() {
-				//new NoteViewModel(Notes.F3),
-				//new NoteViewModel(Notes.E3), }),
+				new ChordSection(new List<NoteViewModel>() {
+				new NoteViewModel(Notes.F3),
+				new NoteViewModel(Notes.E3), }),
 
-				//new ChordSection(new List<NoteViewModel>() {
-				//new NoteViewModel(Notes.C1),
-				//new NoteViewModel(Notes.D1), }),
+				new ChordSection(new List<NoteViewModel>() {
+				new NoteViewModel(Notes.C1),
+				new NoteViewModel(Notes.D1), }),
 
-				//new ChordSection(new List<NoteViewModel>() {
-				//new NoteViewModel(Notes.C2),
-				//new NoteViewModel(Notes.D2), }),
+				new ChordSection(new List<NoteViewModel>() {
+				new NoteViewModel(Notes.C2),
+				new NoteViewModel(Notes.D2), }),
 
-				//new ChordSection(new List<NoteViewModel>() {
-				//new NoteViewModel(Notes.A3),
-				//new NoteViewModel(Notes.C1),
-				//new NoteViewModel(Notes.G2), }),
+				new ChordSection(new List<NoteViewModel>() {
+				new NoteViewModel(Notes.A3),
+				new NoteViewModel(Notes.C1),
+				new NoteViewModel(Notes.G2), }),
 
-				//new ChordSection(new List<NoteViewModel>() {
-				//new NoteViewModel(Notes.G3),
-				//new NoteViewModel(Notes.A3), }),
+				new ChordSection(new List<NoteViewModel>() {
+				new NoteViewModel(Notes.G3),
+				new NoteViewModel(Notes.A3), }),
 
 
-				//new ChordSection(new List<NoteViewModel>() {
-				//new NoteViewModel(Notes.C2),
-				//new NoteViewModel(Notes.B1), }),
+				new ChordSection(new List<NoteViewModel>() {
+				new NoteViewModel(Notes.C2),
+				new NoteViewModel(Notes.B1), }),
 
-				//new ChordSection(new List<NoteViewModel>() {
-				//new NoteViewModel(Notes.C1),
-				//new NoteViewModel(Notes.A1), }),
+				new ChordSection(new List<NoteViewModel>() {
+				new NoteViewModel(Notes.C1),
+				new NoteViewModel(Notes.A1), }),
 
-				//new ChordSection(new List<NoteViewModel>() {
-				//new NoteViewModel(Notes.F2),
-				//new NoteViewModel(Notes.B2), }),
+				new ChordSection(new List<NoteViewModel>() {
+				new NoteViewModel(Notes.F2),
+				new NoteViewModel(Notes.B2), }),
 
 				new ChordSection(new List<NoteViewModel>() {
 				new NoteViewModel(Notes.G1),

@@ -171,7 +171,7 @@ namespace SheetLearner.Music.ViewModels
 				var notesFromBottom = chord.Notes.OrderBy(x => Notes.NotesInClef(ActiveClef).IndexOf(x.Note)).ToList();
 				var idx = notesFromBottom.IndexOf(first);
 
-				var snd = notesFromBottom[idx + 1]; 
+				var snd = notesFromBottom[(idx + 1)%chord.Notes.Count]; 
 				snd.X += NudgeWidth;
 				notesFromBottom.Remove(snd);
 				notesFromBottom.Remove(first);
