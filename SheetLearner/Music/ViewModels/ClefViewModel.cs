@@ -207,39 +207,7 @@ namespace SheetLearner.Music.ViewModels
 			public int Left { get; set; }
 		}
 
-		private Stem GetStemForNote(NoteViewModel vnote)
-		{
-			var note = vnote.Note;
-			var octave = note;
-			var relation = note.RelationToMidpoint(ActiveClef);
-			octave = relation != Relation.Lower ? note.OctaveDown(ActiveClef) :
-												note.OctaveUp(ActiveClef);
-
-			if (Notes.IsOuterLedger(note, ActiveClef))
-				octave = Notes.Midpoint(ActiveClef);
-
-			var offsets = relation != Relation.Lower ?
-				new { x = 3, y = 3, noteIndexCorrection = 0 } :
-				new { x = 14, y = NoteHeight, noteIndexCorrection = -2 };
-
-			//Adds correction when mid
-			if (octave == Notes.Midpoint(ActiveClef))
-				offsets = new { x = offsets.x, y = offsets.y, noteIndexCorrection = -1 };
-
-			var ocUp = (NotesIndexInClef(octave) - offsets.noteIndexCorrection) * NoteHeight;
-
-			var stem = new Stem();
-			stem.Bottom = ocUp;
-			stem.Top = vnote.Y + offsets.y;
-			stem.Left = vnote.X + offsets.x;
-
-			return stem;
-
-		}
-
-
-
-		private void AddNoteStems(ChordSection chord)
+		private Stem CreateStemForChord(ChordSection chord)
 		{
 			var stem = new Stem();
 
@@ -261,6 +229,12 @@ namespace SheetLearner.Music.ViewModels
 				stem.HorizontalOrientaion = stem.StemDirection == Stem.Direction.Down ? Stem.Horizontal.Left : Stem.Horizontal.Right;
 			}
 
+			return stem;
+
+		}
+		private void AddNoteStems(ChordSection chord)
+		{
+			var stem = CreateStemForChord(chord);
 			var outerNote = stem.StemDirection == Stem.Direction.Down ? chord.Lowest(ActiveClef) : chord.Highest(ActiveClef);
 			var connectingNote = stem.StemDirection == Stem.Direction.Down ? chord.Highest(ActiveClef) : chord.Lowest(ActiveClef);
 
