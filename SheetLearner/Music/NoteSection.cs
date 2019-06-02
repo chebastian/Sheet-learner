@@ -113,6 +113,50 @@ namespace SheetLearner.Music
 		{
 		}
 
+		public static ChordSection Build(Note a, Note b)
+		{
+			var section = new ChordSection();
+			section.Notes.Add(new NoteViewModel( a ));
+			section.Notes.Add(new NoteViewModel( b ));
+
+			return section;
+		}
+
+		public static ChordSection Build(Note a, Note b, Note c)
+		{
+			var section = new ChordSection();
+			section.Notes.Add(new NoteViewModel( a ));
+			section.Notes.Add(new NoteViewModel( b ));
+			section.Notes.Add(new NoteViewModel( c ));
+
+			return section;
+		} 
+
+		public ChordSection Transpose(int semitones)
+		{
+			var newNotes = new List<Note>();
+			var notes = Music.Notes.NotesInClef(Clef.Bass);
+			foreach(var note in Notes.Select(x => x.Note))
+			{
+				var idx = notes.IndexOf(note);
+				newNotes.Add(notes[idx + semitones]);
+			}
+			Notes = newNotes.Select(x => new NoteViewModel(x)).ToList();
+			return this;
+		}
+
+		public static ChordSection Build(Note a, Note b, Note c, Note d)
+		{
+			var section = new ChordSection();
+			section.Notes.Add(new NoteViewModel( a ));
+			section.Notes.Add(new NoteViewModel( b ));
+			section.Notes.Add(new NoteViewModel( c ));
+			section.Notes.Add(new NoteViewModel( d ));
+
+			return section;
+		}
+
+
 		public bool EqualFromMid(Clef clef)
 		{
 			return HighestNote.DistanceToMidPointAbs(clef) == LowestNote.DistanceToMidPointAbs(clef);

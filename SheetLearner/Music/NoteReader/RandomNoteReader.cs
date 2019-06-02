@@ -31,92 +31,36 @@ namespace XTestMan.Views.Music.NoteReader
 
 			//return CreateRandomSections(_length);
 
-			return new List<NoteSection>() {
-				new ChordSection(new List<NoteViewModel>() {
-				new NoteViewModel(Notes.C2),
-				new NoteViewModel(Notes.E2),
-				new NoteViewModel(Notes.G2), }),
+			return new List<NoteSection>()
+			{
+				//Top and bottom 2nd chords 
+				ChordSection.Build(Notes.A1,Notes.B1),
+				ChordSection.Build(Notes.G2,Notes.A3),
+				ChordSection.Build(Notes.E2,Notes.F2),
+				ChordSection.Build(Notes.E1,Notes.F1), 
 
-				new ChordSection(new List<NoteViewModel>() {
-				new NoteViewModel(Notes.C3),
-				new NoteViewModel(Notes.E2),
-				new NoteViewModel(Notes.G2), }),
+				//Triads spanning the clef
+				ChordSection.Build(Notes.A2,Notes.C2,Notes.E2), 
+				ChordSection.Build(Notes.A2,Notes.C2,Notes.E2).Transpose(2), 
+				ChordSection.Build(Notes.A2,Notes.C2,Notes.E2).Transpose(4), 
+				ChordSection.Build(Notes.A2,Notes.C2,Notes.E2).Transpose(6), 
+				ChordSection.Build(Notes.A2,Notes.C2,Notes.E2).Transpose(-2), 
+				ChordSection.Build(Notes.A2,Notes.C2,Notes.E2).Transpose(-4), 
+				ChordSection.Build(Notes.A2,Notes.C2,Notes.E2).Transpose(-6), 
 
-				new ChordSection(new List<NoteViewModel>() {
-				new NoteViewModel(Notes.A2),
-				new NoteViewModel(Notes.B2), }),
-
-				new ChordSection(new List<NoteViewModel>() {
-				new NoteViewModel(Notes.A1),
-				new NoteViewModel(Notes.B1), }),
-
-				new ChordSection(new List<NoteViewModel>() {
-				new NoteViewModel(Notes.A3),
-				new NoteViewModel(Notes.B3), }),
-
-				new ChordSection(new List<NoteViewModel>() {
-				new NoteViewModel(Notes.F3),
-				new NoteViewModel(Notes.C2),
-				new NoteViewModel(Notes.E3), }),
-
-				new ChordSection(new List<NoteViewModel>() {
-				new NoteViewModel(Notes.F3),
-				new NoteViewModel(Notes.E3), }),
-
-				new ChordSection(new List<NoteViewModel>() {
-				new NoteViewModel(Notes.C1),
-				new NoteViewModel(Notes.D1), }),
-
-				new ChordSection(new List<NoteViewModel>() {
-				new NoteViewModel(Notes.C2),
-				new NoteViewModel(Notes.D2), }),
-
-				new ChordSection(new List<NoteViewModel>() {
-				new NoteViewModel(Notes.A3),
-				new NoteViewModel(Notes.C1),
-				new NoteViewModel(Notes.G2), }),
-
-				new ChordSection(new List<NoteViewModel>() {
-				new NoteViewModel(Notes.G3),
-				new NoteViewModel(Notes.A3), }),
+				//Fifths
+				ChordSection.Build(Notes.C2, Notes.G2),
+				ChordSection.Build(Notes.C2, Notes.G2).Transpose(-1),
+				ChordSection.Build(Notes.C2, Notes.G2).Transpose(-2),
+				ChordSection.Build(Notes.C2, Notes.G2).Transpose(-4),
 
 
-				new ChordSection(new List<NoteViewModel>() {
-				new NoteViewModel(Notes.C2),
-				new NoteViewModel(Notes.B1), }),
+				//Triads with 2nd
+				ChordSection.Build(Notes.A1,Notes.B1,Notes.G1),
+				ChordSection.Build(Notes.A1,Notes.B1,Notes.G1).Transpose(4),
 
-				new ChordSection(new List<NoteViewModel>() {
-				new NoteViewModel(Notes.C1),
-				new NoteViewModel(Notes.A1), }),
+				ChordSection.Build(Notes.G2,Notes.A3, Notes.C2),
 
-				new ChordSection(new List<NoteViewModel>() {
-				new NoteViewModel(Notes.F2),
-				new NoteViewModel(Notes.B2), }),
-
-				new ChordSection(new List<NoteViewModel>() {
-				new NoteViewModel(Notes.G1),
-				new NoteViewModel(Notes.F2),
-				new NoteViewModel(Notes.B2), }),
-
-				new ChordSection(new List<NoteViewModel>() {
-				new NoteViewModel(Notes.A1),
-				new NoteViewModel(Notes.F2),
-				new NoteViewModel(Notes.B3), }),
-
-				new ChordSection(new List<NoteViewModel>() {
-				new NoteViewModel(Notes.G1),
-				new NoteViewModel(Notes.F2),
-				new NoteViewModel(Notes.B2), }),
-
-				new ChordSection(new List<NoteViewModel>() {
-				new NoteViewModel(Notes.A2),
-				new NoteViewModel(Notes.F2),
-				new NoteViewModel(Notes.B2), }),
-
-				new ChordSection(new List<NoteViewModel>() {
-				new NoteViewModel(Notes.C2),
-				new NoteViewModel(Notes.E2),
-				new NoteViewModel(Notes.G2), })
 			};
 		}
 
