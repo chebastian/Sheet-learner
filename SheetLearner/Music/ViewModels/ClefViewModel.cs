@@ -116,6 +116,7 @@ namespace SheetLearner.Music.ViewModels
 	public class ClefViewModel : ViewModelBase
 	{
 		public List<NoteSection> Sections;
+		private List<NoteViewModel> _createdNotes;
 
 		public ObservableCollection<NoteViewModel> NotesInClef
 		{
@@ -133,6 +134,7 @@ namespace SheetLearner.Music.ViewModels
 			Sections = new List<NoteSection>();
 			NotesInLedger = new ObservableCollection<NoteViewModel>();
 			NotesInClef = new ObservableCollection<NoteViewModel>();
+			_createdNotes =  new List<NoteViewModel>();
 
 			ActiveClef = clef;
 		}
@@ -146,7 +148,7 @@ namespace SheetLearner.Music.ViewModels
 			{
 				var currentNoteY = NotesIndexInClef(note);
 				var newNote = CreateNoteAtIndex(note, left, currentNoteY);
-				NotesInClef.Add(newNote);
+				_createdNotes.Add(newNote);
 				notesInSection.Add(newNote);
 			}
 
@@ -163,6 +165,18 @@ namespace SheetLearner.Music.ViewModels
 			AddNoteStems(Sections.Last());
 		}
 
+		public async void AddToRender()
+		{
+			foreach (var note in _createdNotes.ToList())
+			{
+				NotesInClef.Add(note);
+				await Task.Delay(2);
+			}
+
+			_createdNotes.Clear();
+		}
+
+
 		private void CorrectPositionsOfChordNotes(ChordSection chord)
 		{
 			if (chord.HasInterval(ChordSection.Interval.Second, ActiveClef))
@@ -171,7 +185,7 @@ namespace SheetLearner.Music.ViewModels
 				var notesFromBottom = chord.Notes.OrderBy(x => Notes.NotesInClef(ActiveClef).IndexOf(x.Note)).ToList();
 				var idx = notesFromBottom.IndexOf(first);
 
-				var snd = notesFromBottom[(idx + 1)%chord.Notes.Count]; 
+				var snd = notesFromBottom[(idx + 1) % chord.Notes.Count];
 				snd.X += NudgeWidth;
 				notesFromBottom.Remove(snd);
 				notesFromBottom.Remove(first);
@@ -326,7 +340,7 @@ namespace SheetLearner.Music.ViewModels
 			return (x.Notes.Any(note => note.Note.IsSharp || note.Note.IsFlat) ||
 				(x as ChordSection) != null && (x as ChordSection).HasInterval(ChordSection.Interval.Second, ActiveClef)) ? noteDist * 2 : noteDist;
 		}
- 
+
 		private List<NoteViewModel> CreateTrailingLinesForSection(NoteSection noteSection)
 		{
 			if (noteSection.Notes.Count <= 0)

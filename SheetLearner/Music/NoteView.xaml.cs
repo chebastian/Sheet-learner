@@ -71,7 +71,6 @@ namespace SheetLearner.Music
 			storyBoard.Children.Add(danim);
 
 			storyBoard.Begin(this);
-			await Task.Delay(1000);
 		}
 
 		public async void AnimatePlay()

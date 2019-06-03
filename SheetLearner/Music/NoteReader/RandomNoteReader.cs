@@ -29,7 +29,7 @@ namespace XTestMan.Views.Music.NoteReader
 			if (FavorChords)
 				return CreateLinearChordSection();
 
-			//return CreateRandomSections(_length);
+			return CreateRandomSections(_length);
 
 			return new List<NoteSection>()
 			{
