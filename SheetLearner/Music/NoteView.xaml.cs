@@ -41,7 +41,7 @@ namespace SheetLearner.Music
 			}
 		}
 
-		private async void AnimateRenderY(double from, TimeSpan time)
+		private void AnimateRenderY(double from, TimeSpan time)
 		{
 			var storyBoard = new Storyboard();
 
@@ -50,11 +50,11 @@ namespace SheetLearner.Music
 			tanim.By = new Thickness(0, 0, 0, 20);
 			tanim.To = new Thickness(0, 0, 0, -20);
 			tanim.Duration = new Duration(TimeSpan.FromMilliseconds(40));
-			var danim = new DoubleAnimation();
-			danim.From = from;
-			//danim.By = 20;
-			//danim.To = 20;
-			danim.Duration = new Duration(time);
+			var danim = new DoubleAnimation
+			{
+				From = from,
+				Duration = new Duration(time)
+			};
 			Storyboard.SetTargetProperty(danim, new PropertyPath("(TranslateTransform.Y)"));
 			Storyboard.SetTargetName(danim, "pos");
 			storyBoard.Children.Add(danim);
@@ -62,7 +62,7 @@ namespace SheetLearner.Music
 			storyBoard.Begin(this);
 		}
 
-		public async void AnimatePlay()
+		public void AnimatePlay()
 		{
 			AnimateRenderY(20, TimeSpan.FromMilliseconds(300));
 		}

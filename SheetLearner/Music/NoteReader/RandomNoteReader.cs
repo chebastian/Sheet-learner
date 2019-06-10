@@ -96,8 +96,10 @@ namespace XTestMan.Views.Music.NoteReader
 		public static List<NoteSection> CreateChordGroups(Clef clef, int groupLen, int num, bool startEmpty)
 		{
 			var result = new List<NoteSection>();
-			var reader = new RandomNoteReader(clef, groupLen);
-			reader.FavorChords = false;
+			var reader = new RandomNoteReader(clef, groupLen)
+			{
+				FavorChords = false
+			};
 			for (var i = 0; i < num; i++)
 				result.AddRange(reader.GetNoteSections());
 			return result;

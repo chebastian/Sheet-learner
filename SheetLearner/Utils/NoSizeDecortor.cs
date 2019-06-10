@@ -26,9 +26,6 @@ namespace XTestMan.Utils
 
 		protected override void OnRender(DrawingContext drawingContext)
 		{
-			var rect = AdornedElement.DesiredSize;
-			var text = new TextBlock() { Text = "#", Foreground = Color };
-
 			drawingContext.DrawText(new FormattedText("#", CultureInfo.CurrentCulture, FlowDirection.LeftToRight, new Typeface("Arial"), 20, Color), new Point());
 			base.OnRender(drawingContext);
 		}

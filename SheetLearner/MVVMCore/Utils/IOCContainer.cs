@@ -53,7 +53,6 @@ namespace MVVMCore.Utils
 
 		public static object Resolve(Type type)
 		{
-			object instance = null;
 			if (type.IsInterface)
 				return Resolve(InterfaceBindings[type]);
 

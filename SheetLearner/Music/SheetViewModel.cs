@@ -69,7 +69,7 @@ namespace XTestMan.Views.Music
 			{
 				OnLoadSectionsAsync();
 			}
-			catch (Exception e)
+			catch (Exception)
 			{
 				throw;
 			}
@@ -78,13 +78,13 @@ namespace XTestMan.Views.Music
 			OnPropertyChanged("BassNotes");
 		}
 
-		private async void OnLoadSectionsAsync()
+		private void OnLoadSectionsAsync()
 		{
 			var left = 0;
 			for (var i = 0; i < TrebleNotes.Count; i++)
 			{
-				await TrebleClefViewModel.AddSection(TrebleNotes[i], left);
-				await BassClefViewModel.AddSection(BassNotes[i], TrebleClefViewModel.Right());
+				TrebleClefViewModel.AddSection(TrebleNotes[i], left);
+				BassClefViewModel.AddSection(BassNotes[i], TrebleClefViewModel.Right());
 				left = TrebleClefViewModel.Right();
 			}
 
@@ -99,7 +99,7 @@ namespace XTestMan.Views.Music
 
 		private NoteSection FirstUnplayedInSequence(List<NoteSection> sections, out int foundAt)
 		{
-			var res = sections.Select((value, index) => new { section = value, index = index }).First(x => x.section.Notes.Count > 0 && !(x.section.IsAllPlayed()));
+			var res = sections.Select((value, index) => new { section = value, index }).First(x => x.section.Notes.Count > 0 && !(x.section.IsAllPlayed()));
 			foundAt = res.index;
 			return res.section;
 		}

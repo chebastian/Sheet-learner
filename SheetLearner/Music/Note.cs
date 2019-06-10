@@ -181,7 +181,6 @@ namespace SheetLearner.Music
 
 		public static int NumberOfLedgerLines(Note note, Clef clef)
 		{
-			var count = 0;
 			if (clef == Clef.Bass)
 			{
 				var ledgerDict = new Dictionary<Note, int>()
@@ -402,8 +401,7 @@ namespace SheetLearner.Music
 
 		public override bool Equals(object obj)
 		{
-			var note = obj as Note;
-			return note != null && _note == note._note;
+			return obj is Note note && _note == note._note;
 		}
 
 		public bool Equals(Note note)

@@ -6,7 +6,6 @@ namespace NoteReader
 	public class MidiPublisherChordifyer : INotePublisher, INoteListener
 	{
 		private INoteListener _listener;
-		private List<INoteListener> _listeners;
 
 		public MidiPublisherChordifyer()
 		{

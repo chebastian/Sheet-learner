@@ -137,11 +137,9 @@ namespace SheetLearner.Music.ViewModels
 			ActiveClef = clef;
 		}
 
-		public async Task AddSection(NoteSection section, int left)
+		public void AddSection(NoteSection section, int left)
 		{
 			var notesInSection = new List<NoteViewModel>();
-
-			var nudgeToFit = false;
 			foreach (var note in section.AllNotes.OrderBy(x => x.Id))
 			{
 				var currentNoteY = NotesIndexInClef(note);
@@ -312,7 +310,6 @@ namespace SheetLearner.Music.ViewModels
 		private NoteViewModel CreateNoteAtIndex(Note note, int x, int y)
 		{
 			var midNote = Notes.Midpoint(ActiveClef);
-			var midIndex = NotesIndexInClef(midNote);
 			var dd = Notes.DistanceFromMid(note, ActiveClef);
 
 			if (note.IsSharp)
@@ -370,7 +367,6 @@ namespace SheetLearner.Music.ViewModels
 
 		private int NotesIndexInClef(Note note)
 		{
-			var midNote = Notes.Midpoint(ActiveClef);
 			var dd = Notes.DistanceFromMid(note, ActiveClef);
 			return dd;
 		}

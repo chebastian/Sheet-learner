@@ -42,7 +42,6 @@ namespace MVVMCore.Utils
 		private static void DoScrollValueChange(DependencyObject d, DependencyPropertyChangedEventArgs e)
 		{
 			var scv = GetScrollableValue(d);
-			if (scv != null)
 			{
 				var item = d as UIElement;
 				if (item != null)
@@ -59,7 +58,6 @@ namespace MVVMCore.Utils
 		private static void DoMouseWheelInc(object sender, MouseWheelEventArgs e)
 		{
 			var val = GetScrollableValue(sender as DependencyObject);
-			if (val != null)
 			{
 				val += Math.Sign(e.Delta);
 				SetScrollableValue(sender as DependencyObject, val);
