@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using NoteModel;
+﻿using NoteReaderInterface;
+using System.Collections.Generic;
 
 namespace XTestMan
 {
-    internal class MockedMidiRepo : IMidiRepository
+	internal class MockedMidiRepo : IMidiRepository
     {
         public List<string> AvailableDevices { get; set; }
  

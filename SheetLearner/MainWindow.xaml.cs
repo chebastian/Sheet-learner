@@ -1,33 +1,22 @@
-﻿using NoteModel;
-using NoteReader;
-using Prism.Events;
+﻿using NoteReader;
+using NoteReaderInterface;
 using SharedLibraries;
 using SharedLibraries.PageViewModels;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using XTestMan.Views.Music;
 using XTestMan.Views.Music.NoteReader;
 
 namespace XTestMan
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window, INotifyPropertyChanged, IMidiDeviceListener, INotePublisher
+	/// <summary>
+	/// Interaction logic for MainWindow.xaml
+	/// </summary>
+	public partial class MainWindow : Window, INotifyPropertyChanged, IMidiDeviceListener, INotePublisher
     {
         private SheetViewModel _sheetVm;
 

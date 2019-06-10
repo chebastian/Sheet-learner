@@ -1,14 +1,10 @@
 ﻿using Midi;
-using NoteModel;
-using System;
+using NoteReaderInterface;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NoteReader
 {
-    public class NAudioMidiPublisher : INotePublisher
+	public class NAudioMidiPublisher : INotePublisher
     {
         public NAudioMidiPublisher(InputDevice device)
         {

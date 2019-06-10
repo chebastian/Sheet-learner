@@ -17,7 +17,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedLibraries", "SharedLi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp\TestApp.csproj", "{7C555C9A-1A4F-4391-9BF3-4B7DD6644F6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppCore", "AppCore\AppCore.csproj", "{C64D00A2-8B7A-40E3-920A-EBB73D64CD1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppCore", "AppCore\AppCore.csproj", "{C64D00A2-8B7A-40E3-920A-EBB73D64CD1F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoteReaderInterface", "NoteReaderInterface\NoteReaderInterface.csproj", "{559D2C61-ED8C-43B8-BAB9-4C36B48A3EFA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{C64D00A2-8B7A-40E3-920A-EBB73D64CD1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C64D00A2-8B7A-40E3-920A-EBB73D64CD1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C64D00A2-8B7A-40E3-920A-EBB73D64CD1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{559D2C61-ED8C-43B8-BAB9-4C36B48A3EFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{559D2C61-ED8C-43B8-BAB9-4C36B48A3EFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{559D2C61-ED8C-43B8-BAB9-4C36B48A3EFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{559D2C61-ED8C-43B8-BAB9-4C36B48A3EFA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

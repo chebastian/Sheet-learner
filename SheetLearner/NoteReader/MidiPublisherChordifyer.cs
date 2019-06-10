@@ -1,13 +1,9 @@
-﻿using NoteModel;
-using System;
+﻿using NoteReaderInterface;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NoteReader
 {
-    public class MidiPublisherChordifyer :  INotePublisher, INoteListener
+	public class MidiPublisherChordifyer :  INotePublisher, INoteListener
     {
         private INoteListener _listener;
         private List<INoteListener> _listeners;

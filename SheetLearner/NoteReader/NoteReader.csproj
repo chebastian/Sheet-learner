@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NoteReader</RootNamespace>
     <AssemblyName>NoteReader</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -47,10 +47,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IMidiDeviceListener.cs" />
-    <Compile Include="IMidiRepository.cs" />
-    <Compile Include="INoteListener.cs" />
-    <Compile Include="INotePublisher.cs" />
     <Compile Include="MidiNotePublisher.cs" />
     <Compile Include="MidiPublisherChordifyer.cs" />
     <Compile Include="MidiDeviceRepository.cs" />
@@ -61,6 +57,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="README.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\NoteReaderInterface\NoteReaderInterface.csproj">
+      <Project>{559D2C61-ED8C-43B8-BAB9-4C36B48A3EFA}</Project>
+      <Name>NoteReaderInterface</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

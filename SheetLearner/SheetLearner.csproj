@@ -8,12 +8,13 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>SheetLearner</RootNamespace>
     <AssemblyName>SheetLearner</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -172,6 +173,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NoteReaderInterface\NoteReaderInterface.csproj">
+      <Project>{559D2C61-ED8C-43B8-BAB9-4C36B48A3EFA}</Project>
+      <Name>NoteReaderInterface</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SharedLibraries\SharedLibraries.csproj">
       <Project>{de0bae9e-3d9f-40fa-8f98-f0a9041faad9}</Project>
       <Name>SharedLibraries</Name>

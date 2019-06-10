@@ -1,5 +1,5 @@
 ﻿using MVVMHelpers;
-using NoteModel;
+using NoteReaderInterface;
 using Prism.Commands;
 using SharedLibraries.Interfaces;
 using SheetLearner.Music;
@@ -8,8 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace XTestMan.Views.Music

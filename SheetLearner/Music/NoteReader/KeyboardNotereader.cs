@@ -1,17 +1,15 @@
 ﻿using MVVMHelpers;
-using NoteModel;
+using NoteReaderInterface;
 using Prism.Commands;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace XTestMan.Views.Music.NoteReader
 {
-    public class WpfKeyReader : INotePublisher
+	public class WpfKeyReader : INotePublisher
     {
         public WpfKeyReader()
         { 
