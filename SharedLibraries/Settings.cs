@@ -1,16 +1,16 @@
-﻿using System.Windows.Input;
-using SharedLibraries.Interfaces;
+﻿using SharedLibraries.Interfaces;
+using System.Windows.Input;
 
 namespace SharedLibraries
 {
-    internal class Settings : INavigationSource
-    {
-        public string Name { get; set; }
-        public ICommand OnSelected { get; set; }
+	internal class Settings : INavigationSource
+	{
+		public string Name { get; set; }
+		public ICommand OnSelected { get; set; }
 
-        public Settings()
-        {
-            Name = "Settings";
-        }
-    }
+		public Settings()
+		{
+			Name = "Settings";
+		}
+	}
 }

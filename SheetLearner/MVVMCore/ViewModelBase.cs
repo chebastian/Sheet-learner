@@ -6,73 +6,73 @@ using System.Runtime.CompilerServices;
 
 namespace MVVMHelpers
 {
-    public class ViewModelBase : INotifyPropertyChanged
-    {
-        public event PropertyChangedEventHandler PropertyChanged; 
+	public class ViewModelBase : INotifyPropertyChanged
+	{
+		public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged( [CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged; 
-            if (handler != null)
-                handler(this, new PropertyChangedEventArgs(propertyName));
-        }
-    }
+		protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+		{
+			var handler = PropertyChanged;
+			if (handler != null)
+				handler(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
 
-    public class LocationThingyEventArg
-    {
-        public string PropName;
-        public bool HasError;
-    }
+	public class LocationThingyEventArg
+	{
+		public string PropName;
+		public bool HasError;
+	}
 
-    public class ValidationViewModelBase : ViewModelBase, INotifyDataErrorInfo
-    { 
-        protected readonly Dictionary<string, ICollection<string>> validationErrors; 
-        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged; 
+	public class ValidationViewModelBase : ViewModelBase, INotifyDataErrorInfo
+	{
+		protected readonly Dictionary<string, ICollection<string>> validationErrors;
+		public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
 
-        public delegate void OnErrorChanged(INotifyDataErrorInfo info); 
-        public OnErrorChanged NotifyOnErrorChanged;
+		public delegate void OnErrorChanged(INotifyDataErrorInfo info);
+		public OnErrorChanged NotifyOnErrorChanged;
 
-        public ValidationViewModelBase()
-            :base()
-        {
-            validationErrors = new Dictionary<string, ICollection<string>>();
-        }
+		public ValidationViewModelBase()
+			: base()
+		{
+			validationErrors = new Dictionary<string, ICollection<string>>();
+		}
 
-        protected void UpdateError(ICollection<string> errors,[CallerMemberName]string propertyName = null)
-        {
-            if (String.IsNullOrWhiteSpace(propertyName))
-                return;
- 
-            if(validationErrors.ContainsKey(propertyName))
-                validationErrors.Remove(propertyName);
+		protected void UpdateError(ICollection<string> errors, [CallerMemberName]string propertyName = null)
+		{
+			if (String.IsNullOrWhiteSpace(propertyName))
+				return;
 
-            if(errors.Count > 0)
-                validationErrors.Add(propertyName,errors.ToList());
-        }
+			if (validationErrors.ContainsKey(propertyName))
+				validationErrors.Remove(propertyName);
 
-        protected void SetErrorChanged([CallerMemberName] string propertyName = null)
-        {
-            if (ErrorsChanged != null)
-                ErrorsChanged(this,new DataErrorsChangedEventArgs(propertyName));
+			if (errors.Count > 0)
+				validationErrors.Add(propertyName, errors.ToList());
+		}
 
-            if (NotifyOnErrorChanged != null)
-                NotifyOnErrorChanged(this);
-        }
+		protected void SetErrorChanged([CallerMemberName] string propertyName = null)
+		{
+			if (ErrorsChanged != null)
+				ErrorsChanged(this, new DataErrorsChangedEventArgs(propertyName));
 
-        public System.Collections.IEnumerable GetErrors(string propertyName)
-        {
-            if (String.IsNullOrWhiteSpace(propertyName) || !validationErrors.ContainsKey(propertyName))
-                return null;
+			if (NotifyOnErrorChanged != null)
+				NotifyOnErrorChanged(this);
+		}
 
-            return validationErrors[propertyName];
-        }
+		public System.Collections.IEnumerable GetErrors(string propertyName)
+		{
+			if (String.IsNullOrWhiteSpace(propertyName) || !validationErrors.ContainsKey(propertyName))
+				return null;
 
-        public bool HasErrors
-        {
-            get
-            {
-                return validationErrors.Values.Where(x => x.Count > 0).Any();
-            }
-        }
-    }
+			return validationErrors[propertyName];
+		}
+
+		public bool HasErrors
+		{
+			get
+			{
+				return validationErrors.Values.Where(x => x.Count > 0).Any();
+			}
+		}
+	}
 }

@@ -3,23 +3,23 @@ using System.Runtime.Serialization;
 
 namespace MVVMCore.Utils
 {
-    [Serializable]
-    internal class StateMachineException : Exception
-    {
-        public StateMachineException()
-        {
-        }
+	[Serializable]
+	internal class StateMachineException : Exception
+	{
+		public StateMachineException()
+		{
+		}
 
-        public StateMachineException(string message) : base(message)
-        {
-        }
+		public StateMachineException(string message) : base(message)
+		{
+		}
 
-        public StateMachineException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
+		public StateMachineException(string message, Exception innerException) : base(message, innerException)
+		{
+		}
 
-        protected StateMachineException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
-    }
+		protected StateMachineException(SerializationInfo info, StreamingContext context) : base(info, context)
+		{
+		}
+	}
 }

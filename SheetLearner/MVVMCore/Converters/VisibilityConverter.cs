@@ -1,31 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
 namespace MVVMCore.Converters
 {
-    public class VisibilityConverter : IValueConverter
-    {
-        public Visibility TrueValue { get; set; }
-        public Visibility FalseValue { get; set; }
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (((bool)value))
-            {
-                return TrueValue;
-            }
+	public class VisibilityConverter : IValueConverter
+	{
+		public Visibility TrueValue { get; set; }
+		public Visibility FalseValue { get; set; }
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			if (((bool)value))
+			{
+				return TrueValue;
+			}
 
-            else return FalseValue;
-        }
+			else return FalseValue;
+		}
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return Binding.DoNothing;
-        }
-    }
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			return Binding.DoNothing;
+		}
+	}
 }
