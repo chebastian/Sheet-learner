@@ -67,9 +67,9 @@ namespace XTestMan.Views.Music
 			BassClefViewModel.ClearNotes();
 			try
 			{
-				OnLoadSectionsAsync(); 
+				OnLoadSectionsAsync();
 			}
-			catch(Exception e)
+			catch (Exception e)
 			{
 				throw;
 			}

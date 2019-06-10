@@ -1,7 +1,5 @@
 ﻿using MVVMHelpers;
-using SheetLearner.Music;
 using SheetLearner.Music.ViewModels;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using XTestMan.Views.Music;
@@ -116,8 +114,8 @@ namespace SheetLearner.Music
 		public static ChordSection Build(Note a, Note b)
 		{
 			var section = new ChordSection();
-			section.Notes.Add(new NoteViewModel( a ));
-			section.Notes.Add(new NoteViewModel( b ));
+			section.Notes.Add(new NoteViewModel(a));
+			section.Notes.Add(new NoteViewModel(b));
 
 			return section;
 		}
@@ -125,18 +123,18 @@ namespace SheetLearner.Music
 		public static ChordSection Build(Note a, Note b, Note c)
 		{
 			var section = new ChordSection();
-			section.Notes.Add(new NoteViewModel( a ));
-			section.Notes.Add(new NoteViewModel( b ));
-			section.Notes.Add(new NoteViewModel( c ));
+			section.Notes.Add(new NoteViewModel(a));
+			section.Notes.Add(new NoteViewModel(b));
+			section.Notes.Add(new NoteViewModel(c));
 
 			return section;
-		} 
+		}
 
 		public ChordSection Transpose(int semitones)
 		{
 			var newNotes = new List<Note>();
 			var notes = Music.Notes.NotesInClef(Clef.Bass);
-			foreach(var note in Notes.Select(x => x.Note))
+			foreach (var note in Notes.Select(x => x.Note))
 			{
 				var idx = notes.IndexOf(note);
 				newNotes.Add(notes[idx + semitones]);
@@ -148,10 +146,10 @@ namespace SheetLearner.Music
 		public static ChordSection Build(Note a, Note b, Note c, Note d)
 		{
 			var section = new ChordSection();
-			section.Notes.Add(new NoteViewModel( a ));
-			section.Notes.Add(new NoteViewModel( b ));
-			section.Notes.Add(new NoteViewModel( c ));
-			section.Notes.Add(new NoteViewModel( d ));
+			section.Notes.Add(new NoteViewModel(a));
+			section.Notes.Add(new NoteViewModel(b));
+			section.Notes.Add(new NoteViewModel(c));
+			section.Notes.Add(new NoteViewModel(d));
 
 			return section;
 		}
@@ -171,7 +169,7 @@ namespace SheetLearner.Music
 		{
 			var relations = Notes.Select(x => x.Note.RelationToMidpoint(clef)).ToList();
 			var higher = relations.Where(x => x == Relation.Higher).ToList().Count;
-			var lower = relations.Where(x => x == Relation.Lower).ToList().Count; 
+			var lower = relations.Where(x => x == Relation.Lower).ToList().Count;
 
 			return higher > lower ? Relation.Higher : (lower == higher ? Relation.Equal : Relation.Lower);
 		}
@@ -182,7 +180,7 @@ namespace SheetLearner.Music
 		}
 
 		public IList<Interval> IntervalsInOrder(Clef clef)
-		{	
+		{
 			var intervals = new List<Interval>();
 			for (var i = 0; i < Notes.Count; i++)
 			{
@@ -193,7 +191,7 @@ namespace SheetLearner.Music
 				}
 			}
 
-			return intervals.Where(x => x > 0).ToList(); 
+			return intervals.Where(x => x > 0).ToList();
 		}
 
 		public NoteViewModel FirstNoteInSecond(Clef clef)
@@ -205,7 +203,7 @@ namespace SheetLearner.Music
 				for (var j = 0; j < Notes.Count; j++)
 				{
 					var interval = (Interval)Music.Notes.GetInterval(note.Note, Notes[j].Note, clef);
-					if(interval == Interval.Second)
+					if (interval == Interval.Second)
 					{
 						return note;
 					}

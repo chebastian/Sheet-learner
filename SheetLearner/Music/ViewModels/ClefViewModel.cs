@@ -1,11 +1,9 @@
 ﻿using MVVMHelpers;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using SheetLearner.Music;
-using System;
 using System.Threading.Tasks;
-using System.Windows.Media;
 
 namespace SheetLearner.Music.ViewModels
 {
@@ -134,7 +132,7 @@ namespace SheetLearner.Music.ViewModels
 			Sections = new List<NoteSection>();
 			NotesInLedger = new ObservableCollection<NoteViewModel>();
 			NotesInClef = new ObservableCollection<NoteViewModel>();
-			_createdNotes =  new List<NoteViewModel>();
+			_createdNotes = new List<NoteViewModel>();
 
 			ActiveClef = clef;
 		}
