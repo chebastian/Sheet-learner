@@ -47,7 +47,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="IMidiDeviceListener.cs" />
+    <Compile Include="IMidiRepository.cs" />
+    <Compile Include="INoteListener.cs" />
+    <Compile Include="INotePublisher.cs" />
     <Compile Include="MidiNotePublisher.cs" />
     <Compile Include="MidiPublisherChordifyer.cs" />
     <Compile Include="MidiDeviceRepository.cs" />

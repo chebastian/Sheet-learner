@@ -24,8 +24,9 @@ namespace NoteReader
 
         public bool RegisterMidiListeners()
         { 
-            if(!_device.IsOpen)
+            if(!_device.IsOpen && !_device.IsReceiving)
                 _device.Open();
+
             _device.NoteOn += _callback;
             _device.NoteOff += OnNoteOffCallback;
             if(!_device.IsReceiving)

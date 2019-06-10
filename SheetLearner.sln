@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2036
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28922.388
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SheetLearner", "SheetLearner\SheetLearner.csproj", "{B4DE5E8C-B313-44A9-965F-CD8F6AB615AF}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedLibraries", "SharedLibraries\SharedLibraries.csproj", "{DE0BAE9E-3D9F-40FA-8F98-F0A9041FAAD9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp\TestApp.csproj", "{7C555C9A-1A4F-4391-9BF3-4B7DD6644F6B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppCore", "AppCore\AppCore.csproj", "{C64D00A2-8B7A-40E3-920A-EBB73D64CD1F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{7C555C9A-1A4F-4391-9BF3-4B7DD6644F6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C555C9A-1A4F-4391-9BF3-4B7DD6644F6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C555C9A-1A4F-4391-9BF3-4B7DD6644F6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C64D00A2-8B7A-40E3-920A-EBB73D64CD1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C64D00A2-8B7A-40E3-920A-EBB73D64CD1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C64D00A2-8B7A-40E3-920A-EBB73D64CD1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C64D00A2-8B7A-40E3-920A-EBB73D64CD1F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
