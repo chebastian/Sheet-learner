@@ -102,10 +102,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Music\SheetView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Music\AltBarView.xaml.cs">
@@ -117,9 +113,6 @@
     <Compile Include="Music\NoteReader\KeyboardNotereader.cs" />
     <Compile Include="Music\PlayableNote.xaml.cs">
       <DependentUpon>PlayableNote.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Music\SheetView.xaml.cs">
-      <DependentUpon>SheetView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

@@ -9,7 +9,7 @@
         xmlns:utils="clr-namespace:SheetLearner.Utils"
         xmlns:local="clr-namespace:XTestMan"
 		xmlns:sheet="clr-namespace:Music.ViewModels;assembly=SheetViewModels"
-		xmlns:music="clr-namespace:XTestMan.Views.Music"
+		xmlns:music="clr-namespace:SheetViews.Music;assembly=SheetViews"
 		mc:Ignorable="d"
         Name="root"
         Width="800"
