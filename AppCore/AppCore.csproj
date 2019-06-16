@@ -8,8 +8,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LearnerViewModels\LearnerViewModels.csproj" />
+    <ProjectReference Include="..\NoteReaderCore\NoteReaderCore.csproj" />
     <ProjectReference Include="..\NoteReaderInterfaces\NoteReaderInterfaces.csproj" />
-    <ProjectReference Include="..\SheetLearner\NoteReader\NoteReader.csproj" />
     <ProjectReference Include="..\SheetViews\SheetViews.csproj" />
   </ItemGroup>
 

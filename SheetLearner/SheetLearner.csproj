@@ -115,6 +115,10 @@
       <Project>{14d5713f-1334-455c-8f84-b930b61504e1}</Project>
       <Name>LearnerViewModels</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NoteReaderCore\NoteReaderCore.csproj">
+      <Project>{e7c650fb-2299-4532-9c18-1e35a6833710}</Project>
+      <Name>NoteReaderCore</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NoteReaderInterfaces\NoteReaderInterfaces.csproj">
       <Project>{9545e6e5-07aa-4617-83da-a27eae89b1f8}</Project>
       <Name>NoteReaderInterfaces</Name>
@@ -122,10 +126,6 @@
     <ProjectReference Include="..\SheetViews\SheetViews.csproj">
       <Project>{bd45650a-d3fd-40c2-acfa-386fba6fbfbd}</Project>
       <Name>SheetViews</Name>
-    </ProjectReference>
-    <ProjectReference Include="NoteReader\NoteReader.csproj">
-      <Project>{f583a8c8-e472-45ae-9123-3ce45f49cc3f}</Project>
-      <Name>NoteReader</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
