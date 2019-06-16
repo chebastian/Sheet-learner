@@ -1,4 +1,5 @@
 ﻿using Music.ViewModels;
+using NoteReader;
 using NoteReaderInterface;
 using SharedLibraries;
 using SharedLibraries.PageViewModels;
@@ -44,7 +45,7 @@ namespace AppCore
 
 
 		internal IMidiRepository MidiRepo { get; set; }
-		//internal MidiPublisherChordifyer KeyReader { get; }
+		internal MidiPublisherChordifyer KeyReader { get; }
 
 		private SettingsViewModel _settingsViewModel;
 		public SettingsViewModel SettingsViewModel
@@ -72,7 +73,7 @@ namespace AppCore
 			DataContext = this;
 			SheetVm = new SheetViewModel();
 
-			//MidiRepo = new MidiDeviceRepository();
+			MidiRepo = new MidiDeviceRepository();
 			SettingsViewModel = new SettingsViewModel(MidiRepo, this);
 
 			NavigationViewModel = new NavigationPaneViewModel();
@@ -146,8 +147,8 @@ namespace AppCore
 
 		public void OnDeviceSelected(INotePublisher selectedPublisher)
 		{
-			//var chordifyer = MidiPublisherChordifyer.CreateChordsFromMidiNotes(selectedPublisher);
-			//chordifyer.PublishNotesToListener(SheetVm);
+			var chordifyer = MidiPublisherChordifyer.CreateChordsFromMidiNotes(selectedPublisher);
+			chordifyer.PublishNotesToListener(SheetVm);
 		}
 
 		public void Register(INoteListener listener)
