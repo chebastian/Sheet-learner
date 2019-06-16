@@ -1,6 +1,5 @@
 ﻿using Music.Models;
 using Music.Services;
-using Music.ViewModels;
 using MVVMHelpers;
 using NoteReaderInterface;
 using Prism.Commands;
