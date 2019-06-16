@@ -4,11 +4,12 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <UseWPF>true</UseWPF>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\LearnerViewModels\LearnerViewModels.csproj" />
-    <ProjectReference Include="..\NoteReaderCore\NoteReaderCore.csproj" />
+    <ProjectReference Include="..\NoteReaderCore\MidiNoteReader.csproj" />
     <ProjectReference Include="..\NoteReaderInterfaces\NoteReaderInterfaces.csproj" />
     <ProjectReference Include="..\SheetViews\SheetViews.csproj" />
   </ItemGroup>
