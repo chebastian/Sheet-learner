@@ -136,6 +136,9 @@
     <PackageReference Include="Prism.Wpf">
       <Version>7.1.0.431</Version>
     </PackageReference>
+    <PackageReference Include="Sefe.Utils.MVVM">
+      <Version>1.0.0</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

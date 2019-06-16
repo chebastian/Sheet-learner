@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Sefe.Utils.MVVM, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sefe.Utils.MVVM.1.0.0\lib\netstandard2.0\Sefe.Utils.MVVM.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -125,19 +128,16 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SheetLearner\MVVMCore\MVVMCore.csproj">
-      <Project>{0707e7c7-ca38-484f-a262-0774c61cc4be}</Project>
-      <Name>MVVMCore</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SheetViewModels\SheetViewModels.csproj">
-      <Project>{312f0a68-a030-484a-bc20-acd212a70467}</Project>
-      <Name>SheetViewModels</Name>
+    <ProjectReference Include="..\LearnerViewModels\LearnerViewModels.csproj">
+      <Project>{14d5713f-1334-455c-8f84-b930b61504e1}</Project>
+      <Name>LearnerViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
