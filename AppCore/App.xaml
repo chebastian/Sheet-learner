@@ -2,8 +2,14 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:AppCore"
-             StartupUri="MainWindow.xaml">
+			 xmlns:utils="clr-namespace:AppCore.Utils"
+			 StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <utils:CollapsedWhenFalse x:Key="BoolToVisibleCollapsed"/>
+        <utils:CollapsedWhenTrue x:Key="CollapsedWhenTrue"/>
+        <utils:CollapsedWhenFalse x:Key="CollapsedWhenFalse"/>
+        <utils:HiddenWhenFalse x:Key="BoolToVisibileHidden"/>
+        <utils:HiddenWhenTrue x:Key="HiddenWhenTrue"/> 
+        <utils:HalfValue x:Key="Half"/> 
     </Application.Resources>
 </Application>
