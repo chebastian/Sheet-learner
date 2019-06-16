@@ -53,6 +53,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Music\ClefView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Music\NoteView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="SettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -71,6 +79,12 @@
     </Page>
     <Compile Include="MenuBarView.xaml.cs">
       <DependentUpon>MenuBarView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Music\ClefView.xaml.cs">
+      <DependentUpon>ClefView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Music\NoteView.xaml.cs">
+      <DependentUpon>NoteView.xaml</DependentUpon>
     </Compile>
     <Compile Include="SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
@@ -113,6 +127,14 @@
     <ProjectReference Include="..\SharedLibraries\SharedLibraries.csproj">
       <Project>{de0bae9e-3d9f-40fa-8f98-f0a9041faad9}</Project>
       <Name>SharedLibraries</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SheetLearner\MVVMCore\MVVMCore.csproj">
+      <Project>{0707e7c7-ca38-484f-a262-0774c61cc4be}</Project>
+      <Name>MVVMCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SheetViewModels\SheetViewModels.csproj">
+      <Project>{312f0a68-a030-484a-bc20-acd212a70467}</Project>
+      <Name>SheetViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

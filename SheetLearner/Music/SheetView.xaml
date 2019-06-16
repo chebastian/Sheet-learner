@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:XTestMan.Views.Music"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             xmlns:music="clr-namespace:SheetLearner.Music"
-             mc:Ignorable="d" 
+			 xmlns:music="clr-namespace:SheetViews.Music;assembly=SheetViews"
+			 mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <StackPanel>
         <!--<TextBlock Text="Notes:"/>

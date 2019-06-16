@@ -1,0 +1,149 @@
+﻿<UserControl x:Class="SheetViews.Music.ClefView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:vm="clr-namespace:Music.ViewModels;assembly=SheetViewModels"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+			 xmlns:music="clr-namespace:SheetViews.Music"
+			 mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+	<Grid >
+		<Grid.Resources>
+			<system:Double x:Key="height">2</system:Double>
+			<system:Double x:Key="notesz">10</system:Double>
+			<system:Double x:Key="noteh">4</system:Double>
+			<SolidColorBrush Color="Black" x:Key="LineColor"/>
+			<Style TargetType="Ellipse">
+				<Setter Property="Stroke" Value="Black"/>
+				<Setter Property="Width" Value="{StaticResource notesz}"/>
+				<Setter Property="Height" Value="{StaticResource noteh}"/>
+			</Style>
+			<DataTemplate DataType="{x:Type vm:NoteViewModel}" >
+				<Grid>
+				</Grid>
+			</DataTemplate>
+
+			<DataTemplate DataType="{x:Type vm:SharpNote}">
+				<Canvas >
+					<TextBlock Text="#"  FontSize="20" Foreground="Black" FontWeight="Bold" >
+						<TextBlock.RenderTransform>
+							<TransformGroup>
+								<TranslateTransform 
+                                                Y="{Binding Y, UpdateSourceTrigger=PropertyChanged}"
+                                                X="{Binding X, UpdateSourceTrigger=PropertyChanged}"/>
+								<TranslateTransform X="-15" Y="-10"/>
+							</TransformGroup>
+						</TextBlock.RenderTransform>
+					</TextBlock>
+				</Canvas>
+			</DataTemplate>
+
+		</Grid.Resources>
+		<StackPanel Orientation="Vertical">
+			<StackPanel.Resources>
+				<Style TargetType="Rectangle">
+					<Setter Property="Margin" Value="0,10,0,0"/>
+					<Setter Property="Height" Value="{StaticResource height}"/>
+					<Setter Property="Fill" Value="Black"/>
+				</Style>
+			</StackPanel.Resources>
+			<Rectangle Fill="Transparent" Width="{Binding ElementName=root, Path=ActualWidth}"/>
+			<Rectangle Fill="Transparent" Width="{Binding ElementName=root, Path=ActualWidth}"/>
+			<Rectangle Fill="Transparent" Width="{Binding ElementName=root, Path=ActualWidth}"/>
+			<Rectangle Width="{Binding ElementName=root, Path=ActualWidth}"/>
+			<Rectangle Width="{Binding ElementName=root, Path=ActualWidth}"/>
+			<Rectangle Width="{Binding ElementName=root, Path=ActualWidth}"/>
+			<Rectangle Width="{Binding ElementName=root, Path=ActualWidth}"/>
+			<Rectangle Width="{Binding ElementName=root, Path=ActualWidth}"/>
+			<Rectangle Fill="Transparent" Width="{Binding ElementName=root, Path=ActualWidth}"/>
+			<Rectangle Fill="Transparent" Width="{Binding ElementName=root, Path=ActualWidth}"/>
+			<Rectangle Fill="Transparent" Width="{Binding ElementName=root, Path=ActualWidth}"/>
+		</StackPanel>
+		<Canvas Name="root" >
+			<ItemsControl
+                ItemsSource="{Binding NotesInClef, UpdateSourceTrigger=PropertyChanged}"
+                Style="{x:Null}" 
+                Margin="0"
+                Padding="0"
+                Width="{Binding ElementName=root, Path=ActualWidth}"
+                Height="{Binding ElementName=root, Path=ActualHeight}"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch" 
+                >
+
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<Canvas />
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<music:NoteView >
+							<music:NoteView.RenderTransform>
+								<TransformGroup>
+									<TranslateTransform 
+													/>
+									<TranslateTransform 
+													Y="{Binding ElementName=root, Path=ActualHeight, Converter={StaticResource Half}}"
+													/> 
+								</TransformGroup>
+							</music:NoteView.RenderTransform>
+						</music:NoteView>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+
+			<ItemsControl 
+                ItemsSource="{Binding NotesInLedger, UpdateSourceTrigger=PropertyChanged}"
+                Style="{x:Null}" 
+                Margin="0"
+                Padding="0"
+                Width="{Binding ElementName=root, Path=ActualWidth}"
+                Height="{Binding ElementName=root, Path=ActualHeight}"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch" 
+                >
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<Canvas x:Name="parentCanvas" />
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<Grid>
+							<Grid.RenderTransform> 
+								<TransformGroup>
+									<TranslateTransform 
+													/>
+									<TranslateTransform 
+													Y="{Binding ElementName=root, Path=ActualHeight, Converter={StaticResource Half}}"
+													/> 
+								</TransformGroup>
+							</Grid.RenderTransform>
+							<Ellipse Margin="0,0,0,0" Height="10" Width="14" Fill="Transparent" >
+								<Ellipse.RenderTransform>
+									<TransformGroup>
+										<TranslateTransform 
+                                        Y="{Binding Y, UpdateSourceTrigger=PropertyChanged}"
+                                        X="{Binding X, UpdateSourceTrigger=PropertyChanged}"/>
+									</TransformGroup>
+								</Ellipse.RenderTransform>
+							</Ellipse>
+							<Rectangle HorizontalAlignment="Center" VerticalAlignment="Center" Height="1" Width="15" Fill="Black" >
+								<Rectangle.RenderTransform>
+									<TransformGroup>
+										<TranslateTransform 
+                                        Y="{Binding Y, UpdateSourceTrigger=PropertyChanged}"
+                                        X="{Binding X, UpdateSourceTrigger=PropertyChanged}"/>
+									</TransformGroup>
+								</Rectangle.RenderTransform>
+							</Rectangle>
+						</Grid>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</Canvas>
+	</Grid>
+</UserControl>

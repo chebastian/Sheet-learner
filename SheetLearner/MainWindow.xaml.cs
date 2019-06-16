@@ -1,4 +1,5 @@
-﻿using NoteReader;
+﻿using Music.ViewModels;
+using NoteReader;
 using NoteReaderInterface;
 using SharedLibraries;
 using SharedLibraries.PageViewModels;

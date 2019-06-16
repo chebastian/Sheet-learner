@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Prism, Version=7.1.0.431, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Core.7.1.0.431\lib\net45\Prism.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,7 +44,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\INoteReader.cs" />
+    <Compile Include="Models\ChordSection.cs" />
+    <Compile Include="Models\Clef.cs" />
+    <Compile Include="Models\LedgerNote.cs" />
+    <Compile Include="Models\Note.cs" />
+    <Compile Include="Models\NoteSection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\RandomNoteReader.cs" />
+    <Compile Include="ViewModels\ClefViewModel.cs" />
+    <Compile Include="ViewModels\NoteViewModel.cs" />
+    <Compile Include="ViewModels\PlayingNoteViewModel.cs" />
+    <Compile Include="ViewModels\SharpNote.cs" />
+    <Compile Include="ViewModels\SheetViewModel.cs" />
+    <Compile Include="ViewModels\Stem.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NoteReaderInterface\NoteReaderInterface.csproj">
+      <Project>{559D2C61-ED8C-43B8-BAB9-4C36B48A3EFA}</Project>
+      <Name>NoteReaderInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SharedLibraries\SharedLibraries.csproj">
+      <Project>{DE0BAE9E-3D9F-40FA-8F98-F0A9041FAAD9}</Project>
+      <Name>SharedLibraries</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SheetLearner\MVVMCore\MVVMCore.csproj">
+      <Project>{0707E7C7-CA38-484F-A262-0774C61CC4BE}</Project>
+      <Name>MVVMCore</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

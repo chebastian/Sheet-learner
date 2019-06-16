@@ -70,19 +70,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="MockedMidiRepo.cs" />
-    <Compile Include="Music\ClefView.xaml.cs">
-      <DependentUpon>ClefView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Music\Models\ChordSection.cs" />
-    <Compile Include="Music\Models\Clef.cs" />
-    <Compile Include="Music\NoteView.xaml.cs">
-      <DependentUpon>NoteView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Music\RootNoteComparer.cs" />
-    <Compile Include="Music\ViewModels\ClefViewModel.cs" />
-    <Compile Include="Music\ViewModels\NoteViewModel.cs" />
-    <Compile Include="Music\ViewModels\SharpNote.cs" />
-    <Compile Include="Music\ViewModels\Stem.cs" />
     <Compile Include="Utils\AddAdorner.cs" />
     <Compile Include="Utils\BaseExtensions.cs" />
     <Compile Include="Utils\BoolToVisibility.cs" />
@@ -110,14 +98,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Music\ClefView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Music\NoteView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Music\PlayableNote.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -134,20 +114,13 @@
     <Compile Include="Music\BarView.xaml.cs">
       <DependentUpon>BarView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Music\Interfaces\INoteReader.cs" />
-    <Compile Include="Music\Models\LedgerNote.cs" />
-    <Compile Include="Music\Models\Note.cs" />
     <Compile Include="Music\NoteReader\KeyboardNotereader.cs" />
-    <Compile Include="Music\NoteReader\RandomNoteReader.cs" />
-    <Compile Include="Music\Models\NoteSection.cs" />
     <Compile Include="Music\PlayableNote.xaml.cs">
       <DependentUpon>PlayableNote.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Music\ViewModels\PlayingNoteViewModel.cs" />
     <Compile Include="Music\SheetView.xaml.cs">
       <DependentUpon>SheetView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Music\ViewModels\SheetViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -183,6 +156,10 @@
       <Project>{de0bae9e-3d9f-40fa-8f98-f0a9041faad9}</Project>
       <Name>SharedLibraries</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SheetViewModels\SheetViewModels.csproj">
+      <Project>{312F0A68-A030-484A-BC20-ACD212A70467}</Project>
+      <Name>SheetViewModels</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SheetViews\SheetViews.csproj">
       <Project>{bd45650a-d3fd-40c2-acfa-386fba6fbfbd}</Project>
       <Name>SheetViews</Name>
@@ -197,6 +174,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Music\Views\" />
     <Folder Include="Utils\Validation\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

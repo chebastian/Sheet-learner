@@ -1,12 +1,12 @@
 ﻿using Music.Interfaces;
 using Music.Models;
+using Music.ViewModels;
 using SheetLearner.Music;
-using SheetLearner.Music.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace XTestMan.Views.Music.NoteReader
+namespace Music.Services
 {
 	public class RandomNoteReader : INoteReader
 	{
@@ -89,7 +89,7 @@ namespace XTestMan.Views.Music.NoteReader
 		{
 			var section = new NoteSection();
 			var notes = new List<Note>();
-			notes.AddRange(Enumerable.Repeat<Note>(new Note(), Notes.BassNotes.Count));
+			notes.AddRange(Enumerable.Repeat(new Note(), Notes.BassNotes.Count));
 
 			return Enumerable.Repeat(section, len).ToList();
 		}

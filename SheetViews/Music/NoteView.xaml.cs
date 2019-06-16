@@ -1,11 +1,10 @@
-﻿using Music.ViewModels;
-using System;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 
-namespace SheetLearner.Music
+namespace SheetViews.Music
 {
 	/// <summary>
 	/// Interaction logic for NoteView.xaml
@@ -27,7 +26,7 @@ namespace SheetLearner.Music
 			//AnimateRenderY(-300,TimeSpan.FromMilliseconds(time));
 			AnimateRenderY(rand.NextDouble() * -200, TimeSpan.FromMilliseconds(time));
 
-			(DataContext as NoteViewModel).PropertyChanged += NoteView_PropertyChanged;
+			//(DataContext as NoteViewModel).PropertyChanged += NoteView_PropertyChanged;
 		}
 
 		private void NoteView_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
