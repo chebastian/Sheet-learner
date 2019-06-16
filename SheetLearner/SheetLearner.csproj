@@ -90,26 +90,12 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Music\AltBarView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Music\BarView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Music\PlayableNote.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Music\AltBarView.xaml.cs">
-      <DependentUpon>AltBarView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Music\BarView.xaml.cs">
-      <DependentUpon>BarView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Music\NoteReader\KeyboardNotereader.cs" />
     <Compile Include="Music\PlayableNote.xaml.cs">
       <DependentUpon>PlayableNote.xaml</DependentUpon>
