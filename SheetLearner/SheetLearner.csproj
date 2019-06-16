@@ -142,7 +142,6 @@
       <DependentUpon>PlayableNote.xaml</DependentUpon>
     </Compile>
     <Compile Include="Music\ViewModels\PlayingNoteViewModel.cs" />
-    <Compile Include="Music\Models\Sheet.cs" />
     <Compile Include="Music\SheetView.xaml.cs">
       <DependentUpon>SheetView.xaml</DependentUpon>
     </Compile>
