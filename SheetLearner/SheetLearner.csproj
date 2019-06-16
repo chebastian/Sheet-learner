@@ -136,8 +136,6 @@
     <Compile Include="Music\LedgerNote.cs" />
     <Compile Include="Music\Note.cs" />
     <Compile Include="Music\NoteReader\KeyboardNotereader.cs" />
-    <Compile Include="Music\NoteReader\NoteReader.cs" />
-    <Compile Include="Music\NoteReader\NoteStringReader.cs" />
     <Compile Include="Music\NoteReader\RandomNoteReader.cs" />
     <Compile Include="Music\NoteSection.cs" />
     <Compile Include="Music\PlayableNote.xaml.cs">
