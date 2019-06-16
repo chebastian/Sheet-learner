@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -26,7 +27,7 @@ namespace SheetViews.Music
 			//AnimateRenderY(-300,TimeSpan.FromMilliseconds(time));
 			AnimateRenderY(rand.NextDouble() * -200, TimeSpan.FromMilliseconds(time));
 
-			//(DataContext as NoteViewModel).PropertyChanged += NoteView_PropertyChanged;
+			(DataContext as INotifyPropertyChanged).PropertyChanged += NoteView_PropertyChanged;
 		}
 
 		private void NoteView_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
