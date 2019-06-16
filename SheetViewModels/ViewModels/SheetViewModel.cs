@@ -3,7 +3,6 @@ using Music.Services;
 using MVVMHelpers;
 using NoteReaderInterface;
 using Prism.Commands;
-using SharedLibraries.Interfaces;
 using SheetLearner.Music;
 using SheetViewModels.ViewModels;
 using System;

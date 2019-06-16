@@ -131,10 +131,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SharedLibraries\SharedLibraries.csproj">
-      <Project>{de0bae9e-3d9f-40fa-8f98-f0a9041faad9}</Project>
-      <Name>SharedLibraries</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SheetLearner\MVVMCore\MVVMCore.csproj">
       <Project>{0707e7c7-ca38-484f-a262-0774c61cc4be}</Project>
       <Name>MVVMCore</Name>
