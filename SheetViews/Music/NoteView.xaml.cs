@@ -43,20 +43,14 @@ namespace SheetViews.Music
 		private void AnimateRenderY(double from, TimeSpan time)
 		{
 			var storyBoard = new Storyboard();
-
-			var tanim = new ThicknessAnimation();
-			tanim.From = new Thickness(0, 0, 0, 0);
-			tanim.By = new Thickness(0, 0, 0, 20);
-			tanim.To = new Thickness(0, 0, 0, -20);
-			tanim.Duration = new Duration(TimeSpan.FromMilliseconds(40));
-			var danim = new DoubleAnimation
+			var fallAnimation = new DoubleAnimation
 			{
 				From = from,
 				Duration = new Duration(time)
 			};
-			Storyboard.SetTargetProperty(danim, new PropertyPath("(TranslateTransform.Y)"));
-			Storyboard.SetTargetName(danim, "pos");
-			storyBoard.Children.Add(danim);
+			Storyboard.SetTargetProperty(fallAnimation, new PropertyPath("(TranslateTransform.Y)"));
+			Storyboard.SetTargetName(fallAnimation, "pos");
+			storyBoard.Children.Add(fallAnimation);
 
 			storyBoard.Begin(this);
 		}
