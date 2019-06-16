@@ -1,6 +1,6 @@
-﻿using MVVMHelpers;
+﻿using Music.Models;
+using MVVMHelpers;
 using SheetLearner.Music;
-using SheetLearner.Music.Models;
 using SheetLearner.Music.ViewModels;
 using System;
 using System.Collections.Generic;

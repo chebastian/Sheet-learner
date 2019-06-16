@@ -1,5 +1,5 @@
-﻿using SheetLearner.Music;
-using SheetLearner.Music.Models;
+﻿using Music.Models;
+using SheetLearner.Music;
 using SheetLearner.Music.ViewModels;
 using System;
 using System.Collections.Generic;

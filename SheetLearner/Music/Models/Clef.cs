@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SheetLearner.Music.Models
+namespace Music.Models
 {
 	public enum Clef
 	{
