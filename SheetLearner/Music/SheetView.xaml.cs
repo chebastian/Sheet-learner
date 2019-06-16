@@ -1,4 +1,5 @@
 ﻿using SheetLearner.Music;
+using SheetLearner.Music.Models;
 using System.Windows;
 using System.Windows.Controls;
 

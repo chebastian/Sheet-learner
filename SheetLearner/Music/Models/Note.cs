@@ -1,4 +1,5 @@
 ﻿using MVVMHelpers;
+using SheetLearner.Music.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

@@ -4,6 +4,7 @@ using NoteReaderInterface;
 using Prism.Commands;
 using SharedLibraries.Interfaces;
 using SheetLearner.Music;
+using SheetLearner.Music.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

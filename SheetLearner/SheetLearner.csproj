@@ -73,6 +73,8 @@
     <Compile Include="Music\ClefView.xaml.cs">
       <DependentUpon>ClefView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Music\Models\ChordSection.cs" />
+    <Compile Include="Music\Models\Clef.cs" />
     <Compile Include="Music\NoteView.xaml.cs">
       <DependentUpon>NoteView.xaml</DependentUpon>
     </Compile>
