@@ -59,9 +59,9 @@
     <Content Include="README.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\NoteReaderInterface\NoteReaderInterface.csproj">
-      <Project>{559D2C61-ED8C-43B8-BAB9-4C36B48A3EFA}</Project>
-      <Name>NoteReaderInterface</Name>
+    <ProjectReference Include="..\..\NoteReaderInterfaces\NoteReaderInterfaces.csproj">
+      <Project>{9545e6e5-07aa-4617-83da-a27eae89b1f8}</Project>
+      <Name>NoteReaderInterfaces</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

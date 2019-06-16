@@ -1,6 +1,6 @@
-﻿using MVVMHelpers;
-using NoteReaderInterface;
+﻿using NoteReaderInterface;
 using Prism.Commands;
+using Sefe.Utils.MVVM;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

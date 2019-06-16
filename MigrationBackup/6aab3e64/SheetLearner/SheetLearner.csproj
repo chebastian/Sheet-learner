@@ -36,9 +36,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CommonServiceLocator, Version=2.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.2.0.4\lib\net46\CommonServiceLocator.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism, Version=7.1.0.431, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Core.7.1.0.431\lib\net45\Prism.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism.Wpf, Version=7.1.0.431, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Wpf.7.1.0.431\lib\net45\Prism.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Wpf.7.1.0.431\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -98,6 +110,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -107,21 +120,25 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CharedLibrariesCore\SharedLibrariesCore.csproj">
-      <Project>{8fea4800-5002-487a-8473-1b4f15065838}</Project>
-      <Name>SharedLibrariesCore</Name>
-    </ProjectReference>
     <ProjectReference Include="..\LearnerViewModels\LearnerViewModels.csproj">
       <Project>{14d5713f-1334-455c-8f84-b930b61504e1}</Project>
       <Name>LearnerViewModels</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NoteReaderInterfaces\NoteReaderInterfaces.csproj">
-      <Project>{9545e6e5-07aa-4617-83da-a27eae89b1f8}</Project>
-      <Name>NoteReaderInterfaces</Name>
+    <ProjectReference Include="..\NoteReaderInterface\NoteReaderInterface.csproj">
+      <Project>{559D2C61-ED8C-43B8-BAB9-4C36B48A3EFA}</Project>
+      <Name>NoteReaderInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SharedLibraries\SharedLibraries.csproj">
+      <Project>{de0bae9e-3d9f-40fa-8f98-f0a9041faad9}</Project>
+      <Name>SharedLibraries</Name>
     </ProjectReference>
     <ProjectReference Include="..\SheetViews\SheetViews.csproj">
       <Project>{bd45650a-d3fd-40c2-acfa-386fba6fbfbd}</Project>
       <Name>SheetViews</Name>
+    </ProjectReference>
+    <ProjectReference Include="MVVMCore\MVVMCore.csproj">
+      <Project>{0707e7c7-ca38-484f-a262-0774c61cc4be}</Project>
+      <Name>MVVMCore</Name>
     </ProjectReference>
     <ProjectReference Include="NoteReader\NoteReader.csproj">
       <Project>{f583a8c8-e472-45ae-9123-3ce45f49cc3f}</Project>
@@ -131,11 +148,6 @@
   <ItemGroup>
     <Folder Include="Music\Views\" />
     <Folder Include="Utils\Validation\" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Prism.Wpf">
-      <Version>7.1.0.431</Version>
-    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

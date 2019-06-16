@@ -8,7 +8,7 @@
         xmlns:views="clr-namespace:SheetViews;assembly=SheetViews"
         xmlns:utils="clr-namespace:SheetLearner.Utils"
         xmlns:local="clr-namespace:XTestMan"
-		xmlns:sheet="clr-namespace:Music.ViewModels;assembly=SheetViewModels"
+		xmlns:sheet="clr-namespace:Music.ViewModels;assembly=LearnerViewModels"
 		xmlns:music="clr-namespace:SheetViews.Music;assembly=SheetViews"
 		mc:Ignorable="d"
         Name="root"
@@ -42,9 +42,9 @@
             </Grid>
         </DataTemplate>
 
-        <DataTemplate x:Key="NavB" DataType="{x:Type vms:NavigationB}">
+        <!--<DataTemplate x:Key="NavB" DataType="{x:Type vms:NavigationB}">
             <TextBlock Text="Type b navigation"/>
-        </DataTemplate>
+        </DataTemplate>-->
 
         <DataTemplate x:Key="base">
             <TextBlock Text="{Binding Name}"/>
