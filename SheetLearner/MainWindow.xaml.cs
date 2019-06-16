@@ -9,7 +9,6 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using XTestMan.Views.Music;
 using XTestMan.Views.Music.NoteReader;
 
 namespace XTestMan
