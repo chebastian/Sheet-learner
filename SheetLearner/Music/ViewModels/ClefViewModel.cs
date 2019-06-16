@@ -1,115 +1,14 @@
 ﻿using MVVMHelpers;
+using SheetLearner.Music;
+using SheetLearner.Music.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SheetLearner.Music.ViewModels
+namespace Music.ViewModels
 {
-	public class NoteViewModel : ViewModelBase
-	{
-
-		public NoteViewModel()
-		{
-			StemEnd = 0;
-			StemX = 0;
-			StemY = 0;
-		}
-
-		public int StemEnd { get; set; }
-
-		public NoteViewModel(Note note)
-		{
-			Note = note;
-			Played = false;
-		}
-
-		private bool _played;
-
-		public Note Note { get; }
-
-		public bool Played
-		{
-			get => _played;
-			set
-			{
-				_played = value;
-				OnPropertyChanged();
-			}
-		}
-
-		private int _x;
-		public int X
-		{
-			get => _x;
-			set
-			{
-				_x = value;
-				OnPropertyChanged();
-			}
-		}
-
-
-		private int _y;
-		public int Y
-		{
-			get => _y;
-			set
-			{
-				_y = value;
-				OnPropertyChanged();
-			}
-		}
-
-		public int StemX { get; internal set; }
-		public int StemY { get; internal set; }
-	}
-
-	public class SharpNote : NoteViewModel
-	{
-		public SharpNote(Note note) : base(note)
-		{
-		}
-	}
-
-	public class Stem
-	{
-		public enum Horizontal
-		{
-			Left,
-			Right,
-			Mid
-		}
-
-		public enum Direction
-		{
-			Up,
-			Down
-		}
-
-		public int PosX()
-		{
-			if (HorizontalOrientaion == Horizontal.Mid)
-				return 14;
-			else if (HorizontalOrientaion == Horizontal.Left)
-				return 3;
-
-			return 14;
-		}
-
-		public int Start()
-		{
-			var offsets = StemDirection == Direction.Up ?
-				new { x = 3, y = 3, noteIndexCorrection = 0 } :
-				new { x = 14, y = ClefViewModel.NoteHeight, noteIndexCorrection = -2 };
-
-			return offsets.y;
-		}
-
-		public Horizontal HorizontalOrientaion { get; set; }
-		public Direction StemDirection { get; set; }
-	}
 
 	public class ClefViewModel : ViewModelBase
 	{
@@ -226,7 +125,7 @@ namespace SheetLearner.Music.ViewModels
 
 				//Adds correction when mid
 				if (octave == Notes.Midpoint(ActiveClef))
-					offsets = new { x = offsets.x, y = offsets.y, noteIndexCorrection = -1 };
+					offsets = new { offsets.x, offsets.y, noteIndexCorrection = -1 };
 
 				var ocUp = (NotesIndexInClef(octave) - offsets.noteIndexCorrection) * NoteHeight;
 				note.StemEnd = ocUp;
@@ -292,7 +191,7 @@ namespace SheetLearner.Music.ViewModels
 				length = idx * NoteHeight;
 			}
 
-			outerNote.StemEnd = outerNote.StemY + ((stem.StemDirection == Stem.Direction.Down) ? length : -length);
+			outerNote.StemEnd = outerNote.StemY + (stem.StemDirection == Stem.Direction.Down ? length : -length);
 		}
 
 		private void AddLedgerLines(NoteSection section, int xoffset)
@@ -332,8 +231,8 @@ namespace SheetLearner.Music.ViewModels
 			if (x.Notes == null)
 				return noteDist;
 
-			return (x.Notes.Any(note => note.Note.IsSharp || note.Note.IsFlat) ||
-				(x as ChordSection) != null && (x as ChordSection).HasInterval(ChordSection.Interval.Second, ActiveClef)) ? noteDist * 2 : noteDist;
+			return x.Notes.Any(note => note.Note.IsSharp || note.Note.IsFlat) ||
+				x as ChordSection != null && (x as ChordSection).HasInterval(ChordSection.Interval.Second, ActiveClef) ? noteDist * 2 : noteDist;
 		}
 
 		private List<NoteViewModel> CreateTrailingLinesForSection(NoteSection noteSection)

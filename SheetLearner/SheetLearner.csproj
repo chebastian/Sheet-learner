@@ -78,6 +78,9 @@
     </Compile>
     <Compile Include="Music\RootNoteComparer.cs" />
     <Compile Include="Music\ViewModels\ClefViewModel.cs" />
+    <Compile Include="Music\ViewModels\NoteViewModel.cs" />
+    <Compile Include="Music\ViewModels\SharpNote.cs" />
+    <Compile Include="Music\ViewModels\Stem.cs" />
     <Compile Include="Utils\AddAdorner.cs" />
     <Compile Include="Utils\BaseExtensions.cs" />
     <Compile Include="Utils\BoolToVisibility.cs" />

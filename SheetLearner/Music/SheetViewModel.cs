@@ -1,9 +1,9 @@
-﻿using MVVMHelpers;
+﻿using Music.ViewModels;
+using MVVMHelpers;
 using NoteReaderInterface;
 using Prism.Commands;
 using SharedLibraries.Interfaces;
 using SheetLearner.Music;
-using SheetLearner.Music.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
