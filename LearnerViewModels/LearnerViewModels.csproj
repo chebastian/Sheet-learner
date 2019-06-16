@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CharedLibrariesCore\SharedLibrariesCore.csproj" />
+    <ProjectReference Include="..\NoteReaderInterfaces\NoteReaderInterfaces.csproj" />
+  </ItemGroup>
+
+</Project>
