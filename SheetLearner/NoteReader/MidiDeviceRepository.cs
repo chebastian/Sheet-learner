@@ -1,4 +1,5 @@
 ﻿using Midi;
+using Midi.Devices;
 using NoteReaderInterface;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace NoteReader
 	{
 		public MidiDeviceRepository()
 		{
-			AvailableDevices = InputDevice.InstalledDevices.Select(x => x.Name).ToList();
+			AvailableDevices = DeviceManager.InputDevices.Select(x => x.Name).ToList();
 		}
 
 		private INotePublisher CurrentPublisher { get; set; }
@@ -22,7 +23,7 @@ namespace NoteReader
 
 		public INotePublisher GetPublisherWithName(string name)
 		{
-			var theDevice = InputDevice.InstalledDevices.Where(x => x.Name == name);
+			var theDevice = DeviceManager.InputDevices.Where(x => x.Name == name);
 			if (theDevice.Any())
 			{
 				if (CurrentPublisher != null)

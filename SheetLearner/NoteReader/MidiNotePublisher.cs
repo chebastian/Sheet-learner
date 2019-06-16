@@ -1,4 +1,7 @@
 ﻿using Midi;
+using Midi.Devices;
+using Midi.Enums;
+using Midi.Messages;
 using NoteReaderInterface;
 using System.Collections.Generic;
 
@@ -12,10 +15,11 @@ namespace NoteReader
 		}
 
 		private List<INoteListener> _listeners;
-		private InputDevice _device;
+		private IInputDevice _device;
 
-		public NAudioMidiPublisher()
+		public NAudioMidiPublisher(IInputDevice inputDevice)
 		{
+			_device = inputDevice;
 		}
 
 		public bool RegisterMidiListeners()
