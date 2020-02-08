@@ -106,6 +106,7 @@ namespace AppCore
 			}
 			else
 			{
+				//Todo set the selected midi device to the stored one if there is a stored device
 				HasMidiDevice = FoundMidiDevice();
 			}
 		}
@@ -133,6 +134,12 @@ namespace AppCore
 		{
 			var chordifyer = MidiPublisherChordifyer.CreateChordsFromMidiNotes(selectedPublisher);
 			chordifyer.PublishNotesToListener(SheetVm);
+			RememberPublisher(selectedPublisher);
+		}
+
+		private void RememberPublisher(INotePublisher selectedPublisher)
+		{
+			File.WriteAllText("./stored", selectedPublisher.UniqueIdentifier);
 		}
 	}
 }

@@ -7,14 +7,15 @@ namespace NoteReader
 	{
 		private INoteListener _listener;
 
-		public MidiPublisherChordifyer()
+		public MidiPublisherChordifyer(INotePublisher publisher)
 		{
 			NotesPressed = new List<int>();
+			Publisher = publisher;
 		}
 
 		public static MidiPublisherChordifyer CreateChordsFromMidiNotes(INotePublisher publisher)
 		{
-			var chordifyer = new MidiPublisherChordifyer();
+			var chordifyer = new MidiPublisherChordifyer(publisher);
 			publisher.Register(chordifyer);
 			return chordifyer;
 		}
@@ -25,6 +26,10 @@ namespace NoteReader
 		}
 
 		public List<int> NotesPressed { get; set; }
+
+		public string UniqueIdentifier => Publisher.UniqueIdentifier;
+
+		public INotePublisher Publisher { get; }
 
 		public void Register(INoteListener listener)
 		{

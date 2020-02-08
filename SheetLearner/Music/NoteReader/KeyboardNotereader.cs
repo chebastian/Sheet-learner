@@ -17,6 +17,8 @@ namespace XTestMan.Views.Music.NoteReader
 
 		private INoteListener _listener;
 
+		public string UniqueIdentifier => "Key Reader";
+
 		public void Register(INoteListener listener)
 		{
 			_listener = listener;

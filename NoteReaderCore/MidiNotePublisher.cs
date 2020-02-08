@@ -17,6 +17,8 @@ namespace NoteReader
 		private List<INoteListener> _listeners;
 		private IInputDevice _device;
 
+		public string UniqueIdentifier => _device.Name;
+
 		public NAudioMidiPublisher(IInputDevice inputDevice)
 		{
 			_device = inputDevice;

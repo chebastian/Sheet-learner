@@ -60,6 +60,8 @@ namespace XTestMan
 			set { _insertDevice = value; OnPropertyChanged(); }
 		}
 
+		public string UniqueIdentifier => "MainWindow";
+
 		public MainWindow()
 		{
 			InitializeComponent();
