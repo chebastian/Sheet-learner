@@ -5,6 +5,7 @@ using SharedLibraries;
 using SharedLibraries.PageViewModels;
 using System;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,7 +23,7 @@ namespace AppCore
 	//		InitializeComponent();
 	//	}
 	//}
-	public partial class MainWindow : Window, INotifyPropertyChanged, IMidiDeviceListener, INotePublisher
+	public partial class MainWindow : Window, INotifyPropertyChanged, IMidiDeviceListener
 	{
 		private SheetViewModel _sheetVm;
 
@@ -127,39 +128,11 @@ namespace AppCore
 				handler(this, new PropertyChangedEventArgs(propertyName));
 		}
 
-		private void root_KeyDown(object sender, KeyEventArgs e)
-		{
-			//var key = KeyboardNoteReader.MapToKey(e.Key);
-			//if (key >= 0)
-			//{
-			//	_listener.OnNotePressed(key);
-			//}
-		}
-
-		private void root_KeyUp(object sender, KeyEventArgs e)
-		{
-			//var key = KeyboardNoteReader.MapToKey(e.Key);
-			//if (key >= 0)
-			//{
-			//	_listener.OnNoteReleased(key);
-			//}
-		}
 
 		public void OnDeviceSelected(INotePublisher selectedPublisher)
 		{
 			var chordifyer = MidiPublisherChordifyer.CreateChordsFromMidiNotes(selectedPublisher);
 			chordifyer.PublishNotesToListener(SheetVm);
-		}
-
-		public void Register(INoteListener listener)
-		{
-			_listener = listener;
-		}
-
-
-		public void Unregister(INoteListener listener)
-		{
-			throw new NotImplementedException();
 		}
 	}
 }
