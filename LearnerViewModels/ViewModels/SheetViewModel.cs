@@ -44,9 +44,15 @@ namespace Music.ViewModels
 		public SheetViewModel()
 		{
 			RandomizeCommand = new RelayCommand(OnRandomize);
+			StartExerciseCommand = new RelayCommand(OnStartExercise);
 			Name = "Sheet";
 			TrebleClefViewModel = new ClefViewModel(Clef.Treble);
 			BassClefViewModel = new ClefViewModel(Clef.Bass);
+			PlayStateViewModel = new PlayStateViewModel(null);
+		}
+
+		private void OnStartExercise(object obj)
+		{
 		}
 
 		private void OnRandomize()
@@ -137,6 +143,7 @@ namespace Music.ViewModels
 			if (isAllPlayed)
 			{
 				MarkLastAsPlayed();
+				PlayStateViewModel.NotePressed(allPlayed);
 			}
 		}
 
@@ -168,6 +175,8 @@ namespace Music.ViewModels
 			get { return _command; }
 			set { _command = value; OnPropertyChanged(); }
 		}
+
+		public ICommand StartExerciseCommand { get; }
 		public ObservableCollection<NoteSection> TrebleNotes { get; set; }
 		public ObservableCollection<NoteSection> BassNotes { get; set; }
 
@@ -175,5 +184,6 @@ namespace Music.ViewModels
 		private string _name;
 		public string Name { get => _name; set { _name = value; OnPropertyChanged(); } }
 		public ICommand OnSelected { get; set; }
+		internal PlayStateViewModel PlayStateViewModel { get; private set; }
 	}
 }
