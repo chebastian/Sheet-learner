@@ -81,7 +81,6 @@ namespace AppCore
 			NavigationViewModel.NavigationSource.Add(SheetVm);
 			NavigationViewModel.SelectedSource = SheetVm;
 
-			HasMidiDevice = true;
 			WaitForMidiDevice();
 
 			//Closed += MainWindow_Closed;
@@ -108,6 +107,10 @@ namespace AppCore
 			{
 				//Todo set the selected midi device to the stored one if there is a stored device
 				HasMidiDevice = FoundMidiDevice();
+				if(HasMidiDevice)
+				{
+					SettingsViewModel.SetLastSelectedDevice();
+				}
 			}
 		}
 

@@ -1,6 +1,7 @@
 ﻿using NoteReaderInterface;
 using Sefe.Utils.MVVM;
 using System;
+using System.IO;
 
 namespace SharedLibraries.PageViewModels
 {
@@ -17,6 +18,17 @@ namespace SharedLibraries.PageViewModels
 			set { _midi = value; OnPropertyChanged(); }
 		}
 
+		private string GetLastStoredDevice()
+		{
+			var res = "";
+
+			if(File.Exists("./stored"))
+			{
+                res = File.ReadAllText("./stored"); 
+			}
+
+			return res;
+		}
 
 		public String ActiveDevice
 		{
@@ -36,6 +48,11 @@ namespace SharedLibraries.PageViewModels
 		{
 			_midi = midi;
 			_listener = listner;
+		}
+
+		public void SetLastSelectedDevice()
+		{
+			ActiveDevice = GetLastStoredDevice();
 		}
 	}
 }
