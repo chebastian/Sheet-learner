@@ -10,6 +10,7 @@ namespace Music.ViewModels
     {
         public interface IGameCompleteListener
         {
+            void OnStart();
             void OnCompleted();
         }
 
@@ -18,6 +19,7 @@ namespace Music.ViewModels
         public PlayStateViewModel(IGameCompleteListener listener)
         {
             _listener = listener;
+            ShowPlayButton = true;
             RunningTime = TimeSpan.FromSeconds(20);
             ElapsedTime = 0.0;
             StartCommand = new RelayCommand(Start);
@@ -28,7 +30,10 @@ namespace Music.ViewModels
         {
             Score = 0;
             IsRunning = true;
+            ShowPlayButton = false;
+            _listener.OnStart();
             await Task.Delay(RunningTime);
+            _listener.OnCompleted();
             IsRunning = false;
             Completed = true;
             _running = false;
@@ -40,6 +45,16 @@ namespace Music.ViewModels
             set
             {
                 _running = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool ShowPlayButton
+        {
+            get => showPlayButton; 
+            set
+            {
+                showPlayButton = value;
                 OnPropertyChanged();
             }
         }
@@ -65,6 +80,7 @@ namespace Music.ViewModels
         private IGameCompleteListener _listener;
         private bool _running;
         private int score;
+        private bool showPlayButton;
 
         public TimeSpan RunningTime { get; }
         public double ElapsedTime
@@ -82,7 +98,7 @@ namespace Music.ViewModels
 
         public int Score
         {
-            get => score; 
+            get => score;
             set
             {
                 score = value;
@@ -94,7 +110,7 @@ namespace Music.ViewModels
         {
             if (_running)
             {
-                Score += allPlayed.Count;
+                Score += 1;
             }
         }
     }
