@@ -13,7 +13,7 @@ using System.Windows.Input;
 
 namespace Music.ViewModels
 {
-	public class SheetViewModel : ViewModelBase, INoteListener, INavigationSource
+	public class SheetViewModel : ViewModelBase, INoteListener, INavigationSource, PlayStateViewModel.IGameCompleteListener
 	{
 		public ObservableCollection<NoteSection> Bars { get; set; }
 
@@ -43,12 +43,11 @@ namespace Music.ViewModels
 
 		public SheetViewModel()
 		{
-			RandomizeCommand = new RelayCommand(OnRandomize);
 			StartExerciseCommand = new RelayCommand(OnStartExercise);
 			Name = "Sheet";
 			TrebleClefViewModel = new ClefViewModel(Clef.Treble);
 			BassClefViewModel = new ClefViewModel(Clef.Bass);
-			PlayingState = new PlayStateViewModel(null);
+			PlayingState = new PlayStateViewModel(this);
 		}
 
 		private void OnStartExercise(object obj)
@@ -61,7 +60,6 @@ namespace Music.ViewModels
 			//TrebleNotes = new ObservableCollection<NoteSection>(tn);
 			//var bn = Notes.NotesInClef(Clef.Bass).Select(x => new PlayingNoteViewModel(new NoteSection(new List<NoteViewModel>() { new NoteViewModel(x) })));
 			//BassNotes = new ObservableCollection<NoteSection>(bn);
-			PlayingState.Start();
 
 			var numberOfSections = 2;
 			var notesInSection = 10;
@@ -171,6 +169,15 @@ namespace Music.ViewModels
 		}
 
 		public void OnNoteReleased(int note)
+		{
+		}
+
+		public void OnStart()
+		{
+			OnRandomize();
+		}
+
+		public void OnCompleted()
 		{
 		}
 
