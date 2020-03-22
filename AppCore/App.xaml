@@ -5,11 +5,19 @@
 			 xmlns:utils="clr-namespace:AppCore.Utils"
 			 StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <utils:CollapsedWhenFalse x:Key="BoolToVisibleCollapsed"/>
-        <utils:CollapsedWhenTrue x:Key="CollapsedWhenTrue"/>
-        <utils:CollapsedWhenFalse x:Key="CollapsedWhenFalse"/>
-        <utils:HiddenWhenFalse x:Key="BoolToVisibileHidden"/>
-        <utils:HiddenWhenTrue x:Key="HiddenWhenTrue"/> 
-        <utils:HalfValue x:Key="Half"/> 
+        <ResourceDictionary>
+            <utils:CollapsedWhenFalse x:Key="BoolToVisibleCollapsed"/>
+            <utils:CollapsedWhenTrue x:Key="CollapsedWhenTrue"/>
+            <utils:CollapsedWhenFalse x:Key="CollapsedWhenFalse"/>
+            <utils:HiddenWhenFalse x:Key="BoolToVisibileHidden"/>
+            <utils:HiddenWhenTrue x:Key="HiddenWhenTrue"/>
+            <utils:HalfValue x:Key="Half"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
