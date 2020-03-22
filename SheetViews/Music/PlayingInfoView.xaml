@@ -9,9 +9,9 @@
     <Grid>
         <StackPanel Orientation="Vertical">
             <StackPanel>
-                <TextBlock Text="{Binding Score}" Style="{StaticResource MaterialDesignHeadline1TextBlock}" />
+                <ProgressBar Margin="5" Style="{StaticResource MaterialDesignLinearProgressBar}" Maximum="20" Value="{Binding ElapsedTime,UpdateSourceTrigger=PropertyChanged}" />
                 <Button Style="{StaticResource MaterialDesignRaisedButton}" Content="Start" Command="{Binding StartCommand}" Visibility="{Binding ShowPlayButton, Converter={StaticResource CollapsedWhenFalse}}"/>
-                <Button Style="{StaticResource MaterialDesignRaisedButton}" Content="Reset" Command="{Binding ResetCommand}" Visibility="{Binding Completed, Converter={StaticResource CollapsedWhenFalse}}"/>
+                <Button Style="{StaticResource MaterialDesignRaisedButton}" Content="Reset" Command="{Binding ResetCommand}" Visibility="{Binding ShowPlayButton, Converter={StaticResource CollapsedWhenTrue}}"/>
             </StackPanel> 
         </StackPanel>
     </Grid>

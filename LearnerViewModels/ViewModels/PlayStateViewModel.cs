@@ -1,6 +1,7 @@
 ﻿using Sefe.Utils.MVVM;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -31,12 +32,25 @@ namespace Music.ViewModels
             Score = 0;
             IsRunning = true;
             ShowPlayButton = false;
-            _listener.OnStart();
-            await Task.Delay(RunningTime);
-            _listener.OnCompleted();
-            IsRunning = false;
-            Completed = true;
-            _running = false;
+            using (var dispatch = new Timer(OnTimerCallback, null, 0, 20))
+            {
+                StartTime = DateTime.Now;
+                ElapsedTime = 0;
+                _listener.OnStart();
+                await Task.Delay(RunningTime);
+                _listener.OnCompleted();
+                IsRunning = false;
+                Completed = true;
+                _running = false;
+                ShowPlayButton = true;
+            }
+
+        }
+
+        private void OnTimerCallback(object state)
+        {
+            var d = DateTime.Now - StartTime;
+            ElapsedTime = d.TotalSeconds;
         }
 
         public bool IsRunning
@@ -51,7 +65,7 @@ namespace Music.ViewModels
 
         public bool ShowPlayButton
         {
-            get => showPlayButton; 
+            get => showPlayButton;
             set
             {
                 showPlayButton = value;
@@ -105,6 +119,8 @@ namespace Music.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        public DateTime StartTime { get; private set; }
 
         internal void NotePressed(List<string> allPlayed)
         {
