@@ -190,6 +190,6 @@ namespace Music.ViewModels
 		private string _name;
 		public string Name { get => _name; set { _name = value; OnPropertyChanged(); } }
 		public ICommand OnSelected { get; set; }
-		internal PlayStateViewModel PlayingState { get; private set; }
+		public PlayStateViewModel PlayingState { get; private set; }
 	}
 }

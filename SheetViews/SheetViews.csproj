@@ -82,6 +82,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Music\PlayingInfoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Music\SheetView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -110,6 +114,9 @@
     </Compile>
     <Compile Include="Music\NoteView.xaml.cs">
       <DependentUpon>NoteView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Music\PlayingInfoView.xaml.cs">
+      <DependentUpon>PlayingInfoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Music\SheetView.xaml.cs">
       <DependentUpon>SheetView.xaml</DependentUpon>

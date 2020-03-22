@@ -2,10 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Music.ViewModels
 {
-    internal class PlayStateViewModel : ViewModelBase
+    public class PlayStateViewModel : ViewModelBase
     {
         public interface IGameCompleteListener
         {
@@ -17,21 +18,53 @@ namespace Music.ViewModels
         public PlayStateViewModel(IGameCompleteListener listener)
         {
             _listener = listener;
-            RunningTime = TimeSpan.FromMinutes(2.0);
+            RunningTime = TimeSpan.FromSeconds(20);
             ElapsedTime = 0.0;
+            StartCommand = new RelayCommand(Start);
+            ResetCommand = new RelayCommand(Start);
         }
 
         public async void Start()
         {
             Score = 0;
-            _running = true;
+            IsRunning = true;
             await Task.Delay(RunningTime);
-            _listener.OnCompleted();
+            IsRunning = false;
+            Completed = true;
             _running = false;
+        }
+
+        public bool IsRunning
+        {
+            get => _running;
+            set
+            {
+                _running = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _completed;
+
+        public bool Completed
+        {
+            get { return _completed; }
+            set { _completed = value; OnPropertyChanged(); }
+        }
+
+        public ICommand StartCommand
+        {
+            get; set;
+        }
+
+        public ICommand ResetCommand
+        {
+            get; set;
         }
 
         private IGameCompleteListener _listener;
         private bool _running;
+        private int score;
 
         public TimeSpan RunningTime { get; }
         public double ElapsedTime
@@ -47,11 +80,19 @@ namespace Music.ViewModels
             }
         }
 
-        public int Score { get; private set; }
+        public int Score
+        {
+            get => score; 
+            set
+            {
+                score = value;
+                OnPropertyChanged();
+            }
+        }
 
         internal void NotePressed(List<string> allPlayed)
-        { 
-            if(_running)
+        {
+            if (_running)
             {
                 Score += allPlayed.Count;
             }
