@@ -9,9 +9,9 @@
     <Grid>
         <StackPanel Orientation="Vertical">
             <StackPanel>
-                <TextBlock Text="{Binding Score}" />
-                <Button Content="Start" Command="{Binding StartCommand}" Visibility="{Binding IsRunning, Converter={StaticResource CollapsedWhenTrue}}"/>
-                <Button Content="Reset" Command="{Binding ResetCommand}" Visibility="{Binding Completed, Converter={StaticResource CollapsedWhenFalse}}"/>
+                <TextBlock Text="{Binding Score}" Style="{StaticResource MaterialDesignHeadline1TextBlock}" />
+                <Button Style="{StaticResource MaterialDesignRaisedButton}" Content="Start" Command="{Binding StartCommand}" Visibility="{Binding ShowPlayButton, Converter={StaticResource CollapsedWhenFalse}}"/>
+                <Button Style="{StaticResource MaterialDesignRaisedButton}" Content="Reset" Command="{Binding ResetCommand}" Visibility="{Binding Completed, Converter={StaticResource CollapsedWhenFalse}}"/>
             </StackPanel> 
         </StackPanel>
     </Grid>

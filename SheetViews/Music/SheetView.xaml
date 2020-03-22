@@ -9,18 +9,12 @@
     <StackPanel>
         <!--<TextBlock Text="Notes:"/>
         <TextBox Padding="5" Text="{Binding TextNotes, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Margin="3"/>-->
+        <StackPanel>
+            <music:PlayingInfoView DataContext="{Binding PlayingState}"/>
+        </StackPanel>
         <music:ClefView  Padding="5" DataContext="{Binding TrebleClefViewModel, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch"/>
         <music:ClefView  Padding="5" DataContext="{Binding BassClefViewModel, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch"/>
 
-        <StackPanel>
-            <Button 
-                Margin="0,50,0,0"
-                VerticalAlignment="Bottom"
-                Style="{x:Null}"
-                Padding="5"
-                Command="{Binding RandomizeCommand}" Content="Randomize"/>
-            <music:PlayingInfoView DataContext="{Binding PlayingState}"/>
-        </StackPanel>
 
     </StackPanel>
 </UserControl>
