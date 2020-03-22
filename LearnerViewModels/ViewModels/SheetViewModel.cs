@@ -48,7 +48,7 @@ namespace Music.ViewModels
 			Name = "Sheet";
 			TrebleClefViewModel = new ClefViewModel(Clef.Treble);
 			BassClefViewModel = new ClefViewModel(Clef.Bass);
-			PlayStateViewModel = new PlayStateViewModel(null);
+			PlayingState = new PlayStateViewModel(null);
 		}
 
 		private void OnStartExercise(object obj)
@@ -61,6 +61,7 @@ namespace Music.ViewModels
 			//TrebleNotes = new ObservableCollection<NoteSection>(tn);
 			//var bn = Notes.NotesInClef(Clef.Bass).Select(x => new PlayingNoteViewModel(new NoteSection(new List<NoteViewModel>() { new NoteViewModel(x) })));
 			//BassNotes = new ObservableCollection<NoteSection>(bn);
+			PlayingState.Start();
 
 			var numberOfSections = 2;
 			var notesInSection = 10;
@@ -104,8 +105,13 @@ namespace Music.ViewModels
 			OnNotesPressed(new List<int>() { note });
 		}
 
+		private bool HasUnplayedNotes(List<NoteSection> sections)
+		{
+			return sections.Select((value, index) => new { section = value, index }).Any(x => x.section.Notes.Count > 0 && !(x.section.IsAllPlayed())); 
+		}
 		private NoteSection FirstUnplayedInSequence(List<NoteSection> sections, out int foundAt)
 		{
+
 			var res = sections.Select((value, index) => new { section = value, index }).First(x => x.section.Notes.Count > 0 && !(x.section.IsAllPlayed()));
 			foundAt = res.index;
 			return res.section;
@@ -143,7 +149,7 @@ namespace Music.ViewModels
 			if (isAllPlayed)
 			{
 				MarkLastAsPlayed();
-				PlayStateViewModel.NotePressed(allPlayed);
+				PlayingState.NotePressed(allPlayed);
 			}
 		}
 
@@ -184,6 +190,6 @@ namespace Music.ViewModels
 		private string _name;
 		public string Name { get => _name; set { _name = value; OnPropertyChanged(); } }
 		public ICommand OnSelected { get; set; }
-		internal PlayStateViewModel PlayStateViewModel { get; private set; }
+		internal PlayStateViewModel PlayingState { get; private set; }
 	}
 }
