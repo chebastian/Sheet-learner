@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28922.388
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SheetViews", "SheetViews\SheetViews.csproj", "{BD45650A-D3FD-40C2-ACFA-386FBA6FBFBD}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppCore", "AppCore\AppCore.csproj", "{C64D00A2-8B7A-40E3-920A-EBB73D64CD1F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnerViewModels", "LearnerViewModels\LearnerViewModels.csproj", "{14D5713F-1334-455C-8F84-B930B61504E1}"
@@ -15,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NoteReaderInterfaces", "Not
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MidiNoteReader", "NoteReaderCore\MidiNoteReader.csproj", "{E7C650FB-2299-4532-9C18-1E35A6833710}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Views", "Views\Views.csproj", "{D50A097C-63C2-4024-BEDF-FA835B55C95F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,14 +23,6 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BD45650A-D3FD-40C2-ACFA-386FBA6FBFBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BD45650A-D3FD-40C2-ACFA-386FBA6FBFBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BD45650A-D3FD-40C2-ACFA-386FBA6FBFBD}.Debug|x64.ActiveCfg = Debug|x64
-		{BD45650A-D3FD-40C2-ACFA-386FBA6FBFBD}.Debug|x64.Build.0 = Debug|x64
-		{BD45650A-D3FD-40C2-ACFA-386FBA6FBFBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BD45650A-D3FD-40C2-ACFA-386FBA6FBFBD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BD45650A-D3FD-40C2-ACFA-386FBA6FBFBD}.Release|x64.ActiveCfg = Release|x64
-		{BD45650A-D3FD-40C2-ACFA-386FBA6FBFBD}.Release|x64.Build.0 = Release|x64
 		{C64D00A2-8B7A-40E3-920A-EBB73D64CD1F}.Debug|Any CPU.ActiveCfg = Debug|x64
 		{C64D00A2-8B7A-40E3-920A-EBB73D64CD1F}.Debug|x64.ActiveCfg = Debug|x64
 		{C64D00A2-8B7A-40E3-920A-EBB73D64CD1F}.Debug|x64.Build.0 = Debug|x64
@@ -61,6 +53,12 @@ Global
 		{E7C650FB-2299-4532-9C18-1E35A6833710}.Release|Any CPU.ActiveCfg = Release|x64
 		{E7C650FB-2299-4532-9C18-1E35A6833710}.Release|x64.ActiveCfg = Release|x64
 		{E7C650FB-2299-4532-9C18-1E35A6833710}.Release|x64.Build.0 = Release|x64
+		{D50A097C-63C2-4024-BEDF-FA835B55C95F}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{D50A097C-63C2-4024-BEDF-FA835B55C95F}.Debug|x64.ActiveCfg = Debug|x64
+		{D50A097C-63C2-4024-BEDF-FA835B55C95F}.Debug|x64.Build.0 = Debug|x64
+		{D50A097C-63C2-4024-BEDF-FA835B55C95F}.Release|Any CPU.ActiveCfg = Release|x64
+		{D50A097C-63C2-4024-BEDF-FA835B55C95F}.Release|x64.ActiveCfg = Release|x64
+		{D50A097C-63C2-4024-BEDF-FA835B55C95F}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
