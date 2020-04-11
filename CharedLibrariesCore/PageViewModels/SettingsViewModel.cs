@@ -37,7 +37,10 @@ namespace SharedLibraries.PageViewModels
 			{
 				_selectedDevice = value;
 				var pub = _midi.GetPublisherWithName(ActiveDevice);
-				_listener.OnDeviceSelected(pub);
+
+				if(pub != null)
+                    _listener.OnDeviceSelected(pub);
+
 				OnPropertyChanged();
 			}
 		}
