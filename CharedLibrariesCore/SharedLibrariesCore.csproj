@@ -5,6 +5,10 @@
     <Platforms>x64</Platforms>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutputPath>../Bin/</OutputPath>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\NoteReaderInterfaces\NoteReaderInterfaces.csproj" />
     <PackageReference Include="Sefe.Utils.MVVM" Version="1.0.0" />

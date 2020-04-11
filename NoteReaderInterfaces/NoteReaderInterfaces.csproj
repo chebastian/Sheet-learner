@@ -5,4 +5,8 @@
     <Platforms>x64</Platforms>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutputPath>../Bin/</OutputPath>
+  </PropertyGroup>
+
 </Project>

@@ -5,6 +5,10 @@
     <Platforms>x64</Platforms>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutputPath>../Bin/</OutputPath>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\CharedLibrariesCore\SharedLibrariesCore.csproj" />
     <ProjectReference Include="..\NoteReaderInterfaces\NoteReaderInterfaces.csproj" />
