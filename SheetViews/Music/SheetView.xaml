@@ -9,7 +9,7 @@
     <StackPanel>
         <!--<TextBlock Text="Notes:"/>
         <TextBox Padding="5" Text="{Binding TextNotes, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Margin="3"/>-->
-        <TextBlock Text="{Binding PlayingState.Score}" Style="{StaticResource MaterialDesignHeadline2TextBlock}" />
+        <TextBlock Text="{Binding PlayingState.Score}" Style="{DynamicResource MaterialDesignHeadline2TextBlock}" />
         <music:ClefView  Padding="5" DataContext="{Binding TrebleClefViewModel, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch"/>
         <music:ClefView  Padding="5" DataContext="{Binding BassClefViewModel, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch"/>
         <music:PlayingInfoView DataContext="{Binding PlayingState}"/>

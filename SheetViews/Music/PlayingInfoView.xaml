@@ -8,11 +8,11 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <StackPanel Orientation="Vertical">
-            <StackPanel>
-                <ProgressBar Margin="5" Style="{StaticResource MaterialDesignLinearProgressBar}" Maximum="20" Value="{Binding ElapsedTime,UpdateSourceTrigger=PropertyChanged}" />
-                <Button Style="{StaticResource MaterialDesignRaisedButton}" Content="Start" Command="{Binding StartCommand}" Visibility="{Binding ShowPlayButton, Converter={StaticResource CollapsedWhenFalse}}"/>
-                <Button Style="{StaticResource MaterialDesignRaisedButton}" Content="Reset" Command="{Binding ResetCommand}" Visibility="{Binding ShowPlayButton, Converter={StaticResource CollapsedWhenTrue}}"/>
+            <StackPanel Margin="20">
+                <ProgressBar Margin="20" Style="{DynamicResource MaterialDesignLinearProgressBar}" Maximum="20" Value="{Binding ElapsedTime,UpdateSourceTrigger=PropertyChanged}" />
+                <Button Style="{DynamicResource MaterialDesignRaisedButton}" Content="Start" Command="{Binding StartCommand}" Visibility="{Binding ShowPlayButton, Converter={StaticResource CollapsedWhenFalse}}"/>
+                <Button Style="{DynamicResource MaterialDesignRaisedButton}" Content="Reset" Command="{Binding ResetCommand}" Visibility="{Binding ShowPlayButton, Converter={StaticResource CollapsedWhenTrue}}"/>
             </StackPanel> 
         </StackPanel>
-    </Grid>
+    </Grid> 
 </UserControl>
